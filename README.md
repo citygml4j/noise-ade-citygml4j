@@ -8,10 +8,10 @@ In order to use or compile the source code, the citygml4j library and its depend
 
 **Note** that the `ADEContext` extension is an ongoing development. The NoiseADE module is used to test and validate the `ADEContext` development. It can therefore NOT be considered stable.
 
-# License
+## License
 The NoiseADE module is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0). See the `LICENSE` file for more details.
 
-# More information
+## More information
 The CityGML NoiseADE has been developed for exchanging 3d geodata for Noise Immission Simulation in the context of the Environmental Noise Directive of the European Union. The base model of CityGML has been augmented with new thematic attributes and feature types that are required for the noise simulation using the CityGML ADE extension mechanism. The CityGML NoiseADE is described in detail in the [CityGML 2.0 specification document](https://portal.opengeospatial.org/files/?artifact_id=47842) (see Annex H). 
 
 [OGC CityGML](http://www.opengeospatial.org/standards/citygml) is an open data model and XML-based format for the storage and exchange of semantic 3D city models. It is an application schema for the [Geography Markup Language version 3.1.1 (GML3)](http://www.opengeospatial.org/standards/gml), the extendible international standard for spatial data exchange issued by the Open Geospatial Consortium (OGC) and the ISO TC211. The aim of the development of CityGML is to reach a common definition of the basic entities, attributes, and relations of a 3D city model.
