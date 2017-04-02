@@ -24,7 +24,11 @@ import org.citygml4j.util.walker.GMLWalker;
 public class NoiseADEContext implements ADEContext {
 	public static final String NAMESPACE_URI = "http://www.citygml.org/ade/noise_de/2.0";
 	
-	private final ADEModule module = new ADEModule(NAMESPACE_URI, "noise", CityGMLVersion.v2_0_0);
+	private final ADEModule module = new ADEModule(
+			NAMESPACE_URI, 
+			"noise", 
+			"http://schemas.opengis.net/citygml/examples/2.0/ade/noise-ade/CityGML-NoiseADE.xsd", 
+			CityGMLVersion.v2_0_0);
 	private final NoiseADEMarshaller marshaller = new NoiseADEMarshaller();
 	private final NoiseADEUnmarshaller unmarshaller = new NoiseADEUnmarshaller();
 	
