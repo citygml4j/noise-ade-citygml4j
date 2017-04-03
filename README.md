@@ -12,7 +12,7 @@ To register the NoiseADE module with citygml4j only requires one additional line
 CityGMLContext context = new CityGMLContext();
 
 // register NoiseADE module
-context.registerADEContext(new NoiseADE());
+context.registerADEContext(new NoiseADEContext());
 
 CityGMLBuilder builder = context.createCityGMLBuilder();
 ```
