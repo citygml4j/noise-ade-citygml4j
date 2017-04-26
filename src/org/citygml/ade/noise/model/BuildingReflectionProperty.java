@@ -1,23 +1,21 @@
 package org.citygml.ade.noise.model;
 
-import java.math.BigInteger;
-
 import org.citygml.ade.noise.NoiseADEContext;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.binding.ADEGenericApplicationProperty;
 
-public class BuildingHabitants extends ADEGenericApplicationProperty<BigInteger> {
+public class BuildingReflectionProperty extends ADEGenericApplicationProperty<String> {
 
-	public BuildingHabitants() {
+	public BuildingReflectionProperty() {
 	}
 	
-	public BuildingHabitants(BigInteger value) {
+	public BuildingReflectionProperty(String value) {
 		super(value);
 	}
 	
 	@Override
 	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new BuildingHabitants(), copyBuilder);
+		return copyTo(new BuildingReflectionProperty(), copyBuilder);
 	}
 
 	@Override

@@ -5,18 +5,18 @@ import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.binding.ADEGenericApplicationProperty;
 import org.citygml4j.model.gml.basicTypes.Measure;
 
-public class BuildingLNightMax extends ADEGenericApplicationProperty<Measure> {
+public class BuildingLDenEqProperty extends ADEGenericApplicationProperty<Measure> {
 
-	public BuildingLNightMax() {
+	public BuildingLDenEqProperty() {
 	}
 	
-	public BuildingLNightMax(Measure value) {
+	public BuildingLDenEqProperty(Measure value) {
 		super(value);
 	}
 	
 	@Override
 	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new BuildingLNightMax(), copyBuilder);
+		return copyTo(new BuildingLDenEqProperty(), copyBuilder);
 	}
 
 	@Override

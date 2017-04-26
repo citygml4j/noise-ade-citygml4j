@@ -5,17 +5,17 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
-import org.citygml.ade.noise.model.BuildingAppartments;
-import org.citygml.ade.noise.model.BuildingHabitants;
-import org.citygml.ade.noise.model.BuildingImmissionPoints;
-import org.citygml.ade.noise.model.BuildingLDenEq;
-import org.citygml.ade.noise.model.BuildingLDenMax;
-import org.citygml.ade.noise.model.BuildingLDenMin;
-import org.citygml.ade.noise.model.BuildingLNightEq;
-import org.citygml.ade.noise.model.BuildingLNightMax;
-import org.citygml.ade.noise.model.BuildingLNightMin;
-import org.citygml.ade.noise.model.BuildingReflection;
-import org.citygml.ade.noise.model.BuildingReflectionCorrection;
+import org.citygml.ade.noise.model.BuildingAppartmentsProperty;
+import org.citygml.ade.noise.model.BuildingHabitantsProperty;
+import org.citygml.ade.noise.model.BuildingImmissionPointsProperty;
+import org.citygml.ade.noise.model.BuildingLDenEqProperty;
+import org.citygml.ade.noise.model.BuildingLDenMaxProperty;
+import org.citygml.ade.noise.model.BuildingLDenMinProperty;
+import org.citygml.ade.noise.model.BuildingLNightEqProperty;
+import org.citygml.ade.noise.model.BuildingLNightMaxProperty;
+import org.citygml.ade.noise.model.BuildingLNightMinProperty;
+import org.citygml.ade.noise.model.BuildingReflectionProperty;
+import org.citygml.ade.noise.model.BuildingReflectionCorrectionProperty;
 import org.citygml.ade.noise.model.NoiseCityFurnitureSegment;
 import org.citygml.ade.noise.model.NoiseCityFurnitureSegmentProperty;
 import org.citygml.ade.noise.model.NoiseCityFurnitureSegmentPropertyElement;
@@ -25,7 +25,7 @@ import org.citygml.ade.noise.model.NoiseRailwaySegmentPropertyElement;
 import org.citygml.ade.noise.model.NoiseRoadSegment;
 import org.citygml.ade.noise.model.NoiseRoadSegmentProperty;
 import org.citygml.ade.noise.model.NoiseRoadSegmentPropertyElement;
-import org.citygml.ade.noise.model.Remark;
+import org.citygml.ade.noise.model.RemarkProperty;
 import org.citygml.ade.noise.model.Train;
 import org.citygml.ade.noise.model.TrainProperty;
 import org.citygml.ade.noise_de._2.NoiseCityFurnitureSegmentPropertyType;
@@ -71,34 +71,34 @@ public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 		} else if (src.getValue() instanceof String) {
 			String name = src.getName().getLocalPart();
 			if (name.equals("buildingReflection"))
-				dest = new BuildingReflection((String)src.getValue());
+				dest = new BuildingReflectionProperty((String)src.getValue());
 			else if (name.equals("remark"))
-				dest = new Remark((String)src.getValue());
+				dest = new RemarkProperty((String)src.getValue());
 		} else if (src.getValue() instanceof MeasureType) {
 			String name = src.getName().getLocalPart();
 			Measure value = helper.getGMLUnmarshaller().unmarshalMeasure((MeasureType)src.getValue());
 			if (name.equals("buildingReflectionCorrection"))
-				dest = new BuildingReflectionCorrection(value);
+				dest = new BuildingReflectionCorrectionProperty(value);
 			else if (name.equals("buildingLDenMax"))
-				dest = new BuildingLDenMax(value);
+				dest = new BuildingLDenMaxProperty(value);
 			else if (name.equals("buildingLDenMin"))
-				dest = new BuildingLDenMin(value);
+				dest = new BuildingLDenMinProperty(value);
 			else if (name.equals("buildingLDenEq"))
-				dest = new BuildingLDenEq(value);
+				dest = new BuildingLDenEqProperty(value);
 			else if (name.equals("buildingLNightMax"))
-				dest = new BuildingLNightMax(value);
+				dest = new BuildingLNightMaxProperty(value);
 			else if (name.equals("buildingLNightMin"))
-				dest = new BuildingLNightMin(value);
+				dest = new BuildingLNightMinProperty(value);
 			else if (name.equals("buildingLNightEq"))
-				dest = new BuildingLNightEq(value);
+				dest = new BuildingLNightEqProperty(value);
 		} else if (src.getValue() instanceof BigInteger) {
 			String name = src.getName().getLocalPart();
 			if (name.equals("buildingHabitants"))
-				dest = new BuildingHabitants((BigInteger)src.getValue());
+				dest = new BuildingHabitantsProperty((BigInteger)src.getValue());
 			else if (name.equals("buildingAppartments"))
-				dest = new BuildingAppartments((BigInteger)src.getValue());
+				dest = new BuildingAppartmentsProperty((BigInteger)src.getValue());
 		} else if (src.getValue() instanceof List<?> && src.getName().getLocalPart().equals("buildingImmissionPoints")) {
-			dest = new BuildingImmissionPoints((List<BigInteger>)src.getValue()); 
+			dest = new BuildingImmissionPointsProperty((List<BigInteger>)src.getValue()); 
 		}
 		
 		// all other types

@@ -2,17 +2,17 @@ package org.citygml.ade.noise.transform;
 
 import javax.xml.bind.JAXBElement;
 
-import org.citygml.ade.noise.model.BuildingAppartments;
-import org.citygml.ade.noise.model.BuildingHabitants;
-import org.citygml.ade.noise.model.BuildingImmissionPoints;
-import org.citygml.ade.noise.model.BuildingLDenEq;
-import org.citygml.ade.noise.model.BuildingLDenMax;
-import org.citygml.ade.noise.model.BuildingLDenMin;
-import org.citygml.ade.noise.model.BuildingLNightEq;
-import org.citygml.ade.noise.model.BuildingLNightMax;
-import org.citygml.ade.noise.model.BuildingLNightMin;
-import org.citygml.ade.noise.model.BuildingReflection;
-import org.citygml.ade.noise.model.BuildingReflectionCorrection;
+import org.citygml.ade.noise.model.BuildingAppartmentsProperty;
+import org.citygml.ade.noise.model.BuildingHabitantsProperty;
+import org.citygml.ade.noise.model.BuildingImmissionPointsProperty;
+import org.citygml.ade.noise.model.BuildingLDenEqProperty;
+import org.citygml.ade.noise.model.BuildingLDenMaxProperty;
+import org.citygml.ade.noise.model.BuildingLDenMinProperty;
+import org.citygml.ade.noise.model.BuildingLNightEqProperty;
+import org.citygml.ade.noise.model.BuildingLNightMaxProperty;
+import org.citygml.ade.noise.model.BuildingLNightMinProperty;
+import org.citygml.ade.noise.model.BuildingReflectionProperty;
+import org.citygml.ade.noise.model.BuildingReflectionCorrectionProperty;
 import org.citygml.ade.noise.model.NoiseCityFurnitureSegment;
 import org.citygml.ade.noise.model.NoiseCityFurnitureSegmentProperty;
 import org.citygml.ade.noise.model.NoiseCityFurnitureSegmentPropertyElement;
@@ -22,7 +22,7 @@ import org.citygml.ade.noise.model.NoiseRailwaySegmentPropertyElement;
 import org.citygml.ade.noise.model.NoiseRoadSegment;
 import org.citygml.ade.noise.model.NoiseRoadSegmentProperty;
 import org.citygml.ade.noise.model.NoiseRoadSegmentPropertyElement;
-import org.citygml.ade.noise.model.Remark;
+import org.citygml.ade.noise.model.RemarkProperty;
 import org.citygml.ade.noise.model.Train;
 import org.citygml.ade.noise.model.TrainProperty;
 import org.citygml.ade.noise_de._2.NoiseCityFurnitureSegmentPropertyType;
@@ -60,37 +60,37 @@ public class NoiseADEMarshaller implements ADEMarshaller {
 		} else if (src instanceof NoiseRailwaySegmentPropertyElement) {
 			NoiseRailwaySegmentPropertyType value = marshalNoiseRailwaySegmentProperty(((NoiseRailwaySegmentPropertyElement)src).getValue(), helper);
 			dest = factory.createNoiseRailwaySegmentProperty(value);
-		} else if (src instanceof BuildingReflection) {
-			dest = factory.createBuildingReflection(((BuildingReflection)src).getValue());
-		} else if (src instanceof BuildingReflectionCorrection) {
-			MeasureType value = helper.getGMLMarshaller().marshalMeasure(((BuildingReflectionCorrection)src).getValue());
+		} else if (src instanceof BuildingReflectionProperty) {
+			dest = factory.createBuildingReflection(((BuildingReflectionProperty)src).getValue());
+		} else if (src instanceof BuildingReflectionCorrectionProperty) {
+			MeasureType value = helper.getGMLMarshaller().marshalMeasure(((BuildingReflectionCorrectionProperty)src).getValue());
 			dest = factory.createBuildingReflectionCorrection(value);
-		} else if (src instanceof BuildingLDenMax) {
-			MeasureType value = helper.getGMLMarshaller().marshalMeasure(((BuildingLDenMax)src).getValue());
+		} else if (src instanceof BuildingLDenMaxProperty) {
+			MeasureType value = helper.getGMLMarshaller().marshalMeasure(((BuildingLDenMaxProperty)src).getValue());
 			dest = factory.createBuildingLDenMax(value);
-		} else if (src instanceof BuildingLDenMin) {
-			MeasureType value = helper.getGMLMarshaller().marshalMeasure(((BuildingLDenMin)src).getValue());
+		} else if (src instanceof BuildingLDenMinProperty) {
+			MeasureType value = helper.getGMLMarshaller().marshalMeasure(((BuildingLDenMinProperty)src).getValue());
 			dest = factory.createBuildingLDenMin(value);
-		} else if (src instanceof BuildingLDenEq) {
-			MeasureType value = helper.getGMLMarshaller().marshalMeasure(((BuildingLDenEq)src).getValue());
+		} else if (src instanceof BuildingLDenEqProperty) {
+			MeasureType value = helper.getGMLMarshaller().marshalMeasure(((BuildingLDenEqProperty)src).getValue());
 			dest = factory.createBuildingLDenEq(value);
-		} else if (src instanceof BuildingLNightMax) {
-			MeasureType value = helper.getGMLMarshaller().marshalMeasure(((BuildingLNightMax)src).getValue());
+		} else if (src instanceof BuildingLNightMaxProperty) {
+			MeasureType value = helper.getGMLMarshaller().marshalMeasure(((BuildingLNightMaxProperty)src).getValue());
 			dest = factory.createBuildingLNightMax(value);
-		} else if (src instanceof BuildingLNightMin) {
-			MeasureType value = helper.getGMLMarshaller().marshalMeasure(((BuildingLNightMin)src).getValue());
+		} else if (src instanceof BuildingLNightMinProperty) {
+			MeasureType value = helper.getGMLMarshaller().marshalMeasure(((BuildingLNightMinProperty)src).getValue());
 			dest = factory.createBuildingLNightMin(value);
-		} else if (src instanceof BuildingLNightEq) {
-			MeasureType value = helper.getGMLMarshaller().marshalMeasure(((BuildingLNightEq)src).getValue());
+		} else if (src instanceof BuildingLNightEqProperty) {
+			MeasureType value = helper.getGMLMarshaller().marshalMeasure(((BuildingLNightEqProperty)src).getValue());
 			dest = factory.createBuildingLNightEq(value);
-		} else if (src instanceof BuildingHabitants) {
-			dest = factory.createBuildingHabitants(((BuildingHabitants)src).getValue());
-		} else if (src instanceof BuildingAppartments) {
-			dest = factory.createBuildingAppartments(((BuildingAppartments)src).getValue());
-		} else if (src instanceof BuildingImmissionPoints) {
-			dest = factory.createBuildingImmissionPoints(((BuildingImmissionPoints)src).getValue());
-		} else if (src instanceof Remark) {
-			dest = factory.createRemark(((Remark)src).getValue());
+		} else if (src instanceof BuildingHabitantsProperty) {
+			dest = factory.createBuildingHabitants(((BuildingHabitantsProperty)src).getValue());
+		} else if (src instanceof BuildingAppartmentsProperty) {
+			dest = factory.createBuildingAppartments(((BuildingAppartmentsProperty)src).getValue());
+		} else if (src instanceof BuildingImmissionPointsProperty) {
+			dest = factory.createBuildingImmissionPoints(((BuildingImmissionPointsProperty)src).getValue());
+		} else if (src instanceof RemarkProperty) {
+			dest = factory.createRemark(((RemarkProperty)src).getValue());
 		}
 		
 		// all other types
