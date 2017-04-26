@@ -6,6 +6,17 @@ In order to use or compile the source code, the citygml4j library and its depend
 
 **Note** that the `ADEContext` extension is an ongoing development. The NoiseADE module is used to test and validate the `ADEContext` development. It can therefore NOT be considered stable.
 
+To register the NoiseADE module with citygml4j only requires one additional line of code. Be careful to register the `ADEContext` before creating the `CityGMLBuilder`.
+
+```java
+CityGMLContext context = new CityGMLContext();
+
+// register NoiseADE module
+context.registerADEContext(new NoiseADEContext());
+
+CityGMLBuilder builder = context.createCityGMLBuilder();
+```
+
 ## License
 The NoiseADE module is licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0). See the `LICENSE` file for more details.
 
