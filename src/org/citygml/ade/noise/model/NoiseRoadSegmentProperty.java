@@ -18,7 +18,6 @@
  */
 package org.citygml.ade.noise.model;
 
-import org.citygml.ade.noise.NoiseADEContext;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.gml.feature.FeatureProperty;
@@ -66,11 +65,6 @@ public class NoiseRoadSegmentProperty extends FeatureProperty<NoiseRoadSegment> 
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		NoiseRoadSegmentProperty copy = (target == null) ? new NoiseRoadSegmentProperty() : (NoiseRoadSegmentProperty)target;
 		return super.copyTo(copy, copyBuilder);
-	}
-
-	@Override
-	public String getNamespaceURI() {
-		return NoiseADEContext.NAMESPACE_URI;
 	}
 
 }

@@ -1,6 +1,5 @@
 package org.citygml.ade.noise.model;
 
-import org.citygml.ade.noise.NoiseADEContext;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.builder.copy.ObjectCopier;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
@@ -448,11 +447,6 @@ public class NoiseRoadSegment extends AbstractTransportationObject implements AD
 	@Override
 	public <T> T accept(GMLFunctor<T> visitor) {
 		return visitor.apply((ADEModelObject)this);
-	}
-	
-	@Override
-	public String getNamespaceURI() {
-		return NoiseADEContext.NAMESPACE_URI;
 	}
 
 }

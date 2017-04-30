@@ -14,8 +14,8 @@ import org.citygml.ade.noise.model.BuildingLDenMinProperty;
 import org.citygml.ade.noise.model.BuildingLNightEqProperty;
 import org.citygml.ade.noise.model.BuildingLNightMaxProperty;
 import org.citygml.ade.noise.model.BuildingLNightMinProperty;
-import org.citygml.ade.noise.model.BuildingReflectionProperty;
 import org.citygml.ade.noise.model.BuildingReflectionCorrectionProperty;
+import org.citygml.ade.noise.model.BuildingReflectionProperty;
 import org.citygml.ade.noise.model.NoiseCityFurnitureSegment;
 import org.citygml.ade.noise.model.NoiseCityFurnitureSegmentProperty;
 import org.citygml.ade.noise.model.NoiseCityFurnitureSegmentPropertyElement;
@@ -49,10 +49,16 @@ import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import net.opengis.gml.MeasureType;
 
 public class NoiseADEUnmarshaller implements ADEUnmarshaller {
+	private ADEUnmarshallerHelper helper;
+	
+	@Override
+	public void setADEUnmarshallerHelper(ADEUnmarshallerHelper helper) {
+		this.helper = helper;
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ADEModelObject unmarshal(JAXBElement<?> src, ADEUnmarshallerHelper helper) throws MissingADESchemaException {
+	public ADEModelObject unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
 		ADEModelObject dest = null;
 
 		// generic application properties
@@ -103,15 +109,15 @@ public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 		
 		// all other types
 		else
-			dest = unmarshal(src.getValue(), helper);
+			dest = unmarshal(src.getValue());
 		
 		return dest;
 	}
 
 	@Override
-	public ADEModelObject unmarshal(Object src, ADEUnmarshallerHelper helper) throws MissingADESchemaException {
+	public ADEModelObject unmarshal(Object src) throws MissingADESchemaException {
 		if (src instanceof JAXBElement<?>)
-			return unmarshal((JAXBElement<?>)src, helper);
+			return unmarshal((JAXBElement<?>)src);
 
 		ADEModelObject dest = null;
 

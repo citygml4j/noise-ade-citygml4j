@@ -38,6 +38,11 @@ public class NoiseADEContext implements ADEContext {
 	}
 
 	@Override
+	public List<String> getModelPackageNames() {
+		return Arrays.asList(new String[]{"org.citygml.ade.noise.model"});
+	}
+
+	@Override
 	public List<String> getJAXBPackageNames() {
 		return Arrays.asList(new String[]{"org.citygml.ade.noise_de._2"});
 	}

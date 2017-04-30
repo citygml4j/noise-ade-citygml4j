@@ -11,8 +11,8 @@ import org.citygml.ade.noise.model.BuildingLDenMinProperty;
 import org.citygml.ade.noise.model.BuildingLNightEqProperty;
 import org.citygml.ade.noise.model.BuildingLNightMaxProperty;
 import org.citygml.ade.noise.model.BuildingLNightMinProperty;
-import org.citygml.ade.noise.model.BuildingReflectionProperty;
 import org.citygml.ade.noise.model.BuildingReflectionCorrectionProperty;
+import org.citygml.ade.noise.model.BuildingReflectionProperty;
 import org.citygml.ade.noise.model.NoiseCityFurnitureSegment;
 import org.citygml.ade.noise.model.NoiseCityFurnitureSegmentProperty;
 import org.citygml.ade.noise.model.NoiseCityFurnitureSegmentPropertyElement;
@@ -45,9 +45,15 @@ import net.opengis.gml.MeasureType;
 
 public class NoiseADEMarshaller implements ADEMarshaller {
 	private final ObjectFactory factory = new ObjectFactory();
+	private ADEMarshallerHelper helper;
+	
+	@Override
+	public void setADEMarshallerHelper(ADEMarshallerHelper helper) {
+		this.helper = helper;
+	}
 
 	@Override
-	public JAXBElement<?> marshalJAXBElement(ADEModelObject src, ADEMarshallerHelper helper) {
+	public JAXBElement<?> marshalJAXBElement(ADEModelObject src) {
 		JAXBElement<?> dest = null;
 
 		// generic application properties
@@ -95,7 +101,7 @@ public class NoiseADEMarshaller implements ADEMarshaller {
 		
 		// all other types
 		else {
-			Object type = marshal(src, helper);
+			Object type = marshal(src);
 			if (type instanceof NoiseCityFurnitureSegmentType)
 				dest = factory.createNoiseCityFurnitureSegment((NoiseCityFurnitureSegmentType)type);
 			else if (type instanceof NoiseCityFurnitureSegmentPropertyType)
@@ -114,7 +120,7 @@ public class NoiseADEMarshaller implements ADEMarshaller {
 	}
 
 	@Override
-	public Object marshal(ADEModelObject src, ADEMarshallerHelper helper) {
+	public Object marshal(ADEModelObject src) {
 		Object dest = null;
 
 		if (src instanceof NoiseCityFurnitureSegment)

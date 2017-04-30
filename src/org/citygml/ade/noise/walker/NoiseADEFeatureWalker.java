@@ -1,6 +1,5 @@
 package org.citygml.ade.noise.walker;
 
-import org.citygml.ade.noise.NoiseADEContext;
 import org.citygml.ade.noise.model.NoiseCityFurnitureSegment;
 import org.citygml.ade.noise.model.NoiseCityFurnitureSegmentProperty;
 import org.citygml.ade.noise.model.NoiseCityFurnitureSegmentPropertyElement;
@@ -24,11 +23,6 @@ public class NoiseADEFeatureWalker implements ADEWalker<FeatureWalker> {
 	@Override
 	public void setParentWalker(FeatureWalker walker) {
 		this.walker = walker;
-	}
-
-	@Override
-	public String getNamespaceURI() {
-		return NoiseADEContext.NAMESPACE_URI;
 	}
 
 	public void visitNoiseCityFurnitureSegment(NoiseCityFurnitureSegment noiseCityFurnitureSegment) {
