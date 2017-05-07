@@ -40,16 +40,30 @@ import org.citygml4j.builder.jaxb.unmarshal.citygml.ade.ADEUnmarshallerHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.ade.binding.ADEUnmarshaller;
 import org.citygml4j.model.common.base.ModelObject;
-import org.citygml4j.model.gml.basicTypes.Measure;
 import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
+import org.citygml4j.util.binding.JAXBCheckedMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import net.opengis.gml.MeasureType;
 
 public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 	private ADEUnmarshallerHelper helper;
+	private final JAXBCheckedMapper<ADEModelObject> typeMapper;
+	
+	public NoiseADEUnmarshaller() {
+		typeMapper = JAXBCheckedMapper.<ADEModelObject>create()
+				.with(NoiseCityFurnitureSegmentType.class, this::unmarshalNoiseCityFurnitureSegment)
+				.with(NoiseCityFurnitureSegmentPropertyType.class, this::unmarshalNoiseCityFurnitureSegmentProperty)
+				.with(NoiseRoadSegmentType.class, this::unmarshalNoiseRoadSegment)
+				.with(NoiseRoadSegmentPropertyType.class, this::unmarshalNoiseRoadSegmentProperty)
+				.with(TrainType.class, this::unmarshalTrain)
+				.with(TrainPropertyType.class, this::unmarshalTrainProperty)
+				.with(NoiseRailwaySegmentType.class, this::unmarshalNoiseRailwaySegment)
+				.with(NoiseRailwaySegmentPropertyType.class, this::unmarshalNoiseRailwaySegmentProperty)
+				.with(JAXBElement.class, this::unmarshal);
+	}
 	
 	@Override
 	public void setADEUnmarshallerHelper(ADEUnmarshallerHelper helper) {
@@ -59,89 +73,52 @@ public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 	@SuppressWarnings("unchecked")
 	@Override
 	public ADEModelObject unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
-		ADEModelObject dest = null;
-
+		final Object value = src.getValue();
+		
 		// generic application properties
-		if (src.getValue() instanceof NoiseCityFurnitureSegmentPropertyType 
-				&& src.getName().getLocalPart().equals("noiseCityFurnitureSegmentProperty")) {
-			NoiseCityFurnitureSegmentProperty value = unmarshalNoiseCityFurnitureSegmentProperty((NoiseCityFurnitureSegmentPropertyType)src.getValue(), helper);
-			dest = new NoiseCityFurnitureSegmentPropertyElement(value);
-		} else if (src.getValue() instanceof NoiseRoadSegmentPropertyType
-				&& src.getName().getLocalPart().equals("noiseRoadSegmentProperty")) {
-			NoiseRoadSegmentProperty value = unmarshalNoiseRoadSegmentProperty((NoiseRoadSegmentPropertyType)src.getValue(), helper);
-			dest = new NoiseRoadSegmentPropertyElement(value);
-		} else if (src.getValue() instanceof NoiseRailwaySegmentPropertyType
-				&& src.getName().getLocalPart().equals("noiseRailwaySegmentProperty")) {
-			NoiseRailwaySegmentProperty value = unmarshalNoiseRailwaySegmentProperty((NoiseRailwaySegmentPropertyType)src.getValue(), helper);
-			dest = new NoiseRailwaySegmentPropertyElement(value);
-		} else if (src.getValue() instanceof String) {
-			String name = src.getName().getLocalPart();
-			if (name.equals("buildingReflection"))
-				dest = new BuildingReflectionProperty((String)src.getValue());
-			else if (name.equals("remark"))
-				dest = new RemarkProperty((String)src.getValue());
-		} else if (src.getValue() instanceof MeasureType) {
-			String name = src.getName().getLocalPart();
-			Measure value = helper.getGMLUnmarshaller().unmarshalMeasure((MeasureType)src.getValue());
-			if (name.equals("buildingReflectionCorrection"))
-				dest = new BuildingReflectionCorrectionProperty(value);
-			else if (name.equals("buildingLDenMax"))
-				dest = new BuildingLDenMaxProperty(value);
-			else if (name.equals("buildingLDenMin"))
-				dest = new BuildingLDenMinProperty(value);
-			else if (name.equals("buildingLDenEq"))
-				dest = new BuildingLDenEqProperty(value);
-			else if (name.equals("buildingLNightMax"))
-				dest = new BuildingLNightMaxProperty(value);
-			else if (name.equals("buildingLNightMin"))
-				dest = new BuildingLNightMinProperty(value);
-			else if (name.equals("buildingLNightEq"))
-				dest = new BuildingLNightEqProperty(value);
-		} else if (src.getValue() instanceof BigInteger) {
-			String name = src.getName().getLocalPart();
-			if (name.equals("buildingHabitants"))
-				dest = new BuildingHabitantsProperty((BigInteger)src.getValue());
-			else if (name.equals("buildingAppartments"))
-				dest = new BuildingAppartmentsProperty((BigInteger)src.getValue());
-		} else if (src.getValue() instanceof List<?> && src.getName().getLocalPart().equals("buildingImmissionPoints")) {
-			dest = new BuildingImmissionPointsProperty((List<BigInteger>)src.getValue()); 
+		switch (src.getName().getLocalPart()) {
+		case "noiseCityFurnitureSegmentProperty":
+			return new NoiseCityFurnitureSegmentPropertyElement(unmarshalNoiseCityFurnitureSegmentProperty((NoiseCityFurnitureSegmentPropertyType)value));
+		case "noiseRoadSegmentProperty":
+			return new NoiseRoadSegmentPropertyElement(unmarshalNoiseRoadSegmentProperty((NoiseRoadSegmentPropertyType)value));
+		case "noiseRailwaySegmentProperty":
+			return new NoiseRailwaySegmentPropertyElement(unmarshalNoiseRailwaySegmentProperty((NoiseRailwaySegmentPropertyType)value));
+		case "buildingReflection":
+			return new BuildingReflectionProperty((String)value);
+		case "remark":
+			return new RemarkProperty((String)value);
+		case "buildingReflectionCorrection":
+			return new BuildingReflectionCorrectionProperty(helper.getGMLUnmarshaller().unmarshalMeasure((MeasureType)value));
+		case "buildingLDenMax":
+			return new BuildingLDenMaxProperty(helper.getGMLUnmarshaller().unmarshalMeasure((MeasureType)value));
+		case "buildingLDenMin":
+			return new BuildingLDenMinProperty(helper.getGMLUnmarshaller().unmarshalMeasure((MeasureType)value));
+		case "buildingLDenEq":
+			return new BuildingLDenEqProperty(helper.getGMLUnmarshaller().unmarshalMeasure((MeasureType)value));
+		case "buildingLNightMax":
+			return new BuildingLNightMaxProperty(helper.getGMLUnmarshaller().unmarshalMeasure((MeasureType)value));
+		case "buildingLNightMin":
+			return new BuildingLNightMinProperty(helper.getGMLUnmarshaller().unmarshalMeasure((MeasureType)value));
+		case "buildingLNightEq":
+			return new BuildingLNightEqProperty(helper.getGMLUnmarshaller().unmarshalMeasure((MeasureType)value));
+		case "buildingHabitants":
+			return new BuildingHabitantsProperty((BigInteger)value);
+		case "buildingAppartments":
+			return new BuildingAppartmentsProperty((BigInteger)value);
+		case "buildingImmissionPoints":
+			return new BuildingImmissionPointsProperty((List<BigInteger>)value);
 		}
-		
+				
 		// all other types
-		else
-			dest = unmarshal(src.getValue());
-		
-		return dest;
+		return unmarshal(value);
 	}
 
 	@Override
 	public ADEModelObject unmarshal(Object src) throws MissingADESchemaException {
-		if (src instanceof JAXBElement<?>)
-			return unmarshal((JAXBElement<?>)src);
-
-		ADEModelObject dest = null;
-
-		if (src instanceof NoiseCityFurnitureSegmentType)
-			dest = unmarshalNoiseCityFurnitureSegment((NoiseCityFurnitureSegmentType)src, helper);
-		else if (src instanceof NoiseCityFurnitureSegmentPropertyType)
-			dest = unmarshalNoiseCityFurnitureSegmentProperty((NoiseCityFurnitureSegmentPropertyType)src, helper);
-		else if (src instanceof NoiseRoadSegmentType)
-			dest = unmarshalNoiseRoadSegment((NoiseRoadSegmentType)src, helper);
-		else if (src instanceof NoiseRoadSegmentPropertyType)
-			dest = unmarshalNoiseRoadSegmentProperty((NoiseRoadSegmentPropertyType)src, helper);
-		else if (src instanceof TrainType)
-			dest = unmarshalTrain((TrainType)src, helper);
-		else if (src instanceof TrainPropertyType)
-			dest = unmarshalTrainProperty((TrainPropertyType)src, helper);
-		else if (src instanceof NoiseRailwaySegmentType)
-			dest = unmarshalNoiseRailwaySegment((NoiseRailwaySegmentType)src, helper);
-		else if (src instanceof NoiseRailwaySegmentPropertyType)
-			dest = unmarshalNoiseRailwaySegmentProperty((NoiseRailwaySegmentPropertyType)src, helper);
-		
-		return dest;
+		return typeMapper.apply(src);
 	}
 
-	public NoiseCityFurnitureSegment unmarshalNoiseCityFurnitureSegment(NoiseCityFurnitureSegmentType src, ADEUnmarshallerHelper helper) throws MissingADESchemaException {
+	public NoiseCityFurnitureSegment unmarshalNoiseCityFurnitureSegment(NoiseCityFurnitureSegmentType src) throws MissingADESchemaException {
 		NoiseCityFurnitureSegment dest = new NoiseCityFurnitureSegment();
 		helper.getCore200Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
@@ -166,7 +143,7 @@ public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 		return dest;
 	}
 
-	public NoiseCityFurnitureSegmentProperty unmarshalNoiseCityFurnitureSegmentProperty(NoiseCityFurnitureSegmentPropertyType src, ADEUnmarshallerHelper helper) throws MissingADESchemaException {
+	public NoiseCityFurnitureSegmentProperty unmarshalNoiseCityFurnitureSegmentProperty(NoiseCityFurnitureSegmentPropertyType src) throws MissingADESchemaException {
 		NoiseCityFurnitureSegmentProperty dest = new NoiseCityFurnitureSegmentProperty();
 
 		if (src.isSetNoiseCityFurnitureSegment()) {
@@ -202,7 +179,7 @@ public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 		return dest;
 	}
 	
-	public NoiseRoadSegment unmarshalNoiseRoadSegment(NoiseRoadSegmentType src, ADEUnmarshallerHelper helper) throws MissingADESchemaException {
+	public NoiseRoadSegment unmarshalNoiseRoadSegment(NoiseRoadSegmentType src) throws MissingADESchemaException {
 		NoiseRoadSegment dest = new NoiseRoadSegment();
 		helper.getTransportation200Unmarshaller().unmarshalAbstractTransportationObject(src, dest);
 		
@@ -281,7 +258,7 @@ public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 		return dest;
 	}
 	
-	public NoiseRoadSegmentProperty unmarshalNoiseRoadSegmentProperty(NoiseRoadSegmentPropertyType src, ADEUnmarshallerHelper helper) throws MissingADESchemaException {
+	public NoiseRoadSegmentProperty unmarshalNoiseRoadSegmentProperty(NoiseRoadSegmentPropertyType src) throws MissingADESchemaException {
 		NoiseRoadSegmentProperty dest = new NoiseRoadSegmentProperty();
 
 		if (src.isSetNoiseRoadSegment()) {
@@ -317,7 +294,7 @@ public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 		return dest;
 	}
 	
-	public Train unmarshalTrain(TrainType src, ADEUnmarshallerHelper helper) throws MissingADESchemaException {
+	public Train unmarshalTrain(TrainType src) throws MissingADESchemaException {
 		Train dest = new Train();
 		helper.getGMLUnmarshaller().unmarshalAbstractFeature(src, dest);
 		
@@ -360,7 +337,7 @@ public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 		return dest;
 	}
 	
-	public TrainProperty unmarshalTrainProperty(TrainPropertyType src, ADEUnmarshallerHelper helper) throws MissingADESchemaException {
+	public TrainProperty unmarshalTrainProperty(TrainPropertyType src) throws MissingADESchemaException {
 		TrainProperty dest = new TrainProperty();
 
 		if (src.isSetTrain()) {
@@ -396,7 +373,7 @@ public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 		return dest;
 	}
 	
-	public NoiseRailwaySegment unmarshalNoiseRailwaySegment(NoiseRailwaySegmentType src, ADEUnmarshallerHelper helper) throws MissingADESchemaException {
+	public NoiseRailwaySegment unmarshalNoiseRailwaySegment(NoiseRailwaySegmentType src) throws MissingADESchemaException {
 		NoiseRailwaySegment dest = new NoiseRailwaySegment();
 		helper.getTransportation200Unmarshaller().unmarshalAbstractTransportationObject(src, dest);
 		
@@ -423,13 +400,13 @@ public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 
 		if (src.isSetUsedBy()) {
 			for (TrainPropertyType trainPropertyType : src.getUsedBy())
-				dest.addUsedBy(unmarshalTrainProperty(trainPropertyType, helper));
+				dest.addUsedBy(unmarshalTrainProperty(trainPropertyType));
 		}
 		
 		return dest;
 	}
 	
-	public NoiseRailwaySegmentProperty unmarshalNoiseRailwaySegmentProperty(NoiseRailwaySegmentPropertyType src, ADEUnmarshallerHelper helper) throws MissingADESchemaException {
+	public NoiseRailwaySegmentProperty unmarshalNoiseRailwaySegmentProperty(NoiseRailwaySegmentPropertyType src) throws MissingADESchemaException {
 		NoiseRailwaySegmentProperty dest = new NoiseRailwaySegmentProperty();
 
 		if (src.isSetNoiseRailwaySegment()) {

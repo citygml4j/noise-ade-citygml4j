@@ -37,15 +37,51 @@ import org.citygml.ade.noise_de._2.TrainType;
 import org.citygml4j.builder.jaxb.marshal.citygml.ade.ADEMarshallerHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEMarshaller;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
+import org.citygml4j.util.binding.JAXBMapper;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
 
-import net.opengis.gml.MeasureType;
-
 public class NoiseADEMarshaller implements ADEMarshaller {
 	private final ObjectFactory factory = new ObjectFactory();
 	private ADEMarshallerHelper helper;
+	private final JAXBMapper<JAXBElement<?>> elementMapper;
+	private final JAXBMapper<Object> typeMapper;
+	
+	public NoiseADEMarshaller() {
+		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+				.with(NoiseCityFurnitureSegmentPropertyElement.class, this::createNoiseCityFurnitureSegmentPropertyElement)
+				.with(NoiseRoadSegmentPropertyElement.class, this::createNoiseRoadSegmentPropertyElement)
+				.with(NoiseRailwaySegmentPropertyElement.class, this::createNoiseRailwaySegmentPropertyElement)
+				.with(BuildingReflectionProperty.class, this::createBuildingReflectionProperty)
+				.with(BuildingReflectionCorrectionProperty.class, this::createBuildingReflectionCorrectionProperty)
+				.with(BuildingLDenMaxProperty.class, this::createBuildingLDenMaxProperty)
+				.with(BuildingLDenMinProperty.class, this::createBuildingLDenMinProperty)
+				.with(BuildingLDenEqProperty.class, this::createBuildingLDenEqProperty)
+				.with(BuildingLNightMaxProperty.class, this::createBuildingLNightMaxProperty)
+				.with(BuildingLNightMinProperty.class, this::createBuildingLNightMinProperty)
+				.with(BuildingLNightEqProperty.class, this::createBuildingLNightEqProperty)
+				.with(BuildingHabitantsProperty.class, this::createBuildingHabitantsProperty)
+				.with(BuildingAppartmentsProperty.class, this::createBuildingAppartmentsProperty)
+				.with(BuildingImmissionPointsProperty.class, this::createBuildingImmissionPointsProperty)
+				.with(RemarkProperty.class, this::createRemarkProperty)
+				.with(NoiseCityFurnitureSegment.class, this::createNoiseCityFurnitureSegment)
+				.with(NoiseCityFurnitureSegmentProperty.class, this::createNoiseCityFurnitureSegmentProperty)
+				.with(NoiseRoadSegment.class, this::createNoiseRoadSegment)
+				.with(NoiseRoadSegmentProperty.class, this::createNoiseRoadSegmentProperty)
+				.with(NoiseRailwaySegment.class, this::createNoiseRailwaySegment)
+				.with(NoiseRailwaySegmentProperty.class, this::createNoiseRailwaySegmentProperty);
+		
+		typeMapper = JAXBMapper.create()
+				.with(NoiseCityFurnitureSegment.class, this::marshalNoiseCityFurnitureSegment)
+				.with(NoiseCityFurnitureSegmentProperty.class, this::marshalNoiseCityFurnitureSegmentProperty)
+				.with(NoiseRoadSegment.class, this::marshalNoiseRoadSegment)
+				.with(NoiseRoadSegmentProperty.class, this::marshalNoiseRoadSegmentProperty)
+				.with(Train.class, this::marshalTrain)
+				.with(TrainProperty.class, this::marshalTrainProperty)
+				.with(NoiseRailwaySegment.class, this::marshalNoiseRailwaySegment)
+				.with(NoiseRailwaySegmentProperty.class, this::marshalNoiseRailwaySegmentProperty);
+	}
 	
 	@Override
 	public void setADEMarshallerHelper(ADEMarshallerHelper helper) {
@@ -54,96 +90,15 @@ public class NoiseADEMarshaller implements ADEMarshaller {
 
 	@Override
 	public JAXBElement<?> marshalJAXBElement(ADEModelObject src) {
-		JAXBElement<?> dest = null;
-
-		// generic application properties
-		if (src instanceof NoiseCityFurnitureSegmentPropertyElement) {
-			NoiseCityFurnitureSegmentPropertyType value = marshalNoiseCityFurnitureSegmentProperty(((NoiseCityFurnitureSegmentPropertyElement)src).getValue(), helper);
-			dest = factory.createNoiseCityFurnitureSegmentProperty(value);
-		} else if (src instanceof NoiseRoadSegmentPropertyElement) {
-			NoiseRoadSegmentPropertyType value = marshalNoiseRoadSegmentProperty(((NoiseRoadSegmentPropertyElement)src).getValue(), helper);
-			dest = factory.createNoiseRoadSegmentProperty(value);
-		} else if (src instanceof NoiseRailwaySegmentPropertyElement) {
-			NoiseRailwaySegmentPropertyType value = marshalNoiseRailwaySegmentProperty(((NoiseRailwaySegmentPropertyElement)src).getValue(), helper);
-			dest = factory.createNoiseRailwaySegmentProperty(value);
-		} else if (src instanceof BuildingReflectionProperty) {
-			dest = factory.createBuildingReflection(((BuildingReflectionProperty)src).getValue());
-		} else if (src instanceof BuildingReflectionCorrectionProperty) {
-			MeasureType value = helper.getGMLMarshaller().marshalMeasure(((BuildingReflectionCorrectionProperty)src).getValue());
-			dest = factory.createBuildingReflectionCorrection(value);
-		} else if (src instanceof BuildingLDenMaxProperty) {
-			MeasureType value = helper.getGMLMarshaller().marshalMeasure(((BuildingLDenMaxProperty)src).getValue());
-			dest = factory.createBuildingLDenMax(value);
-		} else if (src instanceof BuildingLDenMinProperty) {
-			MeasureType value = helper.getGMLMarshaller().marshalMeasure(((BuildingLDenMinProperty)src).getValue());
-			dest = factory.createBuildingLDenMin(value);
-		} else if (src instanceof BuildingLDenEqProperty) {
-			MeasureType value = helper.getGMLMarshaller().marshalMeasure(((BuildingLDenEqProperty)src).getValue());
-			dest = factory.createBuildingLDenEq(value);
-		} else if (src instanceof BuildingLNightMaxProperty) {
-			MeasureType value = helper.getGMLMarshaller().marshalMeasure(((BuildingLNightMaxProperty)src).getValue());
-			dest = factory.createBuildingLNightMax(value);
-		} else if (src instanceof BuildingLNightMinProperty) {
-			MeasureType value = helper.getGMLMarshaller().marshalMeasure(((BuildingLNightMinProperty)src).getValue());
-			dest = factory.createBuildingLNightMin(value);
-		} else if (src instanceof BuildingLNightEqProperty) {
-			MeasureType value = helper.getGMLMarshaller().marshalMeasure(((BuildingLNightEqProperty)src).getValue());
-			dest = factory.createBuildingLNightEq(value);
-		} else if (src instanceof BuildingHabitantsProperty) {
-			dest = factory.createBuildingHabitants(((BuildingHabitantsProperty)src).getValue());
-		} else if (src instanceof BuildingAppartmentsProperty) {
-			dest = factory.createBuildingAppartments(((BuildingAppartmentsProperty)src).getValue());
-		} else if (src instanceof BuildingImmissionPointsProperty) {
-			dest = factory.createBuildingImmissionPoints(((BuildingImmissionPointsProperty)src).getValue());
-		} else if (src instanceof RemarkProperty) {
-			dest = factory.createRemark(((RemarkProperty)src).getValue());
-		}
-		
-		// all other types
-		else {
-			Object type = marshal(src);
-			if (type instanceof NoiseCityFurnitureSegmentType)
-				dest = factory.createNoiseCityFurnitureSegment((NoiseCityFurnitureSegmentType)type);
-			else if (type instanceof NoiseCityFurnitureSegmentPropertyType)
-				dest = factory.createNoiseCityFurnitureSegmentProperty((NoiseCityFurnitureSegmentPropertyType)type);
-			else if (type instanceof NoiseRoadSegmentType)
-				dest = factory.createNoiseRoadSegment((NoiseRoadSegmentType)type);
-			else if (type instanceof NoiseRoadSegmentPropertyType)
-				dest = factory.createNoiseRoadSegmentProperty((NoiseRoadSegmentPropertyType)type);
-			else if (type instanceof NoiseRailwaySegmentType)
-				dest = factory.createNoiseRailwaySegment((NoiseRailwaySegmentType)type);
-			else if (type instanceof NoiseRailwaySegmentPropertyType)
-				dest = factory.createNoiseRailwaySegmentProperty((NoiseRailwaySegmentPropertyType)type);
-		}
-
-		return dest;
+		return elementMapper.apply(src);
 	}
 
 	@Override
 	public Object marshal(ADEModelObject src) {
-		Object dest = null;
-
-		if (src instanceof NoiseCityFurnitureSegment)
-			dest = marshalNoiseCityFurnitureSegment((NoiseCityFurnitureSegment)src, helper);
-		else if (src instanceof NoiseCityFurnitureSegmentProperty)
-			dest = marshalNoiseCityFurnitureSegmentProperty((NoiseCityFurnitureSegmentProperty)src, helper);
-		else if (src instanceof NoiseRoadSegment)
-			dest = marshalNoiseRoadSegment((NoiseRoadSegment)src, helper);
-		else if (src instanceof NoiseRoadSegmentProperty)
-			dest = marshalNoiseRoadSegmentProperty((NoiseRoadSegmentProperty)src, helper);
-		else if (src instanceof Train)
-			dest = marshalTrain((Train)src, helper);
-		else if (src instanceof TrainProperty)
-			dest = marshalTrainProperty((TrainProperty)src, helper);
-		else if (src instanceof NoiseRailwaySegment)
-			dest = marshalNoiseRailwaySegment((NoiseRailwaySegment)src, helper);
-		else if (src instanceof NoiseRailwaySegmentProperty)
-			dest = marshalNoiseRailwaySegmentProperty((NoiseRailwaySegmentProperty)src, helper);
-		
-		return dest;
+		return typeMapper.apply(src);
 	}
 
-	public NoiseCityFurnitureSegmentType marshalNoiseCityFurnitureSegment(NoiseCityFurnitureSegment src, ADEMarshallerHelper helper) {
+	public NoiseCityFurnitureSegmentType marshalNoiseCityFurnitureSegment(NoiseCityFurnitureSegment src) {
 		NoiseCityFurnitureSegmentType dest = factory.createNoiseCityFurnitureSegmentType();
 		helper.getCore200Marshaller().marshalAbstractCityObject(src, dest);
 
@@ -168,11 +123,11 @@ public class NoiseADEMarshaller implements ADEMarshaller {
 		return dest;
 	}
 
-	public NoiseCityFurnitureSegmentPropertyType marshalNoiseCityFurnitureSegmentProperty(NoiseCityFurnitureSegmentProperty src, ADEMarshallerHelper helper) {
+	public NoiseCityFurnitureSegmentPropertyType marshalNoiseCityFurnitureSegmentProperty(NoiseCityFurnitureSegmentProperty src) {
 		NoiseCityFurnitureSegmentPropertyType dest = factory.createNoiseCityFurnitureSegmentPropertyType();
 
 		if (src.isSetNoiseCityFurnitureSegment())
-			dest.setNoiseCityFurnitureSegment(marshalNoiseCityFurnitureSegment(src.getNoiseCityFurnitureSegment(), helper));
+			dest.setNoiseCityFurnitureSegment(marshalNoiseCityFurnitureSegment(src.getNoiseCityFurnitureSegment()));
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -201,7 +156,7 @@ public class NoiseADEMarshaller implements ADEMarshaller {
 		return dest;
 	}
 	
-	public NoiseRoadSegmentType marshalNoiseRoadSegment(NoiseRoadSegment src, ADEMarshallerHelper helper) {
+	public NoiseRoadSegmentType marshalNoiseRoadSegment(NoiseRoadSegment src) {
 		NoiseRoadSegmentType dest = factory.createNoiseRoadSegmentType();
 		helper.getTransportation200Marshaller().marshalAbstractTransportationObject(src, dest);
 		
@@ -280,11 +235,11 @@ public class NoiseADEMarshaller implements ADEMarshaller {
 		return dest;
 	}
 	
-	public NoiseRoadSegmentPropertyType marshalNoiseRoadSegmentProperty(NoiseRoadSegmentProperty src, ADEMarshallerHelper helper) {
+	public NoiseRoadSegmentPropertyType marshalNoiseRoadSegmentProperty(NoiseRoadSegmentProperty src) {
 		NoiseRoadSegmentPropertyType dest = factory.createNoiseRoadSegmentPropertyType();
 
 		if (src.isSetNoiseRoadSegment())
-			dest.setNoiseRoadSegment(marshalNoiseRoadSegment(src.getNoiseRoadSegment(), helper));
+			dest.setNoiseRoadSegment(marshalNoiseRoadSegment(src.getNoiseRoadSegment()));
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -313,7 +268,7 @@ public class NoiseADEMarshaller implements ADEMarshaller {
 		return dest;
 	}
 	
-	public TrainType marshalTrain(Train src, ADEMarshallerHelper helper) {
+	public TrainType marshalTrain(Train src) {
 		TrainType dest = factory.createTrainType();
 		helper.getGMLMarshaller().marshalAbstractFeature(src, dest);
 		
@@ -356,11 +311,11 @@ public class NoiseADEMarshaller implements ADEMarshaller {
 		return dest;
 	}
 	
-	public TrainPropertyType marshalTrainProperty(TrainProperty src, ADEMarshallerHelper helper) {
+	public TrainPropertyType marshalTrainProperty(TrainProperty src) {
 		TrainPropertyType dest = factory.createTrainPropertyType();
 
 		if (src.isSetTrain())
-			dest.setTrain(marshalTrain(src.getTrain(), helper));
+			dest.setTrain(marshalTrain(src.getTrain()));
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -389,7 +344,7 @@ public class NoiseADEMarshaller implements ADEMarshaller {
 		return dest;
 	}
 	
-	public NoiseRailwaySegmentType marshalNoiseRailwaySegment(NoiseRailwaySegment src, ADEMarshallerHelper helper) {
+	public NoiseRailwaySegmentType marshalNoiseRailwaySegment(NoiseRailwaySegment src) {
 		NoiseRailwaySegmentType dest = factory.createNoiseRailwaySegmentType();
 		helper.getTransportation200Marshaller().marshalAbstractTransportationObject(src, dest);
 		
@@ -416,17 +371,17 @@ public class NoiseADEMarshaller implements ADEMarshaller {
 
 		if (src.isSetUsedBy()) {
 			for (TrainProperty trainProperty : src.getUsedBy())
-				dest.getUsedBy().add(marshalTrainProperty(trainProperty, helper));
+				dest.getUsedBy().add(marshalTrainProperty(trainProperty));
 		}
 		
 		return dest;
 	}
 	
-	public NoiseRailwaySegmentPropertyType marshalNoiseRailwaySegmentProperty(NoiseRailwaySegmentProperty src, ADEMarshallerHelper helper) {
+	public NoiseRailwaySegmentPropertyType marshalNoiseRailwaySegmentProperty(NoiseRailwaySegmentProperty src) {
 		NoiseRailwaySegmentPropertyType dest = factory.createNoiseRailwaySegmentPropertyType();
 
 		if (src.isSetNoiseRailwaySegment())
-			dest.setNoiseRailwaySegment(marshalNoiseRailwaySegment(src.getNoiseRailwaySegment(), helper));
+			dest.setNoiseRailwaySegment(marshalNoiseRailwaySegment(src.getNoiseRailwaySegment()));
 
 		if (src.isSetRemoteSchema())
 			dest.setRemoteSchema(src.getRemoteSchema());
@@ -453,6 +408,90 @@ public class NoiseADEMarshaller implements ADEMarshaller {
 			dest.setActuate(ActuateType.fromValue(src.getActuate().getValue()));
 
 		return dest;
+	}
+	
+	private JAXBElement<?> createNoiseCityFurnitureSegmentPropertyElement(NoiseCityFurnitureSegmentPropertyElement src) {
+		return factory.createNoiseCityFurnitureSegmentProperty(marshalNoiseCityFurnitureSegmentProperty(src.getValue()));
+	}
+	
+	private JAXBElement<?> createNoiseRoadSegmentPropertyElement(NoiseRoadSegmentPropertyElement src) {
+		return factory.createNoiseRoadSegmentProperty(marshalNoiseRoadSegmentProperty(src.getValue()));
+	}
+	
+	private JAXBElement<?> createNoiseRailwaySegmentPropertyElement(NoiseRailwaySegmentPropertyElement src) {
+		return factory.createNoiseRailwaySegmentProperty(marshalNoiseRailwaySegmentProperty(src.getValue()));
+	}
+	
+	private JAXBElement<?> createBuildingReflectionProperty(BuildingReflectionProperty src) {
+		return factory.createBuildingReflection(src.getValue());
+	}
+	
+	private JAXBElement<?> createBuildingReflectionCorrectionProperty(BuildingReflectionCorrectionProperty src) {
+		return factory.createBuildingReflectionCorrection(helper.getGMLMarshaller().marshalMeasure(src.getValue()));
+	}
+	
+	private JAXBElement<?> createBuildingLDenMaxProperty(BuildingLDenMaxProperty src) {
+		return factory.createBuildingLDenMax(helper.getGMLMarshaller().marshalMeasure(src.getValue()));
+	}
+	
+	private JAXBElement<?> createBuildingLDenMinProperty(BuildingLDenMinProperty src) {
+		return factory.createBuildingLDenMin(helper.getGMLMarshaller().marshalMeasure(src.getValue()));
+	}
+	
+	private JAXBElement<?> createBuildingLDenEqProperty(BuildingLDenEqProperty src) {
+		return factory.createBuildingLDenEq(helper.getGMLMarshaller().marshalMeasure(src.getValue()));
+	}
+	
+	private JAXBElement<?> createBuildingLNightMaxProperty(BuildingLNightMaxProperty src) {
+		return factory.createBuildingLNightMax(helper.getGMLMarshaller().marshalMeasure(src.getValue()));
+	}
+	
+	private JAXBElement<?> createBuildingLNightMinProperty(BuildingLNightMinProperty src) {
+		return factory.createBuildingLNightMin(helper.getGMLMarshaller().marshalMeasure(src.getValue()));
+	}
+	
+	private JAXBElement<?> createBuildingLNightEqProperty(BuildingLNightEqProperty src) {
+		return factory.createBuildingLNightEq(helper.getGMLMarshaller().marshalMeasure(src.getValue()));
+	}
+	
+	private JAXBElement<?> createBuildingHabitantsProperty(BuildingHabitantsProperty src) {
+		return factory.createBuildingHabitants(src.getValue());
+	}
+	
+	private JAXBElement<?> createBuildingAppartmentsProperty(BuildingAppartmentsProperty src) {
+		return factory.createBuildingAppartments(src.getValue());
+	}
+	
+	private JAXBElement<?> createBuildingImmissionPointsProperty(BuildingImmissionPointsProperty src) {
+		return factory.createBuildingImmissionPoints(src.getValue());
+	}
+	
+	private JAXBElement<?> createRemarkProperty(RemarkProperty src) {
+		return factory.createRemark(src.getValue());
+	}
+	
+	private JAXBElement<?> createNoiseCityFurnitureSegment(NoiseCityFurnitureSegment src) {
+		return factory.createNoiseCityFurnitureSegment(marshalNoiseCityFurnitureSegment(src));
+	}
+	
+	private JAXBElement<?> createNoiseCityFurnitureSegmentProperty(NoiseCityFurnitureSegmentProperty src) {
+		return factory.createNoiseCityFurnitureSegmentProperty(marshalNoiseCityFurnitureSegmentProperty(src));
+	}
+	
+	private JAXBElement<?> createNoiseRoadSegment(NoiseRoadSegment src) {
+		return factory.createNoiseRoadSegment(marshalNoiseRoadSegment(src));
+	}
+	
+	private JAXBElement<?> createNoiseRoadSegmentProperty(NoiseRoadSegmentProperty src) {
+		return factory.createNoiseRoadSegmentProperty(marshalNoiseRoadSegmentProperty(src));
+	}
+	
+	private JAXBElement<?> createNoiseRailwaySegment(NoiseRailwaySegment src) {
+		return factory.createNoiseRailwaySegment(marshalNoiseRailwaySegment(src));
+	}
+	
+	private JAXBElement<?> createNoiseRailwaySegmentProperty(NoiseRailwaySegmentProperty src) {
+		return factory.createNoiseRailwaySegmentProperty(marshalNoiseRailwaySegmentProperty(src));
 	}
 
 }
