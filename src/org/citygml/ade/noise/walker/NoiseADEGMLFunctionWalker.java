@@ -28,8 +28,11 @@ public class NoiseADEGMLFunctionWalker<T> implements ADEWalker<GMLFunctionWalker
 		if (object != null)
 			return object;
 		
-		if (noiseCityFurnitureSegment.isSetLod0BaseLine())
-			return walker.apply(noiseCityFurnitureSegment.getLod0BaseLine());
+		if (noiseCityFurnitureSegment.isSetLod0BaseLine()) {
+			object = walker.apply(noiseCityFurnitureSegment.getLod0BaseLine());
+			if (object != null)
+				return object;
+		}
 		
 		return null;
 	}
@@ -39,8 +42,11 @@ public class NoiseADEGMLFunctionWalker<T> implements ADEWalker<GMLFunctionWalker
 		if (object != null)
 			return object;
 		
-		if (noiseRoadSegment.isSetLod0BaseLine())
-			return walker.apply(noiseRoadSegment.getLod0BaseLine());
+		if (noiseRoadSegment.isSetLod0BaseLine()) {
+			object = walker.apply(noiseRoadSegment.getLod0BaseLine());
+			if (object != null)
+				return object;
+		}
 		
 		return null;
 	}
