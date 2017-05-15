@@ -4,8 +4,8 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
-import org.citygml.ade.noise.transform.NoiseADEMarshaller;
-import org.citygml.ade.noise.transform.NoiseADEUnmarshaller;
+import org.citygml.ade.noise.bind.NoiseADEMarshaller;
+import org.citygml.ade.noise.bind.NoiseADEUnmarshaller;
 import org.citygml.ade.noise.walker.NoiseADEFeatureFunctionWalker;
 import org.citygml.ade.noise.walker.NoiseADEFeatureWalker;
 import org.citygml.ade.noise.walker.NoiseADEGMLFunctionWalker;
