@@ -1,4 +1,4 @@
-package org.citygml.ade.noise.transform;
+package org.citygml.ade.noise.bind;
 
 import javax.xml.bind.JAXBElement;
 
