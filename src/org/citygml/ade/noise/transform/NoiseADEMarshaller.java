@@ -37,7 +37,7 @@ import org.citygml.ade.noise_de._2.TrainType;
 import org.citygml4j.builder.jaxb.marshal.citygml.ade.ADEMarshallerHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEMarshaller;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
-import org.citygml4j.util.binding.JAXBMapper;
+import org.citygml4j.util.jaxb.JAXBMapper;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
