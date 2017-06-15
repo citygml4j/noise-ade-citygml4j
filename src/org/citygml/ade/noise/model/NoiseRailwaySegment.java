@@ -2,6 +2,7 @@ package org.citygml.ade.noise.model;
 
 import java.util.List;
 
+import org.citygml.ade.noise.model.module.NoiseADEModule;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.builder.copy.ObjectCopier;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
@@ -16,6 +17,7 @@ import org.citygml4j.model.gml.basicTypes.Measure;
 import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.primitives.CurveProperty;
 import org.citygml4j.model.gml.measures.Length;
+import org.citygml4j.model.module.ade.ADEModule;
 
 public class NoiseRailwaySegment extends AbstractTransportationObject implements ADEModelObject {
 	private String railwaySurfaceMaterial;
@@ -203,6 +205,11 @@ public class NoiseRailwaySegment extends AbstractTransportationObject implements
 	@Override
 	public <T> T accept(GMLFunctor<T> visitor) {
 		return visitor.apply((ADEModelObject)this);
+	}
+	
+	@Override
+	public ADEModule getADEModule() {
+		return NoiseADEModule.v1_0;
 	}
 
 }

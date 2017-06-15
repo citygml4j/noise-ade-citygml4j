@@ -23,13 +23,12 @@ import org.citygml4j.util.walker.GMLWalker;
 public class NoiseADEContext implements ADEContext {
 	public static final String NAMESPACE_URI = "http://www.citygml.org/ade/noise_de/2.0";
 	
-	private final NoiseADEModule module = new NoiseADEModule();
 	private final NoiseADEMarshaller marshaller = new NoiseADEMarshaller();
 	private final NoiseADEUnmarshaller unmarshaller = new NoiseADEUnmarshaller();
 	
 	@Override
 	public List<ADEModule> getADEModules() {
-		return Arrays.asList(new ADEModule[]{module});
+		return Arrays.asList(new ADEModule[]{NoiseADEModule.v1_0});
 	}
 
 	@Override

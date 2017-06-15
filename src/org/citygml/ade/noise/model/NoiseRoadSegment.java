@@ -1,5 +1,6 @@
 package org.citygml.ade.noise.model;
 
+import org.citygml.ade.noise.model.module.NoiseADEModule;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.builder.copy.ObjectCopier;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
@@ -14,6 +15,7 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.primitives.CurveProperty;
 import org.citygml4j.model.gml.measures.Length;
 import org.citygml4j.model.gml.measures.Speed;
+import org.citygml4j.model.module.ade.ADEModule;
 
 public class NoiseRoadSegment extends AbstractTransportationObject implements ADEModelObject {
 	private Measure mDay;
@@ -447,6 +449,11 @@ public class NoiseRoadSegment extends AbstractTransportationObject implements AD
 	@Override
 	public <T> T accept(GMLFunctor<T> visitor) {
 		return visitor.apply((ADEModelObject)this);
+	}
+	
+	@Override
+	public ADEModule getADEModule() {
+		return NoiseADEModule.v1_0;
 	}
 
 }
