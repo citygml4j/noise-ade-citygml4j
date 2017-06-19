@@ -15,6 +15,7 @@ import org.citygml4j.model.gml.feature.BoundingShape;
 import org.citygml4j.model.gml.geometry.primitives.CurveProperty;
 import org.citygml4j.model.gml.measures.Length;
 import org.citygml4j.model.module.ade.ADEModule;
+import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class NoiseCityFurnitureSegment extends AbstractCityObject implements ADEModelObject {
 	private Code type;
@@ -112,20 +113,18 @@ public class NoiseCityFurnitureSegment extends AbstractCityObject implements ADE
 	}
 
 	@Override
-	public BoundingShape calcBoundedBy(boolean setBoundedBy) {
-		if (lod0BaseLine != null && lod0BaseLine.isSetCurve()) {
-			BoundingShape boundedBy = new BoundingShape();
-			calcBoundedBy(boundedBy, lod0BaseLine.getCurve());
-			
-			if (boundedBy.isSetEnvelope()) {
-				if (setBoundedBy)
-					setBoundedBy(boundedBy);
-				
-				return boundedBy;
-			}
-		}
+	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+		BoundingShape boundedBy = super.calcBoundedBy(options);
+		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+			return boundedBy;
 		
-		return null;
+		if (lod0BaseLine != null && lod0BaseLine.isSetCurve())
+			boundedBy.updateEnvelope(lod0BaseLine.getCurve().calcBoundingBox());
+		
+		if (options.isAssignResultToFeatures())
+			setBoundedBy(boundedBy);
+		
+		return boundedBy;
 	}
 	
 	@Override
