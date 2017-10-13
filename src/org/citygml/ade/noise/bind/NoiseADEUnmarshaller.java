@@ -43,17 +43,17 @@ import org.citygml4j.model.common.base.ModelObject;
 import org.citygml4j.model.gml.xlink.XLinkActuate;
 import org.citygml4j.model.gml.xlink.XLinkShow;
 import org.citygml4j.model.gml.xlink.XLinkType;
-import org.citygml4j.util.jaxb.JAXBCheckedMapper;
+import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
 import net.opengis.gml.MeasureType;
 
 public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 	private ADEUnmarshallerHelper helper;
-	private final JAXBCheckedMapper<ADEModelObject> typeMapper;
+	private final CheckedTypeMapper<ADEModelObject> typeMapper;
 	
 	public NoiseADEUnmarshaller() {
-		typeMapper = JAXBCheckedMapper.<ADEModelObject>create()
+		typeMapper = CheckedTypeMapper.<ADEModelObject>create()
 				.with(NoiseCityFurnitureSegmentType.class, this::unmarshalNoiseCityFurnitureSegment)
 				.with(NoiseCityFurnitureSegmentPropertyType.class, this::unmarshalNoiseCityFurnitureSegmentProperty)
 				.with(NoiseRoadSegmentType.class, this::unmarshalNoiseRoadSegment)

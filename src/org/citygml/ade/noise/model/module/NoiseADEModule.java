@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.xml.namespace.QName;
@@ -73,6 +74,16 @@ public class NoiseADEModule extends ADEModule {
 		}
 		
 		return null;
+	}
+
+	@Override
+	public Map<String, Class<? extends AbstractFeature>> getFeatures() {
+		return new HashMap<>(features);
+	}
+
+	@Override
+	public boolean isTopLevelFeature(String name) {
+		return false;
 	}
 
 }

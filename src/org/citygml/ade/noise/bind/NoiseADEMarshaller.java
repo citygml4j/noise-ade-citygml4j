@@ -37,7 +37,7 @@ import org.citygml.ade.noise_de._2.TrainType;
 import org.citygml4j.builder.jaxb.marshal.citygml.ade.ADEMarshallerHelper;
 import org.citygml4j.model.citygml.ade.binding.ADEMarshaller;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
-import org.citygml4j.util.jaxb.JAXBMapper;
+import org.citygml4j.util.mapper.TypeMapper;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
@@ -45,11 +45,11 @@ import org.w3._1999.xlink.TypeType;
 public class NoiseADEMarshaller implements ADEMarshaller {
 	private final ObjectFactory factory = new ObjectFactory();
 	private ADEMarshallerHelper helper;
-	private final JAXBMapper<JAXBElement<?>> elementMapper;
-	private final JAXBMapper<Object> typeMapper;
+	private final TypeMapper<JAXBElement<?>> elementMapper;
+	private final TypeMapper<Object> typeMapper;
 	
 	public NoiseADEMarshaller() {
-		elementMapper = JAXBMapper.<JAXBElement<?>>create()
+		elementMapper = TypeMapper.<JAXBElement<?>>create()
 				.with(NoiseCityFurnitureSegmentPropertyElement.class, this::createNoiseCityFurnitureSegmentPropertyElement)
 				.with(NoiseRoadSegmentPropertyElement.class, this::createNoiseRoadSegmentPropertyElement)
 				.with(NoiseRailwaySegmentPropertyElement.class, this::createNoiseRailwaySegmentPropertyElement)
@@ -72,7 +72,7 @@ public class NoiseADEMarshaller implements ADEMarshaller {
 				.with(NoiseRailwaySegment.class, this::createNoiseRailwaySegment)
 				.with(NoiseRailwaySegmentProperty.class, this::createNoiseRailwaySegmentProperty);
 		
-		typeMapper = JAXBMapper.create()
+		typeMapper = TypeMapper.create()
 				.with(NoiseCityFurnitureSegment.class, this::marshalNoiseCityFurnitureSegment)
 				.with(NoiseCityFurnitureSegmentProperty.class, this::marshalNoiseCityFurnitureSegmentProperty)
 				.with(NoiseRoadSegment.class, this::marshalNoiseRoadSegment)

@@ -52,22 +52,22 @@ public class NoiseADEContext implements ADEContext {
 	}
 
 	@Override
-	public ADEWalker<FeatureWalker> getDefaultFeatureWalker() {
+	public ADEWalker<FeatureWalker> createDefaultFeatureWalker() {
 		return new NoiseADEFeatureWalker();
 	}
 
 	@Override
-	public ADEWalker<GMLWalker> getDefaultGMLWalker() {
+	public ADEWalker<GMLWalker> createDefaultGMLWalker() {
 		return new NoiseADEGMLWalker();
 	}
 
 	@Override
-	public <T> ADEWalker<FeatureFunctionWalker<T>> getDefaultFeatureFunctionWalker() {
+	public <T> ADEWalker<FeatureFunctionWalker<T>> createDefaultFeatureFunctionWalker() {
 		return new NoiseADEFeatureFunctionWalker<>();
 	}
 
 	@Override
-	public <T> ADEWalker<GMLFunctionWalker<T>> getDefaultGMLFunctionWalker() {
+	public <T> ADEWalker<GMLFunctionWalker<T>> createDefaultGMLFunctionWalker() {
 		return new NoiseADEGMLFunctionWalker<>();
 	}
 
