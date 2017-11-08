@@ -132,7 +132,7 @@ public class NoiseCityFurnitureSegment extends AbstractCityObject implements ADE
 		LodRepresentation lodRepresentation = new LodRepresentation();
 		
 		if (lod0BaseLine != null)
-			lodRepresentation.getLod0Geometry().add(lod0BaseLine);
+			lodRepresentation.addRepresentation(0, lod0BaseLine);
 		
 		return lodRepresentation;
 	}
