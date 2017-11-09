@@ -183,7 +183,7 @@ public class NoiseRailwaySegment extends AbstractTransportationObject implements
 		NoiseRailwaySegment copy = (target == null) ? new NoiseRailwaySegment() : (NoiseRailwaySegment)target;
 		super.copyTo(copy, copyBuilder);
 		
-		return new ObjectCopier().copyTo(this, copy, copyBuilder);
+		return ObjectCopier.copyTo(this, copy, copyBuilder);
 	}
 
 	@Override

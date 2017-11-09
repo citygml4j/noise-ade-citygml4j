@@ -427,7 +427,7 @@ public class NoiseRoadSegment extends AbstractTransportationObject implements AD
 		NoiseRoadSegment copy = (target == null) ? new NoiseRoadSegment() : (NoiseRoadSegment)target;
 		super.copyTo(copy, copyBuilder);
 		
-		return new ObjectCopier().copyTo(this, copy, copyBuilder);
+		return ObjectCopier.copyTo(this, copy, copyBuilder);
 	}
 	
 	@Override

@@ -215,7 +215,7 @@ public class Train extends AbstractFeature implements ADEModelObject {
 		Train copy = (target == null) ? new Train() : (Train)target;
 		super.copyTo(copy, copyBuilder);
 		
-		return new ObjectCopier().copyTo(this, copy, copyBuilder);
+		return ObjectCopier.copyTo(this, copy, copyBuilder);
 	}
 
 	@Override
