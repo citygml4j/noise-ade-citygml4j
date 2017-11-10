@@ -8,6 +8,7 @@ import org.citygml4j.builder.copy.ObjectCopier;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.transportation.AbstractTransportationObject;
+import org.citygml4j.model.common.annotations.Lod;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
@@ -19,6 +20,8 @@ import org.citygml4j.model.gml.geometry.primitives.CurveProperty;
 import org.citygml4j.model.gml.measures.Length;
 import org.citygml4j.model.module.ade.ADEModule;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
+import org.citygml4j.util.bbox.SimpleBoundingBoxCalculator;
+import org.citygml4j.util.lod.LodRepresentationBuilder;
 
 public class NoiseRailwaySegment extends AbstractTransportationObject implements ADEModelObject {
 	private String railwaySurfaceMaterial;
@@ -27,7 +30,7 @@ public class NoiseRailwaySegment extends AbstractTransportationObject implements
 	private Boolean crossing;
 	private Length curveRadius;
 	private Measure additionalCorrectionSegment;
-	private CurveProperty lod0BaseLine;
+	@Lod(0) private CurveProperty lod0BaseLine;
 	private List<TrainProperty> usedBy;
 	
 	public String getRailwaySurfaceMaterial() {
@@ -150,27 +153,12 @@ public class NoiseRailwaySegment extends AbstractTransportationObject implements
 	
 	@Override
 	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (lod0BaseLine != null && lod0BaseLine.isSetCurve())
-			boundedBy.updateEnvelope(lod0BaseLine.getCurve().calcBoundingBox());
-			
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
+		return SimpleBoundingBoxCalculator.calcBoundedBy(this, options);
 	}
 	
 	@Override
 	public LodRepresentation getLodRepresentation() {
-		LodRepresentation lodRepresentation = new LodRepresentation();
-		
-		if (lod0BaseLine != null)
-			lodRepresentation.addRepresentation(0, lod0BaseLine);
-		
-		return lodRepresentation;
+		return LodRepresentationBuilder.buildRepresentation(this);
 	}
 
 	@Override
