@@ -1,6 +1,8 @@
 /*
- * citygml4j - The Open Source Java API for CityGML
- * https://github.com/citygml4j
+ * module-noise-ade - Noise ADE module for citygml4j
+ * https://github.com/citygml4j/module-noise-ade
+ * 
+ * module-noise-ade is part of the citygml4j project
  * 
  * Copyright 2013-2017 Claus Nagel <claus.nagel@gmail.com>
  *

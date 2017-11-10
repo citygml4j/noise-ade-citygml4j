@@ -1,0 +1,100 @@
+!ade.name! - !ade.description!
+
+Version !ade.version! (!build.date!)
+
+  This library is free software and is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+
+0. Index
+--------
+
+1. License
+2. Copyright
+3. About
+4. System requirements
+5. How to use it
+6. Developers
+7. Contact
+8. Websites
+
+
+1. License
+----------
+
+!ade.name! is licensed under the Apache License, Version 2.0 (the "License");
+you may not use this library except in compliance with the License.
+You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+
+2. Copyright
+------------
+
+(C) !copyright.year!,
+!copyright.owner! <!copyright.owner.email!>
+
+
+3. About
+--------
+
+!ade.name! is a citygml4j module for the CityGML 2.0 Noise Application 
+Domain Extension (ADE). The module is implemented against the ADEContext 
+extension of citygml4j. 
+
+In contrast to the generic ADE support of citygml4j, which maps ADE content 
+onto a Java DOM representation, the ADEContext approach allows for extending 
+the citygml4j object model with new ADE classes. JAXB is used for parsing and 
+writing ADE-enriched CityGML datasets. The required JAXB classes mapping the 
+ADE XML Schema can easily be generated with the ade-xjc compiler shipped with 
+citygml4j.
+
+!ade.name! is part of the citygml4j project.
+
+
+4. System requirements
+----------------------
+
+* Java JRE or JDK >= 1.8
+* citygml4j v!citygml4j.version! to use the module
+
+
+5. How to use it
+----------------
+
+Simply build a JAR file of the !ade.name! using the build.xml ANT script.
+
+In order to develop a NoiseADE application, put the !ade.name! library
+together with citygml4j on your classpath. In your code, register the
+module with the citygml4j library through the CityGMLContext class. This
+makes the ADE module known to citygml4j. Once registered, the module will be 
+automatically used in parsing, processing and writing ADE-enriched datasets. 
+
+Check out the sample programs provided in the "samples" folder.
+
+   
+6. Developers
+-------------
+
+!developer.main.name! <!developer.main.email!>
+
+
+7. Contact
+----------
+
+!developer.main.email!
+
+
+8. Websites
+-----------
+
+Official !ade.name! website: 
+https://github.com/citygml4j/
+
+Related websites:
+http://www.citygml.org/
+http://www.citygmlwiki.org/
+http://www.opengeospatial.org/standards/citygml
