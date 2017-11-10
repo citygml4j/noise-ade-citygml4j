@@ -8,7 +8,7 @@ import org.citygml4j.builder.copy.ObjectCopier;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.citygml.transportation.AbstractTransportationObject;
-import org.citygml4j.model.common.annotations.Lod;
+import org.citygml4j.model.common.annotation.Lod;
 import org.citygml4j.model.common.child.ChildList;
 import org.citygml4j.model.common.visitor.FeatureFunctor;
 import org.citygml4j.model.common.visitor.FeatureVisitor;
