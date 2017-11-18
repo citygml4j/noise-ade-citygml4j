@@ -1,20 +1,19 @@
 # module-noise-ade
-This is a citygml4j module for the CityGML 2.0 Noise Application Domain Extension (ADE). The module is implemented against the `ADEContext` extension of citygml4j that is currently being developed in the citygml4j [ade-context branch](https://github.com/citygml4j/citygml4j/tree/ade-context). In contrast to the generic ADE support of citygml4j, which maps ADE content onto a Java DOM representation, the `ADEContext` approach allows for extending the citygml4j object model with new ADE classes. JAXB is used for parsing and writing ADE-enriched CityGML datasets. The required JAXB classes mapping the ADE XML Schema can easily be generated with the [ade-xjc](https://github.com/citygml4j/ade-xjc) compiler shipped with citygml4j. 
+This is a citygml4j module for the CityGML 2.0 Noise Application Domain Extension (ADE). The ADE module is implemented against the `ADEContext` interface of citygml4j introduced in [citygml4j 2.5.0](https://github.com/citygml4j/citygml4j/releases/tag/v2.5.0). In contrast to the generic ADE support of citygml4j, which maps ADE content onto a Java DOM representation, the ADE module approach allows for extending the citygml4j object model with new ADE classes that seamlessly integrate with the predefined citygml4j object model. JAXB is used for parsing and writing ADE-enriched CityGML datasets. The required JAXB classes mapping the ADE XML Schema can be easily generated with the [ade-xjc](https://github.com/citygml4j/ade-xjc) compiler shipped with citygml4j. 
 
 ## How to use the module
-In order to use or compile the source code, the citygml4j library and its dependencies from the [ade-context branch](https://github.com/citygml4j/citygml4j/tree/ade-context) must be on the classpath. If packaged as a JAR file, the module can be registered with the citygml4j library to build a NoiseADE application. The `ADEContext` extension is designed such that multiple ADE modules can be registered at the same time.
-
-**Note** that the `ADEContext` extension is an ongoing development. The NoiseADE module is used to test and validate the `ADEContext` development. It can therefore NOT be considered stable.
+The module can be registered with the citygml4j library to build a NoiseADE application. The ADE module approach is designed such that multiple ADE modules can be registered at the same time.
 
 To register the NoiseADE module with citygml4j only requires one additional line of code. Be careful to register the `ADEContext` before creating the `CityGMLBuilder`.
 
 ```java
-CityGMLContext context = new CityGMLContext();
+CityGMLContext context = CityGMLContext.getInstance();
 
 // register NoiseADE module
 context.registerADEContext(new NoiseADEContext());
 
 CityGMLBuilder builder = context.createCityGMLBuilder();
+...
 ```
 
 ## License
