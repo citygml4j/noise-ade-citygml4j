@@ -23,7 +23,13 @@
 		<delete dir="${dir.target}" />
 	</target>
 
-	<target name="dist" depends="clean" description="generate the Underground ADE module file">
+	<target name="clean_samples" description="clean sample dir">
+		<subant target="clean">
+			<fileset dir="${dir.samples}" includes="**/build*.xml" />
+		</subant>
+	</target>
+
+	<target name="dist" depends="clean, clean_samples" description="generate the Underground ADE module file">
 		<!-- create the build environment -->
 		<mkdir dir="${dir.build.classes}" />
 		<mkdir dir="${dir.dest}" />
@@ -41,7 +47,7 @@
 		<copy toDir="${dir.dest}">
 			<fileset dir="${dir.resources.doc}" includes="**/*" />
 		</copy>
-		
+
 		<!-- replace tokens in README file -->
 		<replace file="${dir.dest}/README" token="!ade.name!" value="${ade.name}" />
 		<replace file="${dir.dest}/README" token="!ade.description!" value="${ade.description}" />
@@ -73,6 +79,16 @@
 				<attribute name="Implementation-Version" value="${ade.version}+${build.number}" />
 			</manifest>
 		</jar>
+
+		<!-- copy sample files -->
+		<copy toDir="${dir.dest.samples}">
+			<fileset dir="${dir.samples}" includes="**/*" />
+		</copy>
+
+		<!-- copy citygml4j jar required by sample files -->
+		<copy toDir="${dir.dest.samples.lib}">
+			<fileset dir="${dir.lib}" includes="**/*.jar" />
+		</copy>
 
 		<!-- clean up -->
 		<delete dir="${dir.build}" />

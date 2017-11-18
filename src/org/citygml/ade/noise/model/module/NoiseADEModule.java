@@ -66,7 +66,7 @@ public class NoiseADEModule extends ADEModule {
 	
 	@Override
 	public URL getSchemaResource() {
-		return NoiseADEContext.class.getResource("/org/citygml/ade/noise_de/_2/schema/CityGML-NoiseADE.xsd");
+		return NoiseADEContext.class.getResource("/org/citygml/ade/noise/bind/schema/CityGML-NoiseADE.xsd");
 	}
 	
 	@Override
