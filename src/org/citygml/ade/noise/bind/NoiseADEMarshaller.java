@@ -20,6 +20,8 @@
  */
 package org.citygml.ade.noise.bind;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 import javax.xml.bind.JAXBElement;
 
 import org.citygml.ade.noise.model.BuildingAppartmentsProperty;
@@ -63,44 +65,69 @@ import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
 
 public class NoiseADEMarshaller implements ADEMarshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private final ObjectFactory factory = new ObjectFactory();
 	private ADEMarshallerHelper helper;
-	private final TypeMapper<JAXBElement<?>> elementMapper;
-	private final TypeMapper<Object> typeMapper;
+	private TypeMapper<JAXBElement<?>> elementMapper;
+	private TypeMapper<Object> typeMapper;
 	
-	public NoiseADEMarshaller() {
-		elementMapper = TypeMapper.<JAXBElement<?>>create()
-				.with(NoiseCityFurnitureSegmentPropertyElement.class, this::createNoiseCityFurnitureSegmentPropertyElement)
-				.with(NoiseRoadSegmentPropertyElement.class, this::createNoiseRoadSegmentPropertyElement)
-				.with(NoiseRailwaySegmentPropertyElement.class, this::createNoiseRailwaySegmentPropertyElement)
-				.with(BuildingReflectionProperty.class, this::createBuildingReflectionProperty)
-				.with(BuildingReflectionCorrectionProperty.class, this::createBuildingReflectionCorrectionProperty)
-				.with(BuildingLDenMaxProperty.class, this::createBuildingLDenMaxProperty)
-				.with(BuildingLDenMinProperty.class, this::createBuildingLDenMinProperty)
-				.with(BuildingLDenEqProperty.class, this::createBuildingLDenEqProperty)
-				.with(BuildingLNightMaxProperty.class, this::createBuildingLNightMaxProperty)
-				.with(BuildingLNightMinProperty.class, this::createBuildingLNightMinProperty)
-				.with(BuildingLNightEqProperty.class, this::createBuildingLNightEqProperty)
-				.with(BuildingHabitantsProperty.class, this::createBuildingHabitantsProperty)
-				.with(BuildingAppartmentsProperty.class, this::createBuildingAppartmentsProperty)
-				.with(BuildingImmissionPointsProperty.class, this::createBuildingImmissionPointsProperty)
-				.with(RemarkProperty.class, this::createRemarkProperty)
-				.with(NoiseCityFurnitureSegment.class, this::createNoiseCityFurnitureSegment)
-				.with(NoiseCityFurnitureSegmentProperty.class, this::createNoiseCityFurnitureSegmentProperty)
-				.with(NoiseRoadSegment.class, this::createNoiseRoadSegment)
-				.with(NoiseRoadSegmentProperty.class, this::createNoiseRoadSegmentProperty)
-				.with(NoiseRailwaySegment.class, this::createNoiseRailwaySegment)
-				.with(NoiseRailwaySegmentProperty.class, this::createNoiseRailwaySegmentProperty);
-		
-		typeMapper = TypeMapper.create()
-				.with(NoiseCityFurnitureSegment.class, this::marshalNoiseCityFurnitureSegment)
-				.with(NoiseCityFurnitureSegmentProperty.class, this::marshalNoiseCityFurnitureSegmentProperty)
-				.with(NoiseRoadSegment.class, this::marshalNoiseRoadSegment)
-				.with(NoiseRoadSegmentProperty.class, this::marshalNoiseRoadSegmentProperty)
-				.with(Train.class, this::marshalTrain)
-				.with(TrainProperty.class, this::marshalTrainProperty)
-				.with(NoiseRailwaySegment.class, this::marshalNoiseRailwaySegment)
-				.with(NoiseRailwaySegmentProperty.class, this::marshalNoiseRailwaySegmentProperty);
+	private TypeMapper<JAXBElement<?>> getElementMapper() {
+		if (elementMapper == null) {
+			lock.lock();
+			try {
+				if (elementMapper == null) {
+					elementMapper = TypeMapper.<JAXBElement<?>>create()
+							.with(NoiseCityFurnitureSegmentPropertyElement.class, this::createNoiseCityFurnitureSegmentPropertyElement)
+							.with(NoiseRoadSegmentPropertyElement.class, this::createNoiseRoadSegmentPropertyElement)
+							.with(NoiseRailwaySegmentPropertyElement.class, this::createNoiseRailwaySegmentPropertyElement)
+							.with(BuildingReflectionProperty.class, this::createBuildingReflectionProperty)
+							.with(BuildingReflectionCorrectionProperty.class, this::createBuildingReflectionCorrectionProperty)
+							.with(BuildingLDenMaxProperty.class, this::createBuildingLDenMaxProperty)
+							.with(BuildingLDenMinProperty.class, this::createBuildingLDenMinProperty)
+							.with(BuildingLDenEqProperty.class, this::createBuildingLDenEqProperty)
+							.with(BuildingLNightMaxProperty.class, this::createBuildingLNightMaxProperty)
+							.with(BuildingLNightMinProperty.class, this::createBuildingLNightMinProperty)
+							.with(BuildingLNightEqProperty.class, this::createBuildingLNightEqProperty)
+							.with(BuildingHabitantsProperty.class, this::createBuildingHabitantsProperty)
+							.with(BuildingAppartmentsProperty.class, this::createBuildingAppartmentsProperty)
+							.with(BuildingImmissionPointsProperty.class, this::createBuildingImmissionPointsProperty)
+							.with(RemarkProperty.class, this::createRemarkProperty)
+							.with(NoiseCityFurnitureSegment.class, this::createNoiseCityFurnitureSegment)
+							.with(NoiseCityFurnitureSegmentProperty.class, this::createNoiseCityFurnitureSegmentProperty)
+							.with(NoiseRoadSegment.class, this::createNoiseRoadSegment)
+							.with(NoiseRoadSegmentProperty.class, this::createNoiseRoadSegmentProperty)
+							.with(NoiseRailwaySegment.class, this::createNoiseRailwaySegment)
+							.with(NoiseRailwaySegmentProperty.class, this::createNoiseRailwaySegmentProperty);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return elementMapper;
+	}
+	
+	private TypeMapper<Object> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = TypeMapper.create()
+							.with(NoiseCityFurnitureSegment.class, this::marshalNoiseCityFurnitureSegment)
+							.with(NoiseCityFurnitureSegmentProperty.class, this::marshalNoiseCityFurnitureSegmentProperty)
+							.with(NoiseRoadSegment.class, this::marshalNoiseRoadSegment)
+							.with(NoiseRoadSegmentProperty.class, this::marshalNoiseRoadSegmentProperty)
+							.with(Train.class, this::marshalTrain)
+							.with(TrainProperty.class, this::marshalTrainProperty)
+							.with(NoiseRailwaySegment.class, this::marshalNoiseRailwaySegment)
+							.with(NoiseRailwaySegmentProperty.class, this::marshalNoiseRailwaySegmentProperty);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
 	
 	@Override
@@ -110,12 +137,12 @@ public class NoiseADEMarshaller implements ADEMarshaller {
 
 	@Override
 	public JAXBElement<?> marshalJAXBElement(ADEModelObject src) {
-		return elementMapper.apply(src);
+		return getElementMapper().apply(src);
 	}
 
 	@Override
 	public Object marshal(ADEModelObject src) {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
 
 	public NoiseCityFurnitureSegmentType marshalNoiseCityFurnitureSegment(NoiseCityFurnitureSegment src) {

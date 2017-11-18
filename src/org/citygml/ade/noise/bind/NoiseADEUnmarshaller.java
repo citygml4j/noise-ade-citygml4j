@@ -22,6 +22,7 @@ package org.citygml.ade.noise.bind;
 
 import java.math.BigInteger;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 import javax.xml.bind.JAXBElement;
 
@@ -69,22 +70,34 @@ import org.citygml4j.xml.io.reader.MissingADESchemaException;
 import net.opengis.gml.MeasureType;
 
 public class NoiseADEUnmarshaller implements ADEUnmarshaller {
+	private final ReentrantLock lock = new ReentrantLock();
 	private ADEUnmarshallerHelper helper;
-	private final CheckedTypeMapper<ADEModelObject> typeMapper;
-	
-	public NoiseADEUnmarshaller() {
-		typeMapper = CheckedTypeMapper.<ADEModelObject>create()
-				.with(NoiseCityFurnitureSegmentType.class, this::unmarshalNoiseCityFurnitureSegment)
-				.with(NoiseCityFurnitureSegmentPropertyType.class, this::unmarshalNoiseCityFurnitureSegmentProperty)
-				.with(NoiseRoadSegmentType.class, this::unmarshalNoiseRoadSegment)
-				.with(NoiseRoadSegmentPropertyType.class, this::unmarshalNoiseRoadSegmentProperty)
-				.with(TrainType.class, this::unmarshalTrain)
-				.with(TrainPropertyType.class, this::unmarshalTrainProperty)
-				.with(NoiseRailwaySegmentType.class, this::unmarshalNoiseRailwaySegment)
-				.with(NoiseRailwaySegmentPropertyType.class, this::unmarshalNoiseRailwaySegmentProperty)
-				.with(JAXBElement.class, this::unmarshal);
+	private CheckedTypeMapper<ADEModelObject> typeMapper;
+
+	private CheckedTypeMapper<ADEModelObject> getTypeMapper() {
+		if (typeMapper == null) {
+			lock.lock();
+			try {
+				if (typeMapper == null) {
+					typeMapper = CheckedTypeMapper.<ADEModelObject>create()
+							.with(NoiseCityFurnitureSegmentType.class, this::unmarshalNoiseCityFurnitureSegment)
+							.with(NoiseCityFurnitureSegmentPropertyType.class, this::unmarshalNoiseCityFurnitureSegmentProperty)
+							.with(NoiseRoadSegmentType.class, this::unmarshalNoiseRoadSegment)
+							.with(NoiseRoadSegmentPropertyType.class, this::unmarshalNoiseRoadSegmentProperty)
+							.with(TrainType.class, this::unmarshalTrain)
+							.with(TrainPropertyType.class, this::unmarshalTrainProperty)
+							.with(NoiseRailwaySegmentType.class, this::unmarshalNoiseRailwaySegment)
+							.with(NoiseRailwaySegmentPropertyType.class, this::unmarshalNoiseRailwaySegmentProperty)
+							.with(JAXBElement.class, this::unmarshal);
+				}
+			} finally {
+				lock.unlock();
+			}
+		}
+
+		return typeMapper;
 	}
-	
+
 	@Override
 	public void setADEUnmarshallerHelper(ADEUnmarshallerHelper helper) {
 		this.helper = helper;
@@ -94,7 +107,7 @@ public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 	@Override
 	public ADEModelObject unmarshal(JAXBElement<?> src) throws MissingADESchemaException {
 		final Object value = src.getValue();
-		
+
 		// generic application properties
 		switch (src.getName().getLocalPart()) {
 		case "noiseCityFurnitureSegmentProperty":
@@ -128,14 +141,14 @@ public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 		case "buildingImmissionPoints":
 			return new BuildingImmissionPointsProperty((List<BigInteger>)value);
 		}
-				
+
 		// all other types
 		return unmarshal(value);
 	}
 
 	@Override
 	public ADEModelObject unmarshal(Object src) throws MissingADESchemaException {
-		return typeMapper.apply(src);
+		return getTypeMapper().apply(src);
 	}
 
 	public NoiseCityFurnitureSegment unmarshalNoiseCityFurnitureSegment(NoiseCityFurnitureSegmentType src) throws MissingADESchemaException {
@@ -198,86 +211,86 @@ public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 
 		return dest;
 	}
-	
+
 	public NoiseRoadSegment unmarshalNoiseRoadSegment(NoiseRoadSegmentType src) throws MissingADESchemaException {
 		NoiseRoadSegment dest = new NoiseRoadSegment();
 		helper.getTransportation200Unmarshaller().unmarshalAbstractTransportationObject(src, dest);
-		
+
 		if (src.isSetMDay())
 			dest.setMDay(helper.getGMLUnmarshaller().unmarshalMeasure(src.getMDay()));
-		
+
 		if (src.isSetMEvening())
 			dest.setMEvening(helper.getGMLUnmarshaller().unmarshalMeasure(src.getMEvening()));
-		
+
 		if (src.isSetMNight())
 			dest.setMNight(helper.getGMLUnmarshaller().unmarshalMeasure(src.getMNight()));
-		
+
 		if (src.isSetMDay16())
 			dest.setMDay16(helper.getGMLUnmarshaller().unmarshalMeasure(src.getMDay16()));
-		
+
 		if (src.isSetPDay())
 			dest.setPDay(helper.getGMLUnmarshaller().unmarshalMeasure(src.getPDay()));
-		
+
 		if (src.isSetPEvening())
 			dest.setPEvening(helper.getGMLUnmarshaller().unmarshalMeasure(src.getPEvening()));
-		
+
 		if (src.isSetPNight())
 			dest.setPNight(helper.getGMLUnmarshaller().unmarshalMeasure(src.getPNight()));
-		
+
 		if (src.isSetPDay16())
 			dest.setPDay16(helper.getGMLUnmarshaller().unmarshalMeasure(src.getPDay16()));
-		
+
 		if (src.isSetDtv())
 			dest.setDtv(helper.getGMLUnmarshaller().unmarshalMeasure(src.getDtv()));
-		
+
 		if (src.isSetSpeedDayPkw())
 			dest.setSpeedDayPkw(helper.getGMLUnmarshaller().unmarshalSpeed(src.getSpeedDayPkw()));
-		
+
 		if (src.isSetSpeedEveningPkw())
 			dest.setSpeedEveningPkw(helper.getGMLUnmarshaller().unmarshalSpeed(src.getSpeedEveningPkw()));
-		
+
 		if (src.isSetSpeedNightPkw())
 			dest.setSpeedNightPkw(helper.getGMLUnmarshaller().unmarshalSpeed(src.getSpeedNightPkw()));
-		
+
 		if (src.isSetSpeedDayLkw())
 			dest.setSpeedDayLkw(helper.getGMLUnmarshaller().unmarshalSpeed(src.getSpeedDayLkw()));
-		
+
 		if (src.isSetSpeedEveningLkw())
 			dest.setSpeedEveningLkw(helper.getGMLUnmarshaller().unmarshalSpeed(src.getSpeedEveningLkw()));
-		
+
 		if (src.isSetSpeedNightLkw())
 			dest.setSpeedNightLkw(helper.getGMLUnmarshaller().unmarshalSpeed(src.getSpeedNightLkw()));
-		
+
 		if (src.isSetRoadSurfaceMaterial())
 			dest.setRoadSurfaceMaterial(src.getRoadSurfaceMaterial());
-		
+
 		if (src.isSetRoadSurfaceCorrection())
 			dest.setRoadSurfaceCorrection(helper.getGMLUnmarshaller().unmarshalMeasure(src.getRoadSurfaceCorrection()));
-		
+
 		if (src.isSetDistanceCarriageway())
 			dest.setDistanceCarriageway(helper.getGMLUnmarshaller().unmarshalLength(src.getDistanceCarriageway()));
-		
+
 		if (src.isSetDistanceD())
 			dest.setDistanceD(helper.getGMLUnmarshaller().unmarshalLength(src.getDistanceD()));
-		
+
 		if (src.isSetBridge())
 			dest.setBridge(src.isBridge());
-		
+
 		if (src.isSetTunnel())
 			dest.setTunnel(src.isTunnel());
-		
+
 		if (src.isSetRoadGradientPercent())
 			dest.setRoadGradientPercent(helper.getGMLUnmarshaller().unmarshalMeasure(src.getRoadGradientPercent()));
-		
+
 		if (src.isSetLod0BaseLine())
 			dest.setLod0BaseLine(helper.getGMLUnmarshaller().unmarshalCurveProperty(src.getLod0BaseLine()));
-		
+
 		if (src.isSetLineage())
 			dest.setLineage(src.getLineage());
-		
+
 		return dest;
 	}
-	
+
 	public NoiseRoadSegmentProperty unmarshalNoiseRoadSegmentProperty(NoiseRoadSegmentPropertyType src) throws MissingADESchemaException {
 		NoiseRoadSegmentProperty dest = new NoiseRoadSegmentProperty();
 
@@ -313,14 +326,14 @@ public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 
 		return dest;
 	}
-	
+
 	public Train unmarshalTrain(TrainType src) throws MissingADESchemaException {
 		Train dest = new Train();
 		helper.getGMLUnmarshaller().unmarshalAbstractFeature(src, dest);
-		
+
 		if (src.isSetTrainType())
 			dest.setTrainType(src.getTrainType());
-		
+
 		if (src.isSetTrainTypeCorrection())
 			dest.setTrainTypeCorrection(helper.getGMLUnmarshaller().unmarshalMeasure(src.getTrainTypeCorrection()));
 
@@ -356,7 +369,7 @@ public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 
 		return dest;
 	}
-	
+
 	public TrainProperty unmarshalTrainProperty(TrainPropertyType src) throws MissingADESchemaException {
 		TrainProperty dest = new TrainProperty();
 
@@ -392,23 +405,23 @@ public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 
 		return dest;
 	}
-	
+
 	public NoiseRailwaySegment unmarshalNoiseRailwaySegment(NoiseRailwaySegmentType src) throws MissingADESchemaException {
 		NoiseRailwaySegment dest = new NoiseRailwaySegment();
 		helper.getTransportation200Unmarshaller().unmarshalAbstractTransportationObject(src, dest);
-		
+
 		if (src.isSetRailwaySurfaceMaterial())
 			dest.setRailwaySurfaceMaterial(src.getRailwaySurfaceMaterial());
-		
+
 		if (src.isSetRailwaySurfaceCorrection())
 			dest.setRailwaySurfaceCorrection(helper.getGMLUnmarshaller().unmarshalMeasure(src.getRailwaySurfaceCorrection()));
 
 		if (src.isSetBridge())
 			dest.setBridge(src.isBridge());
-		
+
 		if (src.isSetCrossing())
 			dest.setCrossing(src.isCrossing());
-		
+
 		if (src.isSetCurveRadius())
 			dest.setCurveRadius(helper.getGMLUnmarshaller().unmarshalLength(src.getCurveRadius()));
 
@@ -422,10 +435,10 @@ public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 			for (TrainPropertyType trainPropertyType : src.getUsedBy())
 				dest.addUsedBy(unmarshalTrainProperty(trainPropertyType));
 		}
-		
+
 		return dest;
 	}
-	
+
 	public NoiseRailwaySegmentProperty unmarshalNoiseRailwaySegmentProperty(NoiseRailwaySegmentPropertyType src) throws MissingADESchemaException {
 		NoiseRailwaySegmentProperty dest = new NoiseRailwaySegmentProperty();
 
