@@ -4,7 +4,7 @@ This is a citygml4j ADE module for the CityGML 2.0 Noise Application Domain Exte
 ## How to use the module
 Simply register the module with the citygml4j library to build a NoiseADE application and to consume and write NoiseADE datasets. Multiple ADE modules can be loaded and registered with citygml4j at runtime simultaneously.
 
-To register the NoiseADE module with citygml4j only requires one additional line of code. Be careful to register the `ADEContext` before creating the `CityGMLBuilder`.
+Registering the NoiseADE module with citygml4j only requires one additional line of code. Be careful to register the `ADEContext` before creating the `CityGMLBuilder`.
 
 ```java
 CityGMLContext context = CityGMLContext.getInstance();
