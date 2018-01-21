@@ -1,0 +1,3 @@
+rootProject.name = 'module-noise-ade'
+include 'samples'
+

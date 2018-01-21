@@ -1,0 +1,78 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+apply plugin: 'java'
+apply plugin: 'distribution'
+
+allprojects {
+    group 'org.citygml4j'
+    version '2.2.0'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        jcenter()
+    }
+}
+
+ext {
+    citygml_version = '2.6.1'
+    date = new Date()
+}
+
+sourceSets {
+    main.java.srcDir 'src-gen/main/java'
+}
+
+dependencies {
+    compile 'org.citygml4j:citygml4j:2.6.0'
+}
+
+javadoc {
+    options.author true
+    include "org/citygml/ade/noise/**"
+}
+
+jar {
+    manifest {
+        attributes('Implementation-Title': project.name,
+                'Implementation-Version': project.version
+        )
+    }
+    into('META-INF') {
+        from 'LICENSE'
+    }
+}
+
+distributions {
+    main {
+        contents {
+            from('resources/doc/README') {
+                filter(ReplaceTokens, tokens: [
+                        version: project.version,
+                        date: date.format('yyy-MM-dd'),
+                        copyright: date.format('yyyy'),
+                        javaCompatibility: sourceCompatibility.toString(),
+                        citygml4j_version: citygml_version
+                ])
+            }
+            into('lib') {
+                from jar
+                from configurations.runtime
+            }
+            into('javadoc') {
+                from javadoc
+            }
+            into('license') {
+                from 'LICENSE'
+            }
+            into('samples') {
+                from tasks.getByPath(':samples:copySamples').outputs
+            }
+        }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.4.1'
+}
