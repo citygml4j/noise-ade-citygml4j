@@ -59,7 +59,7 @@ module-noise-ade is part of the citygml4j project.
 ----------------------
 
 * Java JRE or JDK >= @javaCompatibility@
-* citygml4j v@citygml4j_version@ to use the module
+* citygml4j v@citygml4jVersion@ to use the module
 
 
 5. How to use it
