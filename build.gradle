@@ -27,11 +27,6 @@ dependencies {
     compile 'org.citygml4j:citygml4j:2.6.1'
 }
 
-javadoc {
-    options.author true
-    include "org/citygml/ade/noise/**"
-}
-
 jar {
     manifest {
         attributes('Implementation-Title': project.name,
