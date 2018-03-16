@@ -24,7 +24,7 @@ sourceSets {
 }
 
 dependencies {
-    compile 'org.citygml4j:citygml4j:2.6.1'
+    compile 'org.citygml4j:citygml4j:2.6.2'
 }
 
 jar {
@@ -36,6 +36,10 @@ jar {
     into('META-INF') {
         from 'LICENSE'
     }
+}
+
+javadoc {
+    options.addStringOption('Xdoclint:none', '-quiet')
 }
 
 distributions {
