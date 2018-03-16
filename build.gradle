@@ -65,7 +65,7 @@ distributions {
                 from 'LICENSE'
             }
             into('samples') {
-                from tasks.getByPath(':samples:copySamples').outputs
+                from tasks.getByPath(':noise-ade-samples:copySamples').outputs
             }
         }
     }
