@@ -15,4 +15,4 @@ bin/
 out/
 
 # samples
-samples/output/
+noise-ade-samples/output/

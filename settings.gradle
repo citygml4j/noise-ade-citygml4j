@@ -1,3 +1,2 @@
 rootProject.name = 'module-noise-ade'
 include 'noise-ade-samples'
-
