@@ -1,11 +1,13 @@
 import org.apache.tools.ant.filters.ReplaceTokens
 
-apply plugin: 'java'
-apply plugin: 'distribution'
+plugins {
+    id 'java'
+    id 'distribution'
+}
 
 allprojects {
     group 'org.citygml4j.ade'
-    version '2.2.0'
+    version '2.3.0-SNAPSHOT'
 
     sourceCompatibility = 1.8
 
@@ -15,7 +17,7 @@ allprojects {
 }
 
 ext {
-    citygml4jVersion = '2.6.2'
+    citygml4jVersion = '2.7.0'
     date = new Date()
 }
 
@@ -24,7 +26,7 @@ sourceSets {
 }
 
 dependencies {
-    compile 'org.citygml4j:citygml4j:2.6.2'
+    compile 'org.citygml4j:citygml4j:2.7.0'
 }
 
 jar {
@@ -42,35 +44,27 @@ javadoc {
     options.addStringOption('Xdoclint:none', '-quiet')
 }
 
-distributions {
-    main {
-        contents {
-            from('resources/doc/README') {
-                filter(ReplaceTokens, tokens: [
-                        version: project.version,
-                        date: date.format('yyyy-MM-dd'),
-                        copyright: date.format('yyyy'),
-                        javaCompatibility: sourceCompatibility.toString(),
-                        citygml4jVersion: citygml4jVersion
-                ])
-            }
-            into('lib') {
-                from jar
-                from configurations.runtime
-            }
-            into('javadoc') {
-                from javadoc
-            }
-            into('license') {
-                from 'LICENSE'
-            }
-            into('samples') {
-                from tasks.getByPath(':noise-ade-samples:copySamples').outputs
-            }
-        }
+distributions.main.contents {
+    from('resources/doc/README') {
+        filter(ReplaceTokens, tokens: [
+                version          : project.version,
+                date             : date.format('yyyy-MM-dd'),
+                copyright        : date.format('yyyy'),
+                javaCompatibility: sourceCompatibility.toString(),
+                citygml4jVersion : citygml4jVersion
+        ])
     }
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.5.1'
+    into('lib') {
+        from jar
+        from configurations.runtime
+    }
+    into('javadoc') {
+        from javadoc
+    }
+    into('license') {
+        from 'LICENSE'
+    }
+    into('samples') {
+        from tasks.getByPath(':noise-ade-samples:copySamples').outputs
+    }
 }
