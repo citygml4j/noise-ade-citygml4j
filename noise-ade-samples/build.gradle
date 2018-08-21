@@ -1,11 +1,15 @@
-apply plugin: 'java'
+plugins {
+    id 'java'
+}
+
 apply from: 'samples.gradle'
 
 jar.enabled false
 javadoc.enabled false
 
 dependencies {
-    compile rootProject
+    implementation rootProject
+    implementation 'org.citygml4j:citygml4j:2.7.0'
 }
 
 clean.dependsOn(cleanOutput)
