@@ -7,7 +7,7 @@ plugins {
 
 allprojects {
     group 'org.citygml4j.ade'
-    version '2.3.0-SNAPSHOT'
+    version '2.3.0'
 
     sourceCompatibility = 1.8
 
