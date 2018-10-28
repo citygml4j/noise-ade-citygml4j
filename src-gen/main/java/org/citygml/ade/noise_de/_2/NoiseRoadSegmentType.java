@@ -1,8 +1,8 @@
 //
-// Generated with ade-xjc - XML Schema binding compiler for CityGML ADEs, version 2.6.1
+// Generated with ade-xjc - XML Schema binding compiler for CityGML ADEs, version 2.8.0
 // ade-xjc is part of the citygml4j project, see https://github.com/citygml4j
 // Any modifications to this file will be lost upon recompilation of the source
-// Generated: Sun Jan 21 15:35:45 CET 2018
+// Generated: Sat Oct 27 14:43:41 CEST 2018
 //
 
 

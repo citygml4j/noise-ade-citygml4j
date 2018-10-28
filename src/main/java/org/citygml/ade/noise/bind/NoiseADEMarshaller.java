@@ -20,10 +20,6 @@
  */
 package org.citygml.ade.noise.bind;
 
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-
 import org.citygml.ade.noise.model.BuildingAppartmentsProperty;
 import org.citygml.ade.noise.model.BuildingHabitantsProperty;
 import org.citygml.ade.noise.model.BuildingImmissionPointsProperty;
@@ -63,6 +59,9 @@ import org.citygml4j.util.mapper.TypeMapper;
 import org.w3._1999.xlink.ActuateType;
 import org.w3._1999.xlink.ShowType;
 import org.w3._1999.xlink.TypeType;
+
+import javax.xml.bind.JAXBElement;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class NoiseADEMarshaller implements ADEMarshaller {
 	private final ReentrantLock lock = new ReentrantLock();

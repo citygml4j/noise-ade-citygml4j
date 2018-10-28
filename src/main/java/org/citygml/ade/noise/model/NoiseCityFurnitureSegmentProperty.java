@@ -20,11 +20,9 @@
  */
 package org.citygml.ade.noise.model;
 
-import org.citygml.ade.noise.model.module.NoiseADEModule;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.gml.feature.FeatureProperty;
-import org.citygml4j.model.module.ade.ADEModule;
 
 public class NoiseCityFurnitureSegmentProperty extends FeatureProperty<NoiseCityFurnitureSegment> implements ADEModelObject {
 
@@ -69,11 +67,6 @@ public class NoiseCityFurnitureSegmentProperty extends FeatureProperty<NoiseCity
 	public Object copyTo(Object target, CopyBuilder copyBuilder) {
 		NoiseCityFurnitureSegmentProperty copy = (target == null) ? new NoiseCityFurnitureSegmentProperty() : (NoiseCityFurnitureSegmentProperty)target;
 		return super.copyTo(copy, copyBuilder);
-	}
-	
-	@Override
-	public ADEModule getADEModule() {
-		return NoiseADEModule.v1_0;
 	}
 
 }

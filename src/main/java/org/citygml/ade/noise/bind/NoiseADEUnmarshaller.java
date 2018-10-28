@@ -20,12 +20,7 @@
  */
 package org.citygml.ade.noise.bind;
 
-import java.math.BigInteger;
-import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
-
-import javax.xml.bind.JAXBElement;
-
+import net.opengis.gml.MeasureType;
 import org.citygml.ade.noise.model.BuildingAppartmentsProperty;
 import org.citygml.ade.noise.model.BuildingHabitantsProperty;
 import org.citygml.ade.noise.model.BuildingImmissionPointsProperty;
@@ -67,7 +62,10 @@ import org.citygml4j.model.gml.xlink.XLinkType;
 import org.citygml4j.util.mapper.CheckedTypeMapper;
 import org.citygml4j.xml.io.reader.MissingADESchemaException;
 
-import net.opengis.gml.MeasureType;
+import javax.xml.bind.JAXBElement;
+import java.math.BigInteger;
+import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 	private final ReentrantLock lock = new ReentrantLock();
