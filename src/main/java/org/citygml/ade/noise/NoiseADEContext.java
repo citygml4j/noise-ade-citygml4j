@@ -41,14 +41,13 @@ import java.util.Collections;
 import java.util.List;
 
 public class NoiseADEContext implements ADEContext {
-	public static final String NAMESPACE_URI = "http://www.citygml.org/ade/noise_de/2.0";
-
+	private final List<ADEModule> modules = Collections.singletonList(NoiseADEModule.v2_0);
 	private final ADEMarshaller marshaller = new NoiseADEMarshaller();
 	private final ADEUnmarshaller unmarshaller = new NoiseADEUnmarshaller();
 	
 	@Override
 	public List<ADEModule> getADEModules() {
-		return Collections.singletonList(new NoiseADEModule());
+		return modules;
 	}
 
 	@Override

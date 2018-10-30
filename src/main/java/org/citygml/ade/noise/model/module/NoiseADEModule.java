@@ -36,11 +36,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class NoiseADEModule extends ADEModule {
+	public static final NoiseADEModule v2_0 = new NoiseADEModule();
+
 	private HashMap<String, Class<? extends AbstractFeature>> features;
 	private HashSet<String> featureProperties;
 	
-	public NoiseADEModule() {
-		super(NoiseADEContext.NAMESPACE_URI,
+	private NoiseADEModule() {
+		super("http://www.citygml.org/ade/noise_de/2.0",
 				"noise", 
 				"http://schemas.opengis.net/citygml/examples/2.0/ade/noise-ade/CityGML-NoiseADE.xsd", 
 				CityGMLVersion.v2_0_0);
