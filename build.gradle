@@ -26,7 +26,7 @@ sourceSets {
 }
 
 dependencies {
-    api 'org.citygml4j:citygml4j:2.8.1-pre.181112.1203'
+    api 'org.citygml4j:citygml4j:2.8.1'
 }
 
 jar {
