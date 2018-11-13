@@ -1,0 +1,15 @@
+#!/usr/bin/env sh
+
+##############################################################################
+##
+##  UN*X start script for converting the NoiseADE
+##
+##############################################################################
+
+OUTPUT="src-gen"
+PACKAGE="org.citygml.ade.noise_de._2"
+BINDING="binding.xjb"
+SCHEMA="CityGML-NoiseADE.xsd"
+PLUGINS="-Xnamespace-prefix"
+
+exec ../bin/ade-xjc $PLUGINS -clean -output $OUTPUT -package $PACKAGE -binding $BINDING $SCHEMA

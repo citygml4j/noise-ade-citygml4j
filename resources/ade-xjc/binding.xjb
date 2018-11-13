@@ -1,0 +1,10 @@
+<jaxb:bindings version="2.1" xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" xmlns:namespace="http://jaxb2-commons.dev.java.net/namespace-prefix"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <jaxb:bindings schemaLocation="CityGML-NoiseADE.xsd" node="/xs:schema">
+    <jaxb:bindings>
+      <namespace:prefix name="noise"/>
+    </jaxb:bindings>
+  </jaxb:bindings>
+
+</jaxb:bindings>
