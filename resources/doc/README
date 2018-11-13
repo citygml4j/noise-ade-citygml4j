@@ -65,7 +65,7 @@ module-noise-ade is part of the citygml4j project.
 5. How to use it
 ----------------
 
-Simply build a JAR file of the module-noise-ade using the build.xml ANT script.
+Simply build a JAR file of the module-noise-ade using the Gradle build script.
 
 In order to develop a NoiseADE application, put the module-noise-ade library
 together with citygml4j on your classpath. In your code, register the
