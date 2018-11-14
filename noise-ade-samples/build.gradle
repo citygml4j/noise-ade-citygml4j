@@ -9,7 +9,7 @@ javadoc.enabled false
 
 dependencies {
     implementation rootProject
-    implementation 'org.citygml4j:citygml4j:2.8.0'
+    implementation 'org.citygml4j:citygml4j:2.8.1'
 }
 
 clean.dependsOn(cleanOutput)
