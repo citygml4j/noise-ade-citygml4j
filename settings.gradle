@@ -1,2 +1,2 @@
-rootProject.name = 'module-noise-ade'
+rootProject.name = 'noise-ade-citygml4j'
 include 'noise-ade-samples'
