@@ -16,6 +16,9 @@
    "0.0": 2
   }
  },
+ "extensions": {
+  "Noise": "noise.json"
+ },
  "CityObjects": {
   "CFUR_0815": {
    "type": "CityFurniture",

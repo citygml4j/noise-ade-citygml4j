@@ -15,6 +15,9 @@
    "1.0": 1
   }
  },
+ "extensions": {
+  "Noise": "noise.json"
+ },
  "CityObjects": {
   "UUID_25a09212-22b1-4374-ae9a-8ab9c30668b1": {
    "address": {
