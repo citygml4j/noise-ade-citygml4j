@@ -1,8 +1,8 @@
 /*
- * module-noise-ade - Noise ADE module for citygml4j
+ * noise-ade-citygml4j - Noise ADE module for citygml4j
  * https://github.com/citygml4j/module-noise-ade
  *
- * module-noise-ade is part of the citygml4j project
+ * noise-ade-citygml4j is part of the citygml4j project
  *
  * Copyright 2013-2018 Claus Nagel <claus.nagel@gmail.com>
  *

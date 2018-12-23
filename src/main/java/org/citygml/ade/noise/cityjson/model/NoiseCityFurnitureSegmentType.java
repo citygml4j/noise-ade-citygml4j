@@ -18,23 +18,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.citygml.ade.noise.model;
 
-import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.model.citygml.ade.binding.ADEGenericApplicationProperty;
+package org.citygml.ade.noise.cityjson.model;
 
-public class NoiseRailwaySegmentPropertyElement extends ADEGenericApplicationProperty<NoiseRailwaySegmentProperty> {
+import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.binding.cityjson.feature.Attributes;
+import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
 
-	public NoiseRailwaySegmentPropertyElement() {
-	}
-	
-	public NoiseRailwaySegmentPropertyElement(NoiseRailwaySegmentProperty property) {
-		super(property);
-	}
-	
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new NoiseRailwaySegmentPropertyElement(), copyBuilder);
-	}
-	
+public class NoiseCityFurnitureSegmentType extends AbstractCityObjectType {
+
+    @Override
+    public Attributes newAttributes() {
+        return super.newAttributes(new NoiseCityFurnitureSegmentAttributes());
+    }
+
+    @Override
+    public NoiseCityFurnitureSegmentAttributes getAttributes() {
+        return (NoiseCityFurnitureSegmentAttributes) super.getAttributes();
+    }
+
+    @Override
+    public boolean isValidGeometryType(GeometryTypeName type) {
+        return type == GeometryTypeName.MULTI_LINE_STRING;
+    }
 }

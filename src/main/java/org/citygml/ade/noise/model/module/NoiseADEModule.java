@@ -1,8 +1,8 @@
 /*
- * module-noise-ade - Noise ADE module for citygml4j
+ * noise-ade-citygml4j - Noise ADE module for citygml4j
  * https://github.com/citygml4j/module-noise-ade
  *
- * module-noise-ade is part of the citygml4j project
+ * noise-ade-citygml4j is part of the citygml4j project
  *
  * Copyright 2013-2018 Claus Nagel <claus.nagel@gmail.com>
  *
@@ -64,7 +64,7 @@ public class NoiseADEModule extends ADEModule {
 	
 	@Override
 	public URL getSchemaResource() {
-		return NoiseADEContext.class.getResource("/org/citygml/ade/noise/schema/CityGML-NoiseADE.xsd");
+		return NoiseADEContext.class.getResource("/org/citygml/ade/noise/schema/xml/CityGML-NoiseADE.xsd");
 	}
 	
 	@Override

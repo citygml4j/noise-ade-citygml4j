@@ -1,0 +1,449 @@
+/*
+ * noise-ade-citygml4j - Noise ADE module for citygml4j
+ * https://github.com/citygml4j/module-noise-ade
+ *
+ * noise-ade-citygml4j is part of the citygml4j project
+ *
+ * Copyright 2013-2018 Claus Nagel <claus.nagel@gmail.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package org.citygml.ade.noise.cityjson.bind;
+
+import org.citygml.ade.noise.cityjson.model.MeasureType;
+import org.citygml.ade.noise.cityjson.model.NoiseCityFurnitureSegmentAttributes;
+import org.citygml.ade.noise.cityjson.model.NoiseCityFurnitureSegmentType;
+import org.citygml.ade.noise.cityjson.model.NoiseRailwaySegmentAttributes;
+import org.citygml.ade.noise.cityjson.model.NoiseRailwaySegmentType;
+import org.citygml.ade.noise.cityjson.model.NoiseRoadSegmentAttributes;
+import org.citygml.ade.noise.cityjson.model.NoiseRoadSegmentType;
+import org.citygml.ade.noise.cityjson.model.TrainType;
+import org.citygml.ade.noise.model.BuildingAppartmentsProperty;
+import org.citygml.ade.noise.model.BuildingHabitantsProperty;
+import org.citygml.ade.noise.model.BuildingImmissionPointsProperty;
+import org.citygml.ade.noise.model.BuildingLDenEqProperty;
+import org.citygml.ade.noise.model.BuildingLDenMaxProperty;
+import org.citygml.ade.noise.model.BuildingLDenMinProperty;
+import org.citygml.ade.noise.model.BuildingLNightEqProperty;
+import org.citygml.ade.noise.model.BuildingLNightMaxProperty;
+import org.citygml.ade.noise.model.BuildingLNightMinProperty;
+import org.citygml.ade.noise.model.BuildingReflectionCorrectionProperty;
+import org.citygml.ade.noise.model.BuildingReflectionProperty;
+import org.citygml.ade.noise.model.NoiseCityFurnitureSegment;
+import org.citygml.ade.noise.model.NoiseCityFurnitureSegmentProperty;
+import org.citygml.ade.noise.model.NoiseCityFurnitureSegmentPropertyElement;
+import org.citygml.ade.noise.model.NoiseRailwaySegment;
+import org.citygml.ade.noise.model.NoiseRailwaySegmentProperty;
+import org.citygml.ade.noise.model.NoiseRailwaySegmentPropertyElement;
+import org.citygml.ade.noise.model.NoiseRoadSegment;
+import org.citygml.ade.noise.model.NoiseRoadSegmentProperty;
+import org.citygml.ade.noise.model.NoiseRoadSegmentPropertyElement;
+import org.citygml.ade.noise.model.RemarkProperty;
+import org.citygml.ade.noise.model.Train;
+import org.citygml.ade.noise.model.TrainProperty;
+import org.citygml4j.binding.cityjson.CityJSON;
+import org.citygml4j.binding.cityjson.extension.CityJSONExtensionUnmarshaller;
+import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
+import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
+import org.citygml4j.binding.cityjson.geometry.MultiLineStringType;
+import org.citygml4j.binding.cityjson.geometry.SemanticsType;
+import org.citygml4j.builder.cityjson.unmarshal.citygml.ade.ADEUnmarshallerHelper;
+import org.citygml4j.model.citygml.ade.ADEComponent;
+import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
+import org.citygml4j.model.citygml.building.AbstractBuilding;
+import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
+import org.citygml4j.model.citygml.core.AbstractCityObject;
+import org.citygml4j.model.citygml.transportation.Railway;
+import org.citygml4j.model.citygml.transportation.Road;
+import org.citygml4j.model.gml.basicTypes.Code;
+import org.citygml4j.model.gml.basicTypes.Measure;
+import org.citygml4j.model.gml.feature.AbstractFeature;
+import org.citygml4j.model.gml.geometry.primitives.AbstractCurve;
+import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
+import org.citygml4j.model.gml.geometry.primitives.CurveProperty;
+import org.citygml4j.model.gml.measures.Length;
+import org.citygml4j.model.gml.measures.Speed;
+
+import java.math.BigInteger;
+import java.util.List;
+import java.util.Map;
+
+public class NoiseExtensionUnmarshaller implements CityJSONExtensionUnmarshaller {
+    private ADEUnmarshallerHelper helper;
+
+    @Override
+    public void setADEUnmarshallerHelper(ADEUnmarshallerHelper helper) {
+        this.helper = helper;
+    }
+
+    @Override
+    public AbstractFeature unmarshalCityObject(AbstractCityObjectType src, CityJSON cityJSON, AbstractFeature parent) {
+        AbstractFeature feature = null;
+
+        if (src instanceof NoiseCityFurnitureSegmentType)
+            feature = unmarshalNoiseCityFurnitureSegment((NoiseCityFurnitureSegmentType) src, cityJSON, parent);
+        else if (src instanceof NoiseRoadSegmentType)
+            feature = unmarshalNoiseRoadSegment((NoiseRoadSegmentType) src, cityJSON, parent);
+        else if (src instanceof NoiseRailwaySegmentType)
+            feature = unmarshalNoiseRailwaySegment((NoiseRailwaySegmentType) src, cityJSON, parent);
+
+        return feature;
+    }
+
+    @Override
+    public AbstractCityObject unmarshalSemanticSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, AbstractCityObject parent) {
+        return null;
+    }
+
+    @Override
+    public boolean assignSemanticSurface(AbstractCityObject semanticSurface, Number lod, ADEModelObject parent) {
+        return false;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public void unmarshalExtensionAttribute(String name, Object value, CityJSON cityJSON, AbstractCityObject parent) {
+        if (parent instanceof AbstractBuilding) {
+            ADEComponent property = null;
+            switch (name) {
+                case "+noise-buildingReflection":
+                    property = new BuildingReflectionProperty((String) value);
+                    break;
+                case "+noise-buildingReflectionCorrection": {
+                    Measure measure = unmarshalMeasure((MeasureType) value);
+                    if (measure != null)
+                        property = new BuildingReflectionCorrectionProperty(measure);
+                    break;
+                }
+                case "+noise-buildingLDenMax": {
+                    Measure measure = unmarshalMeasure((MeasureType) value);
+                    if (measure != null)
+                        property = new BuildingLDenMaxProperty(measure);
+                    break;
+                }
+                case "+noise-buildingLDenMin": {
+                    Measure measure = unmarshalMeasure((MeasureType) value);
+                    if (measure != null)
+                        property = new BuildingLDenMinProperty(measure);
+                    break;
+                }
+                case "+noise-buildingLDenEq": {
+                    Measure measure = unmarshalMeasure((MeasureType) value);
+                    if (measure != null)
+                        property = new BuildingLDenEqProperty(measure);
+                    break;
+                }
+                case "+noise-buildingLNightMax": {
+                    Measure measure = unmarshalMeasure((MeasureType) value);
+                    if (measure != null)
+                        property = new BuildingLNightMaxProperty(measure);
+                    break;
+                }
+                case "+noise-buildingLNightMin": {
+                    Measure measure = unmarshalMeasure((MeasureType) value);
+                    if (measure != null)
+                        property = new BuildingLNightMinProperty(measure);
+                    break;
+                }
+                case "+noise-buildingLNightEq": {
+                    Measure measure = unmarshalMeasure((MeasureType) value);
+                    if (measure != null)
+                        property = new BuildingLNightEqProperty(measure);
+                    break;
+                }
+                case "+noise-buildingHabitants":
+                    property = new BuildingHabitantsProperty(BigInteger.valueOf((Integer) value));
+                    break;
+                case "+noise-buildingAppartments":
+                    property = new BuildingAppartmentsProperty(BigInteger.valueOf((Integer) value));
+                    break;
+                case "+noise-buildingImmissionPoints":
+                    property = new BuildingImmissionPointsProperty((List<BigInteger>) value);
+                    break;
+                case "+noise-remark":
+                    property = new RemarkProperty((String) value);
+                    break;
+            }
+
+            if (property != null)
+                ((AbstractBuilding) parent).addGenericApplicationPropertyOfAbstractBuilding(property);
+        }
+    }
+
+    private NoiseCityFurnitureSegment unmarshalNoiseCityFurnitureSegment(NoiseCityFurnitureSegmentType src, CityJSON cityJSON, AbstractFeature parent) {
+        NoiseCityFurnitureSegment dest = new NoiseCityFurnitureSegment();
+        helper.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
+
+        NoiseCityFurnitureSegmentAttributes attributes = src.getAttributes();
+        if (attributes.isSetType())
+            dest.setType(new Code(attributes.getType()));
+
+        if (attributes.isSetReflection())
+            dest.setReflection(attributes.getReflection());
+
+        if (attributes.isSetReflectionCorrection())
+            dest.setReflectionCorrection(unmarshalMeasure(attributes.getReflectionCorrection()));
+
+        if (attributes.isSetHeight())
+            dest.setHeight(unmarshalLength(attributes.getHeight()));
+
+        if (attributes.isSetDistance())
+            dest.setDistance(unmarshalLength(attributes.getDistance()));
+
+        for (AbstractGeometryType geometryType : src.getGeometry()) {
+            if (geometryType.getType() == GeometryTypeName.MULTI_LINE_STRING) {
+                MultiLineStringType multiLineString = (MultiLineStringType) geometryType;
+                if (multiLineString.isSetLod() && multiLineString.getLod().intValue() != 0)
+                    continue;
+
+                AbstractCurve baseLine = helper.getGMLUnmarshaller().unmarshalCurve((MultiLineStringType) geometryType);
+                if (baseLine != null)
+                    dest.setLod0BaseLine(new CurveProperty(baseLine));
+            }
+        }
+
+        if (parent instanceof CityFurniture) {
+            NoiseCityFurnitureSegmentProperty property = new NoiseCityFurnitureSegmentProperty(dest);
+            ((CityFurniture) parent).addGenericApplicationPropertyOfCityFurniture(new NoiseCityFurnitureSegmentPropertyElement(property));
+        }
+
+        return dest;
+    }
+
+    private NoiseRoadSegment unmarshalNoiseRoadSegment(NoiseRoadSegmentType src, CityJSON cityJSON, AbstractFeature parent) {
+        NoiseRoadSegment dest = new NoiseRoadSegment();
+        helper.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
+
+        NoiseRoadSegmentAttributes attributes = src.getAttributes();
+        if (attributes.isSetMDay())
+            dest.setMDay(unmarshalMeasure(attributes.getMDay()));
+
+        if (attributes.isSetMEvening())
+            dest.setMEvening(unmarshalMeasure(attributes.getMEvening()));
+
+        if (attributes.isSetMNight())
+            dest.setMNight(unmarshalMeasure(attributes.getMNight()));
+
+        if (attributes.isSetMDay16())
+            dest.setMDay16(unmarshalMeasure(attributes.getMDay16()));
+
+        if (attributes.isSetPDay())
+            dest.setPDay(unmarshalMeasure(attributes.getPDay()));
+
+        if (attributes.isSetPEvening())
+            dest.setPEvening(unmarshalMeasure(attributes.getPEvening()));
+
+        if (attributes.isSetPNight())
+            dest.setPNight(unmarshalMeasure(attributes.getPNight()));
+
+        if (attributes.isSetPDay16())
+            dest.setPDay16(unmarshalMeasure(attributes.getPDay16()));
+
+        if (attributes.isSetDtv())
+            dest.setDtv(unmarshalMeasure(attributes.getDtv()));
+
+        if (attributes.isSetSpeedDayPkw())
+            dest.setSpeedDayPkw(unmarshalSpeed(attributes.getSpeedDayPkw()));
+
+        if (attributes.isSetSpeedEveningPkw())
+            dest.setSpeedEveningPkw(unmarshalSpeed(attributes.getSpeedEveningPkw()));
+
+        if (attributes.isSetSpeedNightPkw())
+            dest.setSpeedNightPkw(unmarshalSpeed(attributes.getSpeedNightPkw()));
+
+        if (attributes.isSetSpeedDayLkw())
+            dest.setSpeedDayLkw(unmarshalSpeed(attributes.getSpeedDayLkw()));
+
+        if (attributes.isSetSpeedEveningLkw())
+            dest.setSpeedEveningLkw(unmarshalSpeed(attributes.getSpeedEveningLkw()));
+
+        if (attributes.isSetSpeedNightLkw())
+            dest.setSpeedNightLkw(unmarshalSpeed(attributes.getSpeedNightLkw()));
+
+        if (attributes.isSetRoadSurfaceMaterial())
+            dest.setRoadSurfaceMaterial(attributes.getRoadSurfaceMaterial());
+
+        if (attributes.isSetRoadSurfaceCorrection())
+            dest.setRoadSurfaceCorrection(unmarshalMeasure(attributes.getRoadSurfaceCorrection()));
+
+        if (attributes.isSetDistanceCarriageway())
+            dest.setDistanceCarriageway(unmarshalLength(attributes.getDistanceCarriageway()));
+
+        if (attributes.isSetDistanceD())
+            dest.setDistanceD(unmarshalLength(attributes.getDistanceD()));
+
+        if (attributes.isSetBridge())
+            dest.setBridge(attributes.getBridge());
+
+        if (attributes.isSetTunnel())
+            dest.setTunnel(attributes.getTunnel());
+
+        if (attributes.isSetRoadGradientPercent())
+            dest.setRoadGradientPercent(unmarshalMeasure(attributes.getRoadGradientPercent()));
+
+        if (attributes.isSetLineage())
+            dest.setLineage(attributes.getLineage());
+
+        for (AbstractGeometryType geometryType : src.getGeometry()) {
+            if (geometryType.getType() == GeometryTypeName.MULTI_LINE_STRING) {
+                MultiLineStringType multiLineString = (MultiLineStringType) geometryType;
+                if (multiLineString.isSetLod() && multiLineString.getLod().intValue() != 0)
+                    continue;
+
+                AbstractCurve baseLine = helper.getGMLUnmarshaller().unmarshalCurve((MultiLineStringType) geometryType);
+                if (baseLine != null)
+                    dest.setLod0BaseLine(new CurveProperty(baseLine));
+            }
+        }
+
+        if (parent instanceof Road) {
+            NoiseRoadSegmentProperty property = new NoiseRoadSegmentProperty(dest);
+            ((Road) parent).addGenericApplicationPropertyOfRoad(new NoiseRoadSegmentPropertyElement(property));
+        }
+
+        return dest;
+    }
+
+    private NoiseRailwaySegment unmarshalNoiseRailwaySegment(NoiseRailwaySegmentType src, CityJSON cityJSON, AbstractFeature parent) {
+        NoiseRailwaySegment dest = new NoiseRailwaySegment();
+        helper.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
+
+        NoiseRailwaySegmentAttributes attributes = src.getAttributes();
+        if (attributes.isSetRailwaySurfaceMaterial())
+            dest.setRailwaySurfaceMaterial(attributes.getRailwaySurfaceMaterial());
+
+        if (attributes.isSetRailwaySurfaceCorrection())
+            dest.setRailwaySurfaceCorrection(unmarshalMeasure(attributes.getRailwaySurfaceCorrection()));
+
+        if (attributes.isSetBridge())
+            dest.setBridge(attributes.getBridge());
+
+        if (attributes.isSetCrossing())
+            dest.setCrossing(attributes.getCrossing());
+
+        if (attributes.isSetCurveRadius())
+            dest.setCurveRadius(unmarshalLength(attributes.getCurveRadius()));
+
+        if (attributes.isSetAdditionalCorrectionSegment())
+            dest.setAdditionalCorrectionSegment(unmarshalMeasure(attributes.getAdditionalCorrectionSegment()));
+
+        if (src.isSetTrains()) {
+            for (Map.Entry<String, TrainType> entry : src.getTrains().entrySet()) {
+                Train train = unmarshalTrain(entry.getValue());
+                train.setId(entry.getKey());
+                dest.addUsedBy(new TrainProperty(train));
+            }
+        }
+
+        for (AbstractGeometryType geometryType : src.getGeometry()) {
+            if (geometryType.getType() == GeometryTypeName.MULTI_LINE_STRING) {
+                MultiLineStringType multiLineString = (MultiLineStringType) geometryType;
+                if (multiLineString.isSetLod() && multiLineString.getLod().intValue() != 0)
+                    continue;
+
+                AbstractCurve baseLine = helper.getGMLUnmarshaller().unmarshalCurve((MultiLineStringType) geometryType);
+                if (baseLine != null)
+                    dest.setLod0BaseLine(new CurveProperty(baseLine));
+            }
+        }
+
+        if (parent instanceof Railway) {
+            NoiseRailwaySegmentProperty property = new NoiseRailwaySegmentProperty(dest);
+            ((Railway) parent).addGenericApplicationPropertyOfRailway(new NoiseRailwaySegmentPropertyElement(property));
+        }
+
+        return dest;
+    }
+
+    private Train unmarshalTrain(TrainType src) {
+        Train dest = new Train();
+
+        if (src.isSetTrainType())
+            dest.setTrainType(src.getTrainType());
+
+        if (src.isSetTrainTypeCorrection())
+            dest.setTrainTypeCorrection(unmarshalMeasure(src.getTrainTypeCorrection()));
+
+        if (src.isSetBrakePortionDay())
+            dest.setBrakePortionDay(unmarshalMeasure(src.getBrakePortionDay()));
+
+        if (src.isSetBrakePortionEvening())
+            dest.setBrakePortionEvening(unmarshalMeasure(src.getBrakePortionEvening()));
+
+        if (src.isSetBrakePortionNight())
+            dest.setBrakePortionNight(unmarshalMeasure(src.getBrakePortionNight()));
+
+        if (src.isSetLengthDay())
+            dest.setLengthDay(unmarshalLength(src.getLengthDay()));
+
+        if (src.isSetLengthEvening())
+            dest.setLengthEvening(unmarshalLength(src.getLengthEvening()));
+
+        if (src.isSetLengthNight())
+            dest.setLengthNight(unmarshalLength(src.getLengthNight()));
+
+        if (src.isSetSpeedDay())
+            dest.setSpeedDay(unmarshalSpeed(src.getSpeedDay()));
+
+        if (src.isSetSpeedEvening())
+            dest.setSpeedEvening(unmarshalSpeed(src.getSpeedEvening()));
+
+        if (src.isSetSpeedNight())
+            dest.setSpeedNight(unmarshalSpeed(src.getSpeedNight()));
+
+        if (src.isSetAdditionalCorrectionTrain())
+            dest.setAdditionalCorrectionTrain(unmarshalMeasure(src.getAdditionalCorrectionTrain()));
+
+        return dest;
+    }
+
+    private void unmarshalMeasure(MeasureType src, Measure dest) {
+        dest.setValue(src.getValue());
+        dest.setUom(src.getUom());
+    }
+
+    private Measure unmarshalMeasure(MeasureType src) {
+        Measure dest = null;
+
+        if (src.isSetValue()) {
+            dest = new Measure();
+            unmarshalMeasure(src, dest);
+        }
+
+        return dest;
+    }
+
+    private Length unmarshalLength(MeasureType src) {
+        Length dest = null;
+
+        if (src.isSetValue()) {
+            dest = new Length();
+            unmarshalMeasure(src, dest);
+        }
+
+        return dest;
+    }
+
+    private Speed unmarshalSpeed(MeasureType src) {
+        Speed dest = null;
+
+        if (src.isSetValue()) {
+            dest = new Speed();
+            unmarshalMeasure(src, dest);
+        }
+
+        return dest;
+    }
+}

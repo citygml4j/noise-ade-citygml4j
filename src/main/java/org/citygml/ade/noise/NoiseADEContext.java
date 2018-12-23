@@ -1,8 +1,8 @@
 /*
- * module-noise-ade - Noise ADE module for citygml4j
+ * noise-ade-citygml4j - Noise ADE module for citygml4j
  * https://github.com/citygml4j/module-noise-ade
  *
- * module-noise-ade is part of the citygml4j project
+ * noise-ade-citygml4j is part of the citygml4j project
  *
  * Copyright 2013-2018 Claus Nagel <claus.nagel@gmail.com>
  *
@@ -22,11 +22,14 @@ package org.citygml.ade.noise;
 
 import org.citygml.ade.noise.bind.NoiseADEMarshaller;
 import org.citygml.ade.noise.bind.NoiseADEUnmarshaller;
+import org.citygml.ade.noise.cityjson.NoiseExtension;
 import org.citygml.ade.noise.model.module.NoiseADEModule;
 import org.citygml.ade.noise.walker.NoiseADEFeatureFunctionWalker;
 import org.citygml.ade.noise.walker.NoiseADEFeatureWalker;
 import org.citygml.ade.noise.walker.NoiseADEGMLFunctionWalker;
 import org.citygml.ade.noise.walker.NoiseADEGMLWalker;
+import org.citygml4j.binding.cityjson.extension.CityJSONExtension;
+import org.citygml4j.binding.cityjson.extension.CityJSONExtensionContext;
 import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.citygml.ade.binding.ADEMarshaller;
 import org.citygml4j.model.citygml.ade.binding.ADEUnmarshaller;
@@ -40,10 +43,9 @@ import org.citygml4j.util.walker.GMLWalker;
 import java.util.Collections;
 import java.util.List;
 
-public class NoiseADEContext implements ADEContext {
+public class NoiseADEContext implements ADEContext, CityJSONExtensionContext {
 	private final List<ADEModule> modules = Collections.singletonList(NoiseADEModule.v2_0);
-	private final ADEMarshaller marshaller = new NoiseADEMarshaller();
-	private final ADEUnmarshaller unmarshaller = new NoiseADEUnmarshaller();
+	private final CityJSONExtension extension = new NoiseExtension();
 	
 	@Override
 	public List<ADEModule> getADEModules() {
@@ -61,13 +63,13 @@ public class NoiseADEContext implements ADEContext {
 	}
 
 	@Override
-	public ADEMarshaller getADEMarshaller() {
-		return marshaller;
+	public ADEMarshaller createADEMarshaller() {
+		return new NoiseADEMarshaller();
 	}
 
 	@Override
-	public ADEUnmarshaller getADEUnmarshaller() {
-		return unmarshaller;
+	public ADEUnmarshaller createADEUnmarshaller() {
+		return new NoiseADEUnmarshaller();
 	}
 
 	@Override
@@ -90,4 +92,8 @@ public class NoiseADEContext implements ADEContext {
 		return new NoiseADEGMLFunctionWalker<>();
 	}
 
+	@Override
+	public CityJSONExtension getCityJSONExtension() {
+		return extension;
+	}
 }

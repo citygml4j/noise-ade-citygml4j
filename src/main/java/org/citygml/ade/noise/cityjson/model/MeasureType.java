@@ -18,23 +18,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.citygml.ade.noise.model;
 
-import org.citygml4j.builder.copy.CopyBuilder;
-import org.citygml4j.model.citygml.ade.binding.ADEGenericApplicationProperty;
+package org.citygml.ade.noise.cityjson.model;
 
-public class NoiseRailwaySegmentPropertyElement extends ADEGenericApplicationProperty<NoiseRailwaySegmentProperty> {
+public class MeasureType {
+    private Double value;
+    private String uom;
 
-	public NoiseRailwaySegmentPropertyElement() {
-	}
-	
-	public NoiseRailwaySegmentPropertyElement(NoiseRailwaySegmentProperty property) {
-		super(property);
-	}
-	
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new NoiseRailwaySegmentPropertyElement(), copyBuilder);
-	}
-	
+    public boolean isSetValue() {
+        return value != null;
+    }
+
+    public Double getValue() {
+        return value;
+    }
+
+    public void setValue(Double value) {
+        this.value = value;
+    }
+
+    public String getUom() {
+        return uom;
+    }
+
+    public void setUom(String uom) {
+        this.uom = uom;
+    }
 }

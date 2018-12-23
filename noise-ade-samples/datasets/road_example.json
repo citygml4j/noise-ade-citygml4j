@@ -1,0 +1,307 @@
+{
+ "type": "CityJSON",
+ "version": "0.9",
+ "metadata": {
+  "referenceSystem": "urn:ogc:def:crs:EPSG::31466",
+  "geographicalExtent": [
+   2524175.0,
+   5707327.0,
+   188.0,
+   2524185.0,
+   5707338.0,
+   188.0
+  ],
+  "presentLoDs": {
+   "0.0": 3
+  }
+ },
+ "extensions": {
+  "Noise": "noise.json"
+ },
+ "CityObjects": {
+  "CNRS_0816": {
+   "type": "+NoiseRoadSegment",
+   "attributes": {
+    "mDay": {
+     "value": 2564.123,
+     "uom": "kfzph"
+    },
+    "mEvening": {
+     "value": 145.123,
+     "uom": "kfzph"
+    },
+    "mNight": {
+     "value": 1231.123,
+     "uom": "kfzph"
+    },
+    "mDay16": {
+     "value": 2010.123,
+     "uom": "kfzph"
+    },
+    "pDay": {
+     "value": 25.123,
+     "uom": "percent"
+    },
+    "pEvening": {
+     "value": 35.123,
+     "uom": "percent"
+    },
+    "pNight": {
+     "value": 45.123,
+     "uom": "percent"
+    },
+    "pDay16": {
+     "value": 30.123,
+     "uom": "percent"
+    },
+    "dtv": {
+     "value": 20564.123,
+     "uom": "kfzp24h"
+    },
+    "speedDayPkw": {
+     "value": 130.123,
+     "uom": "kmph"
+    },
+    "speedEveningPkw": {
+     "value": 100.123,
+     "uom": "kmph"
+    },
+    "speedNightPkw": {
+     "value": 50.123,
+     "uom": "kmph"
+    },
+    "speedDayLkw": {
+     "value": 80.123,
+     "uom": "kmph"
+    },
+    "speedEveningLkw": {
+     "value": 80.123,
+     "uom": "kmph"
+    },
+    "speedNightLkw": {
+     "value": 50.123,
+     "uom": "kmph"
+    },
+    "roadSurfaceMaterial": "Pflaster mit ebener Oberfläche",
+    "roadSurfaceCorrection": {
+     "value": 2.123,
+     "uom": "dB"
+    },
+    "distanceCarriageway": {
+     "value": 15.123,
+     "uom": "m"
+    },
+    "distanceD": {
+     "value": 10.123,
+     "uom": "m"
+    },
+    "bridge": true,
+    "tunnel": false,
+    "roadGradientPercent": {
+     "value": 5.245,
+     "uom": "percent"
+    },
+    "lineage": "ATKIS und StraßenNRW-Daten",
+    "Entstehung": "Digitalisierung",
+    "Aktualisierung": "jährlich"
+   },
+   "geographicalExtent": [
+    2523800.0,
+    5705800.0,
+    140.4,
+    2526200.0,
+    5708200.0,
+    252.6
+   ],
+   "parent": "CR_0815",
+   "geometry": [
+    {
+     "type": "MultiLineString",
+     "boundaries": [
+      [
+       0,
+       1,
+       2,
+       3
+      ]
+     ],
+     "lod": 0
+    }
+   ]
+  },
+  "CNRS_0815": {
+   "type": "+NoiseRoadSegment",
+   "attributes": {
+    "mDay": {
+     "value": 2564.123,
+     "uom": "kfzph"
+    },
+    "mEvening": {
+     "value": 145.123,
+     "uom": "kfzph"
+    },
+    "mNight": {
+     "value": 1231.123,
+     "uom": "kfzph"
+    },
+    "mDay16": {
+     "value": 2010.123,
+     "uom": "kfzph"
+    },
+    "pDay": {
+     "value": 25.123,
+     "uom": "percent"
+    },
+    "pEvening": {
+     "value": 35.123,
+     "uom": "percent"
+    },
+    "pNight": {
+     "value": 45.123,
+     "uom": "percent"
+    },
+    "pDay16": {
+     "value": 30.123,
+     "uom": "percent"
+    },
+    "dtv": {
+     "value": 20564.123,
+     "uom": "kfzp24h"
+    },
+    "speedDayPkw": {
+     "value": 130.123,
+     "uom": "kmph"
+    },
+    "speedEveningPkw": {
+     "value": 100.123,
+     "uom": "kmph"
+    },
+    "speedNightPkw": {
+     "value": 50.123,
+     "uom": "kmph"
+    },
+    "speedDayLkw": {
+     "value": 80.123,
+     "uom": "kmph"
+    },
+    "speedEveningLkw": {
+     "value": 80.123,
+     "uom": "kmph"
+    },
+    "speedNightLkw": {
+     "value": 50.123,
+     "uom": "kmph"
+    },
+    "roadSurfaceMaterial": "Pflaster mit ebener Oberfläche",
+    "roadSurfaceCorrection": {
+     "value": 2.123,
+     "uom": "dB"
+    },
+    "distanceCarriageway": {
+     "value": 15.123,
+     "uom": "m"
+    },
+    "distanceD": {
+     "value": 10.123,
+     "uom": "m"
+    },
+    "bridge": true,
+    "tunnel": false,
+    "roadGradientPercent": {
+     "value": 5.245,
+     "uom": "percent"
+    },
+    "lineage": "ATKIS und StraßenNRW-Daten",
+    "creationDate": "1967-08-13",
+    "terminationDate": "1967-08-13",
+    "Entstehung": "Digitalisierung",
+    "Aktualisierung": "jährlich"
+   },
+   "geographicalExtent": [
+    2523800.0,
+    5705800.0,
+    140.4,
+    2526200.0,
+    5708200.0,
+    252.6
+   ],
+   "parent": "CR_0815",
+   "geometry": [
+    {
+     "type": "MultiLineString",
+     "boundaries": [
+      [
+       0,
+       1,
+       2,
+       3
+      ]
+     ],
+     "lod": 0
+    }
+   ]
+  },
+  "CR_0815": {
+   "type": "Road",
+   "attributes": {
+    "creationDate": "1967-08-13",
+    "terminationDate": "1967-08-13",
+    "function": "B1303"
+   },
+   "geographicalExtent": [
+    2523800.0,
+    5705800.0,
+    140.4,
+    2526200.0,
+    5708200.0,
+    252.6
+   ],
+   "children": [
+    "CNRS_0816",
+    "CNRS_0815"
+   ],
+   "geometry": [
+    {
+     "type": "MultiLineString",
+     "boundaries": [
+      [
+       0,
+       1,
+       2,
+       3
+      ],
+      [
+       0,
+       1,
+       2,
+       3
+      ]
+     ],
+     "lod": 0
+    }
+   ]
+  }
+ },
+ "vertices": [
+  [
+   2524175.0,
+   5707335.0,
+   188.0
+  ],
+  [
+   2524181.0,
+   5707338.0,
+   188.0
+  ],
+  [
+   2524185.0,
+   5707330.0,
+   188.0
+  ],
+  [
+   2524179.0,
+   5707327.0,
+   188.0
+  ]
+ ]
+}

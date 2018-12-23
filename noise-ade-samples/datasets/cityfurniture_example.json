@@ -1,0 +1,245 @@
+{
+ "type": "CityJSON",
+ "version": "0.9",
+ "metadata": {
+  "referenceSystem": "urn:ogc:def:crs:EPSG::31466",
+  "geographicalExtent": [
+   2524175.0,
+   5707327.0,
+   188.0,
+   2524185.659,
+   5707338.286,
+   192.61
+  ],
+  "presentLoDs": {
+   "1.0": 1,
+   "0.0": 2
+  }
+ },
+ "CityObjects": {
+  "CFUR_0815": {
+   "type": "CityFurniture",
+   "attributes": {
+    "function": "1520"
+   },
+   "geographicalExtent": [
+    2523800.0,
+    5705800.0,
+    140.4,
+    2526200.0,
+    5708200.0,
+    252.6
+   ],
+   "children": [
+    "CFRS_4711",
+    "CFRS_0815"
+   ],
+   "geometry": [
+    {
+     "type": "Solid",
+     "boundaries": [
+      [
+       [
+        [
+         4,
+         5,
+         6,
+         7
+        ]
+       ],
+       [
+        [
+         8,
+         9,
+         10,
+         11
+        ]
+       ],
+       [
+        [
+         4,
+         8,
+         11,
+         5
+        ]
+       ],
+       [
+        [
+         5,
+         11,
+         10,
+         6
+        ]
+       ],
+       [
+        [
+         6,
+         10,
+         9,
+         7
+        ]
+       ],
+       [
+        [
+         7,
+         9,
+         8,
+         4
+        ]
+       ]
+      ]
+     ],
+     "lod": 1
+    }
+   ]
+  },
+  "CFRS_4711": {
+   "type": "+NoiseCityFurnitureSegment",
+   "attributes": {
+    "type": "2",
+    "reflection": "absorbierende Lärmschutzwand",
+    "reflectionCorrection": {
+     "value": 4.123,
+     "uom": "dB"
+    },
+    "height": {
+     "value": 7.123,
+     "uom": "m"
+    },
+    "distance": {
+     "value": 21.123,
+     "uom": "m"
+    }
+   },
+   "geographicalExtent": [
+    2523800.0,
+    5705800.0,
+    140.4,
+    2526200.0,
+    5708200.0,
+    252.6
+   ],
+   "parent": "CFUR_0815",
+   "geometry": [
+    {
+     "type": "MultiLineString",
+     "boundaries": [
+      [
+       0,
+       1,
+       2,
+       3
+      ]
+     ],
+     "lod": 0
+    }
+   ]
+  },
+  "CFRS_0815": {
+   "type": "+NoiseCityFurnitureSegment",
+   "attributes": {
+    "type": "1",
+    "reflection": "absorbierende Lärmschutzwand",
+    "reflectionCorrection": {
+     "value": 4.123,
+     "uom": "dB"
+    },
+    "height": {
+     "value": 7.123,
+     "uom": "m"
+    },
+    "distance": {
+     "value": 21.123,
+     "uom": "m"
+    },
+    "creationDate": "1967-08-13",
+    "terminationDate": "1967-08-13"
+   },
+   "geographicalExtent": [
+    2523800.0,
+    5705800.0,
+    140.4,
+    2526200.0,
+    5708200.0,
+    252.6
+   ],
+   "parent": "CFUR_0815",
+   "geometry": [
+    {
+     "type": "MultiLineString",
+     "boundaries": [
+      [
+       0,
+       1,
+       2,
+       3
+      ]
+     ],
+     "lod": 0
+    }
+   ]
+  }
+ },
+ "vertices": [
+  [
+   2524175.0,
+   5707335.0,
+   188.0
+  ],
+  [
+   2524181.0,
+   5707338.0,
+   188.0
+  ],
+  [
+   2524185.0,
+   5707330.0,
+   188.0
+  ],
+  [
+   2524179.0,
+   5707327.0,
+   188.0
+  ],
+  [
+   2524175.154,
+   5707335.098,
+   188.215
+  ],
+  [
+   2524181.766,
+   5707338.286,
+   188.215
+  ],
+  [
+   2524185.659,
+   5707330.224,
+   188.215
+  ],
+  [
+   2524179.025,
+   5707327.025,
+   188.215
+  ],
+  [
+   2524175.154,
+   5707335.098,
+   192.61
+  ],
+  [
+   2524179.025,
+   5707327.025,
+   192.61
+  ],
+  [
+   2524185.659,
+   5707330.224,
+   192.61
+  ],
+  [
+   2524181.766,
+   5707338.286,
+   192.61
+  ]
+ ]
+}
