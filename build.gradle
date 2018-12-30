@@ -7,18 +7,18 @@ plugins {
 
 allprojects {
     group 'org.citygml4j.ade'
-    version '2.3.1'
+    version '2.4.0-SNAPHOST'
 
     sourceCompatibility = 1.8
+
+    ext {
+        citygml4jVersion = '2.8.0'
+        date = new Date()
+    }
 
     repositories {
         jcenter()
     }
-}
-
-ext {
-    citygml4jVersion = '2.8.0'
-    date = new Date()
 }
 
 sourceSets {
@@ -26,7 +26,7 @@ sourceSets {
 }
 
 dependencies {
-    api 'org.citygml4j:citygml4j:2.8.1'
+    api "org.citygml4j:citygml4j:$citygml4jVersion"
 }
 
 jar {
