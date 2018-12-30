@@ -52,8 +52,10 @@ import org.citygml.ade.noise.model.NoiseRoadSegmentPropertyElement;
 import org.citygml.ade.noise.model.RemarkProperty;
 import org.citygml.ade.noise.model.Train;
 import org.citygml.ade.noise.model.TrainProperty;
-import org.citygml4j.binding.cityjson.CityJSON;
 import org.citygml4j.binding.cityjson.extension.CityJSONExtensionUnmarshaller;
+import org.citygml4j.binding.cityjson.extension.CityObjectContext;
+import org.citygml4j.binding.cityjson.extension.ExtensionAttributeContext;
+import org.citygml4j.binding.cityjson.extension.SemanticSurfaceContext;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
 import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
@@ -61,7 +63,6 @@ import org.citygml4j.binding.cityjson.geometry.MultiLineStringType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.unmarshal.citygml.ade.ADEUnmarshallerHelper;
 import org.citygml4j.model.citygml.ade.ADEComponent;
-import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.building.AbstractBuilding;
 import org.citygml4j.model.citygml.cityfurniture.CityFurniture;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
@@ -71,17 +72,38 @@ import org.citygml4j.model.gml.basicTypes.Code;
 import org.citygml4j.model.gml.basicTypes.Measure;
 import org.citygml4j.model.gml.feature.AbstractFeature;
 import org.citygml4j.model.gml.geometry.primitives.AbstractCurve;
-import org.citygml4j.model.gml.geometry.primitives.AbstractSurface;
 import org.citygml4j.model.gml.geometry.primitives.CurveProperty;
 import org.citygml4j.model.gml.measures.Length;
 import org.citygml4j.model.gml.measures.Speed;
+import org.citygml4j.util.mapper.BiFunctionTypeMapper;
 
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class NoiseExtensionUnmarshaller implements CityJSONExtensionUnmarshaller {
+    private final ReentrantLock lock = new ReentrantLock();
     private ADEUnmarshallerHelper helper;
+    private BiFunctionTypeMapper<CityObjectContext, AbstractFeature> cityObjectMapper;
+
+    private BiFunctionTypeMapper<CityObjectContext, AbstractFeature> getCityObjectMapper() {
+        if (cityObjectMapper == null) {
+            lock.lock();
+            try {
+                if (cityObjectMapper == null) {
+                    cityObjectMapper = BiFunctionTypeMapper.<CityObjectContext, AbstractFeature>create()
+                            .with(NoiseCityFurnitureSegmentType.class, this::unmarshalNoiseCityFurnitureSegment)
+                            .with(NoiseRoadSegmentType.class, this::unmarshalNoiseRoadSegment)
+                            .with(NoiseRailwaySegmentType.class, this::unmarshalNoiseRailwaySegment);
+                }
+            } finally {
+                lock.unlock();
+            }
+        }
+
+        return cityObjectMapper;
+    }
 
     @Override
     public void setADEUnmarshallerHelper(ADEUnmarshallerHelper helper) {
@@ -89,34 +111,27 @@ public class NoiseExtensionUnmarshaller implements CityJSONExtensionUnmarshaller
     }
 
     @Override
-    public AbstractFeature unmarshalCityObject(AbstractCityObjectType src, CityJSON cityJSON, AbstractFeature parent) {
-        AbstractFeature feature = null;
-
-        if (src instanceof NoiseCityFurnitureSegmentType)
-            feature = unmarshalNoiseCityFurnitureSegment((NoiseCityFurnitureSegmentType) src, cityJSON, parent);
-        else if (src instanceof NoiseRoadSegmentType)
-            feature = unmarshalNoiseRoadSegment((NoiseRoadSegmentType) src, cityJSON, parent);
-        else if (src instanceof NoiseRailwaySegmentType)
-            feature = unmarshalNoiseRailwaySegment((NoiseRailwaySegmentType) src, cityJSON, parent);
-
-        return feature;
+    public AbstractFeature unmarshalCityObject(AbstractCityObjectType src, CityObjectContext context) {
+        return getCityObjectMapper().apply(src, context);
     }
 
     @Override
-    public AbstractCityObject unmarshalSemanticSurface(SemanticsType src, List<AbstractSurface> surfaces, Number lod, AbstractCityObject parent) {
+    public AbstractCityObject unmarshalSemanticSurface(SemanticsType src, SemanticSurfaceContext context) {
         return null;
     }
 
     @Override
-    public boolean assignSemanticSurface(AbstractCityObject semanticSurface, Number lod, ADEModelObject parent) {
+    public boolean assignSemanticSurface(AbstractCityObject semanticSurface, SemanticSurfaceContext context) {
         return false;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public void unmarshalExtensionAttribute(String name, Object value, CityJSON cityJSON, AbstractCityObject parent) {
-        if (parent instanceof AbstractBuilding) {
+    public void unmarshalExtensionAttribute(String name, ExtensionAttributeContext context) {
+        if (context.getParent() instanceof AbstractBuilding) {
             ADEComponent property = null;
+            Object value = context.getValue();
+
             switch (name) {
                 case "+noise-buildingReflection":
                     property = new BuildingReflectionProperty((String) value);
@@ -178,13 +193,13 @@ public class NoiseExtensionUnmarshaller implements CityJSONExtensionUnmarshaller
             }
 
             if (property != null)
-                ((AbstractBuilding) parent).addGenericApplicationPropertyOfAbstractBuilding(property);
+                ((AbstractBuilding) context.getParent()).addGenericApplicationPropertyOfAbstractBuilding(property);
         }
     }
 
-    private NoiseCityFurnitureSegment unmarshalNoiseCityFurnitureSegment(NoiseCityFurnitureSegmentType src, CityJSON cityJSON, AbstractFeature parent) {
+    private NoiseCityFurnitureSegment unmarshalNoiseCityFurnitureSegment(NoiseCityFurnitureSegmentType src, CityObjectContext context) {
         NoiseCityFurnitureSegment dest = new NoiseCityFurnitureSegment();
-        helper.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
+        helper.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, context.getCityJSON());
 
         NoiseCityFurnitureSegmentAttributes attributes = src.getAttributes();
         if (attributes.isSetType())
@@ -214,17 +229,17 @@ public class NoiseExtensionUnmarshaller implements CityJSONExtensionUnmarshaller
             }
         }
 
-        if (parent instanceof CityFurniture) {
+        if (context.getParent() instanceof CityFurniture) {
             NoiseCityFurnitureSegmentProperty property = new NoiseCityFurnitureSegmentProperty(dest);
-            ((CityFurniture) parent).addGenericApplicationPropertyOfCityFurniture(new NoiseCityFurnitureSegmentPropertyElement(property));
+            ((CityFurniture) context.getParent()).addGenericApplicationPropertyOfCityFurniture(new NoiseCityFurnitureSegmentPropertyElement(property));
         }
 
         return dest;
     }
 
-    private NoiseRoadSegment unmarshalNoiseRoadSegment(NoiseRoadSegmentType src, CityJSON cityJSON, AbstractFeature parent) {
+    private NoiseRoadSegment unmarshalNoiseRoadSegment(NoiseRoadSegmentType src, CityObjectContext context) {
         NoiseRoadSegment dest = new NoiseRoadSegment();
-        helper.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
+        helper.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, context.getCityJSON());
 
         NoiseRoadSegmentAttributes attributes = src.getAttributes();
         if (attributes.isSetMDay())
@@ -308,17 +323,17 @@ public class NoiseExtensionUnmarshaller implements CityJSONExtensionUnmarshaller
             }
         }
 
-        if (parent instanceof Road) {
+        if (context.getParent() instanceof Road) {
             NoiseRoadSegmentProperty property = new NoiseRoadSegmentProperty(dest);
-            ((Road) parent).addGenericApplicationPropertyOfRoad(new NoiseRoadSegmentPropertyElement(property));
+            ((Road) context.getParent()).addGenericApplicationPropertyOfRoad(new NoiseRoadSegmentPropertyElement(property));
         }
 
         return dest;
     }
 
-    private NoiseRailwaySegment unmarshalNoiseRailwaySegment(NoiseRailwaySegmentType src, CityJSON cityJSON, AbstractFeature parent) {
+    private NoiseRailwaySegment unmarshalNoiseRailwaySegment(NoiseRailwaySegmentType src, CityObjectContext context) {
         NoiseRailwaySegment dest = new NoiseRailwaySegment();
-        helper.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, cityJSON);
+        helper.getCoreUnmarshaller().unmarshalAbstractCityObject(src, dest, context.getCityJSON());
 
         NoiseRailwaySegmentAttributes attributes = src.getAttributes();
         if (attributes.isSetRailwaySurfaceMaterial())
@@ -359,9 +374,9 @@ public class NoiseExtensionUnmarshaller implements CityJSONExtensionUnmarshaller
             }
         }
 
-        if (parent instanceof Railway) {
+        if (context.getParent() instanceof Railway) {
             NoiseRailwaySegmentProperty property = new NoiseRailwaySegmentProperty(dest);
-            ((Railway) parent).addGenericApplicationPropertyOfRailway(new NoiseRailwaySegmentPropertyElement(property));
+            ((Railway) context.getParent()).addGenericApplicationPropertyOfRailway(new NoiseRailwaySegmentPropertyElement(property));
         }
 
         return dest;

@@ -20,10 +20,6 @@
  */
 package writing_ade;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.citygml.ade.noise.NoiseADEContext;
 import org.citygml.ade.noise.model.NoiseRailwaySegment;
 import org.citygml.ade.noise.model.NoiseRailwaySegmentProperty;
@@ -47,12 +43,16 @@ import org.citygml4j.util.bbox.BoundingBoxOptions;
 import org.citygml4j.xml.io.CityGMLOutputFactory;
 import org.citygml4j.xml.io.writer.CityGMLWriter;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class WritingADE {
 
 	public static void main(String[] args) throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		/**
+		/*
 		 * For using ADE modules implemented against the ADEContext interface, 
 		 * please apply the following steps:
 		 * 
@@ -76,7 +76,7 @@ public class WritingADE {
 		context.registerADEContext(noiseADEContext);
 
 		// step 3: create CityGMLBuilder which automatically supports the NoiseADE module
-		System.out.println(df.format(new Date()) + "creating CityGMLBuilder object");
+		System.out.println(df.format(new Date()) + "creating CityGML builder");
 		CityGMLBuilder builder = context.createCityGMLBuilder();
 		
 		// create NoiseADE example using CityGML and ADE classes

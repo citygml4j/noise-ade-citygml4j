@@ -56,9 +56,32 @@ import org.citygml4j.builder.cityjson.marshal.citygml.ade.ExtensionAttribute;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.gml.basicTypes.Measure;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
+import org.citygml4j.util.mapper.BiFunctionTypeMapper;
+
+import java.util.concurrent.locks.ReentrantLock;
 
 public class NoiseExtensionMarshaller implements CityJSONExtensionMarshaller {
+    private final ReentrantLock lock = new ReentrantLock();
     private ADEMarshallerHelper helper;
+    private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> cityObjectMapper;
+
+    private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> getCityObjectMapper() {
+        if (cityObjectMapper == null) {
+            lock.lock();
+            try {
+                if (cityObjectMapper == null) {
+                    cityObjectMapper = BiFunctionTypeMapper.<CityJSON, AbstractCityObjectType>create()
+                            .with(NoiseCityFurnitureSegment.class, this::marshalNoiseCityFurnitureSegment)
+                            .with(NoiseRoadSegment.class, this::marshalNoiseRoadSegment)
+                            .with(NoiseRailwaySegment.class, this::marshalNoiseRailwaySegment);
+                }
+            } finally {
+                lock.unlock();
+            }
+        }
+
+        return cityObjectMapper;
+    }
 
     @Override
     public void setADEMarshallerHelper(ADEMarshallerHelper helper) {
@@ -67,16 +90,7 @@ public class NoiseExtensionMarshaller implements CityJSONExtensionMarshaller {
 
     @Override
     public AbstractCityObjectType marshalCityObject(ADEModelObject src, CityJSON cityJSON) {
-        AbstractCityObjectType cityObject = null;
-
-        if (src instanceof NoiseCityFurnitureSegment)
-            cityObject = marshalNoiseCityFurnitureSegment((NoiseCityFurnitureSegment) src, cityJSON);
-        else if (src instanceof NoiseRoadSegment)
-            cityObject = marshalNoiseRoadSegment((NoiseRoadSegment) src, cityJSON);
-        else if (src instanceof NoiseRailwaySegment)
-            cityObject = marshalNoiseRailwaySegment((NoiseRailwaySegment) src, cityJSON);
-
-        return cityObject;
+        return getCityObjectMapper().apply(src, cityJSON);
     }
 
     @Override

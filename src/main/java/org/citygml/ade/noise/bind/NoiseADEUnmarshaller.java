@@ -44,6 +44,7 @@ import org.citygml.ade.noise.model.NoiseRoadSegmentPropertyElement;
 import org.citygml.ade.noise.model.RemarkProperty;
 import org.citygml.ade.noise.model.Train;
 import org.citygml.ade.noise.model.TrainProperty;
+import org.citygml.ade.noise.model.module.NoiseADEModule;
 import org.citygml.ade.noise_de._2.NoiseCityFurnitureSegmentPropertyType;
 import org.citygml.ade.noise_de._2.NoiseCityFurnitureSegmentType;
 import org.citygml.ade.noise_de._2.NoiseRailwaySegmentPropertyType;
@@ -150,7 +151,7 @@ public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 	}
 
 	public NoiseCityFurnitureSegment unmarshalNoiseCityFurnitureSegment(NoiseCityFurnitureSegmentType src) throws MissingADESchemaException {
-		NoiseCityFurnitureSegment dest = new NoiseCityFurnitureSegment();
+		NoiseCityFurnitureSegment dest = new NoiseCityFurnitureSegment(NoiseADEModule.v2_0);
 		helper.getCore200Unmarshaller().unmarshalAbstractCityObject(src, dest);
 
 		if (src.isSetType())
@@ -211,7 +212,7 @@ public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 	}
 
 	public NoiseRoadSegment unmarshalNoiseRoadSegment(NoiseRoadSegmentType src) throws MissingADESchemaException {
-		NoiseRoadSegment dest = new NoiseRoadSegment();
+		NoiseRoadSegment dest = new NoiseRoadSegment(NoiseADEModule.v2_0);
 		helper.getTransportation200Unmarshaller().unmarshalAbstractTransportationObject(src, dest);
 
 		if (src.isSetMDay())
@@ -326,7 +327,7 @@ public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 	}
 
 	public Train unmarshalTrain(TrainType src) throws MissingADESchemaException {
-		Train dest = new Train();
+		Train dest = new Train(NoiseADEModule.v2_0);
 		helper.getGMLUnmarshaller().unmarshalAbstractFeature(src, dest);
 
 		if (src.isSetTrainType())
@@ -405,7 +406,7 @@ public class NoiseADEUnmarshaller implements ADEUnmarshaller {
 	}
 
 	public NoiseRailwaySegment unmarshalNoiseRailwaySegment(NoiseRailwaySegmentType src) throws MissingADESchemaException {
-		NoiseRailwaySegment dest = new NoiseRailwaySegment();
+		NoiseRailwaySegment dest = new NoiseRailwaySegment(NoiseADEModule.v2_0);
 		helper.getTransportation200Unmarshaller().unmarshalAbstractTransportationObject(src, dest);
 
 		if (src.isSetRailwaySurfaceMaterial())

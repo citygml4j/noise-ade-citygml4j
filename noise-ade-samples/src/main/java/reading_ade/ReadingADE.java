@@ -20,13 +20,6 @@
  */
 package reading_ade;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.ServiceLoader;
-
-import javax.xml.namespace.QName;
-
 import org.citygml4j.CityGMLContext;
 import org.citygml4j.builder.jaxb.CityGMLBuilder;
 import org.citygml4j.model.citygml.CityGML;
@@ -35,18 +28,23 @@ import org.citygml4j.model.citygml.ade.binding.ADEContext;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
 import org.citygml4j.model.citygml.core.LodRepresentation;
 import org.citygml4j.model.module.Module;
-import org.citygml4j.model.module.Modules;
 import org.citygml4j.model.module.ade.ADEModule;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
 import org.citygml4j.xml.io.reader.FeatureReadMode;
+
+import javax.xml.namespace.QName;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.ServiceLoader;
 
 public class ReadingADE {
 
 	public static void main(String[] args) throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		/**
+		/*
 		 * For using ADE modules implemented against the ADEContext interface, 
 		 * please apply the following steps:
 		 * 
@@ -80,7 +78,7 @@ public class ReadingADE {
 		}
 
 		// step 3: create CityGMLBuilder which automatically supports the ADE modules
-		System.out.println(df.format(new Date()) + "creating CityGMLBuilder object");
+		System.out.println(df.format(new Date()) + "creating CityGML builder");
 		CityGMLBuilder builder = context.createCityGMLBuilder();
 
 		// read an ADE-enriched dataset. There is no need for ADE-specific code.
@@ -95,9 +93,9 @@ public class ReadingADE {
 			if (cityGML instanceof AbstractCityObject) {
 				AbstractCityObject cityObject = (AbstractCityObject)cityGML;
 
-				Module module = Modules.getModule(cityObject.getClass());
+				Module module = cityObject.getModule();
 				QName featureName = module.getFeatureName(cityObject.getClass());
-				
+
 				System.out.println(df.format(new Date()) + "found city object " + featureName);
 				System.out.println(df.format(new Date()) + "-- class: " + cityObject.getClass().getName());
 				System.out.println(df.format(new Date()) + "-- is ADE: " + (cityGML.getCityGMLClass() == CityGMLClass.ADE_COMPONENT));				

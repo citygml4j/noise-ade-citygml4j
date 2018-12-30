@@ -20,6 +20,7 @@
  */
 package org.citygml.ade.noise.model;
 
+import org.citygml.ade.noise.model.module.NoiseADEModule;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.builder.copy.ObjectCopier;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
@@ -45,6 +46,14 @@ public class Train extends AbstractFeature implements ADEModelObject {
 	private Speed speedEvening;
 	private Speed speedNight;
 	private Measure additionalCorrectionTrain;
+
+	public Train() {
+
+	}
+
+	public Train(NoiseADEModule module) {
+		super(module);
+	}
 	
 	public String getTrainType() {
 		return trainType;

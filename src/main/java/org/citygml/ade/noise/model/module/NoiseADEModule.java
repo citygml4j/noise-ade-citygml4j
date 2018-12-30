@@ -30,8 +30,10 @@ import org.citygml4j.model.module.citygml.CityGMLVersion;
 
 import javax.xml.namespace.QName;
 import java.net.URL;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -60,6 +62,11 @@ public class NoiseADEModule extends ADEModule {
 		featureProperties.add("noiseRailwaySegmentProperty");
 		// note: usedBy is neither added to the list because it only contains
 		// Train elements.
+	}
+
+	@Override
+	public List<String> getJAXBPackageNames() {
+		return Collections.singletonList("org.citygml.ade.noise_de._2");
 	}
 	
 	@Override

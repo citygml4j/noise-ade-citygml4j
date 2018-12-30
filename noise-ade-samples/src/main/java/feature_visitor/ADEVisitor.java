@@ -20,10 +20,6 @@
  */
 package feature_visitor;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.citygml.ade.noise.NoiseADEContext;
 import org.citygml.ade.noise.model.Train;
 import org.citygml.ade.noise.walker.NoiseADEFeatureWalker;
@@ -35,12 +31,16 @@ import org.citygml4j.util.walker.FeatureWalker;
 import org.citygml4j.xml.io.CityGMLInputFactory;
 import org.citygml4j.xml.io.reader.CityGMLReader;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class ADEVisitor {
 
 	public static void main(String[] args) throws Exception {
 		SimpleDateFormat df = new SimpleDateFormat("[HH:mm:ss] ");
 
-		/**
+		/*
 		 * For using ADE modules implemented against the ADEContext interface, 
 		 * please apply the following steps:
 		 * 
@@ -64,7 +64,7 @@ public class ADEVisitor {
 		context.registerADEContext(noiseADEContext);
 
 		// step 3: create CityGMLBuilder which automatically supports the NoiseADE module
-		System.out.println(df.format(new Date()) + "creating CityGMLBuilder object");
+		System.out.println(df.format(new Date()) + "creating CityGML builder");
 		CityGMLBuilder builder = context.createCityGMLBuilder();
 
 		// read an ADE-enriched dataset. There is no need for ADE-specific code.

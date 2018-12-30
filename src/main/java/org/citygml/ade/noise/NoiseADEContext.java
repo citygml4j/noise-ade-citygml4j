@@ -58,11 +58,6 @@ public class NoiseADEContext implements ADEContext, CityJSONExtensionContext {
 	}
 
 	@Override
-	public List<String> getJAXBPackageNames() {
-		return Collections.singletonList("org.citygml.ade.noise_de._2");
-	}
-
-	@Override
 	public ADEMarshaller createADEMarshaller() {
 		return new NoiseADEMarshaller();
 	}

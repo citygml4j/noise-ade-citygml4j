@@ -20,6 +20,7 @@
  */
 package org.citygml.ade.noise.model;
 
+import org.citygml.ade.noise.model.module.NoiseADEModule;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.citygml.core.AbstractCityObject;
@@ -42,6 +43,14 @@ public class NoiseCityFurnitureSegment extends AbstractCityObject implements ADE
 	private Length height;
 	private Length distance;
 	private CurveProperty lod0BaseLine;
+
+	public NoiseCityFurnitureSegment() {
+
+	}
+
+	public NoiseCityFurnitureSegment(NoiseADEModule module) {
+		super(module);
+	}
 	
 	public Code getType() {
 		return type;

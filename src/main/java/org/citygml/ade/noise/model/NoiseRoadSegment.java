@@ -20,6 +20,7 @@
  */
 package org.citygml.ade.noise.model;
 
+import org.citygml.ade.noise.model.module.NoiseADEModule;
 import org.citygml4j.builder.copy.CopyBuilder;
 import org.citygml4j.builder.copy.ObjectCopier;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
@@ -61,6 +62,14 @@ public class NoiseRoadSegment extends AbstractTransportationObject implements AD
 	private Measure roadGradientPercent;
 	private CurveProperty lod0BaseLine;
 	private String lineage;
+
+	public NoiseRoadSegment() {
+
+	}
+
+	public NoiseRoadSegment(NoiseADEModule module) {
+		super(module);
+	}
 
 	public Measure getMDay() {
 		return mDay;
