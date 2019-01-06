@@ -32,13 +32,8 @@
     "measuredHeight": 4.123,
     "creationDate": "2006-11-24",
     "function": "1004",
-    "+noise-buildingAppartments": 8,
     "+noise-buildingLNightMax": {
      "value": 56.123,
-     "uom": "dB"
-    },
-    "+noise-buildingLNightMin": {
-     "value": 39.123,
      "uom": "dB"
     },
     "+noise-buildingLDenMax": {
@@ -46,6 +41,21 @@
      "uom": "dB"
     },
     "+noise-buildingHabitants": 22,
+    "+noise-remark": "keine Anmerkung",
+    "+noise-buildingLDenMin": {
+     "value": 44.123,
+     "uom": "dB"
+    },
+    "+noise-buildingLNightEq": {
+     "value": 43.123,
+     "uom": "dB"
+    },
+    "+noise-buildingAppartments": 8,
+    "HH-Entstehung": "LASER",
+    "+noise-buildingLNightMin": {
+     "value": 39.123,
+     "uom": "dB"
+    },
     "+noise-buildingImmissionPoints": [
      45,
      4,
@@ -111,15 +121,6 @@
      3,
      2
     ],
-    "+noise-remark": "keine Anmerkung",
-    "+noise-buildingLDenMin": {
-     "value": 44.123,
-     "uom": "dB"
-    },
-    "+noise-buildingLNightEq": {
-     "value": 43.123,
-     "uom": "dB"
-    },
     "+noise-buildingReflection": "glatte Gebäudefassade",
     "+noise-buildingLDenEq": {
      "value": 58.123,
@@ -128,8 +129,7 @@
     "+noise-buildingReflectionCorrection": {
      "value": 4.123,
      "uom": "dB"
-    },
-    "HH-Entstehung": "LASER"
+    }
    },
    "geographicalExtent": [
     2523800.0,
