@@ -54,7 +54,7 @@ import org.citygml.ade.noise.model.Train;
 import org.citygml.ade.noise.model.TrainProperty;
 import org.citygml4j.binding.cityjson.extension.CityJSONExtensionUnmarshaller;
 import org.citygml4j.binding.cityjson.extension.CityObjectContext;
-import org.citygml4j.binding.cityjson.extension.ExtensionAttributeContext;
+import org.citygml4j.binding.cityjson.extension.ExtensionPropertyContext;
 import org.citygml4j.binding.cityjson.extension.SemanticSurfaceContext;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryType;
@@ -127,7 +127,7 @@ public class NoiseExtensionUnmarshaller implements CityJSONExtensionUnmarshaller
 
     @SuppressWarnings("unchecked")
     @Override
-    public void unmarshalExtensionAttribute(String name, ExtensionAttributeContext context) {
+    public void unmarshalExtensionProperty(String name, ExtensionPropertyContext context) {
         if (context.getParent() instanceof AbstractBuilding) {
             ADEComponent property = null;
             Object value = context.getValue();

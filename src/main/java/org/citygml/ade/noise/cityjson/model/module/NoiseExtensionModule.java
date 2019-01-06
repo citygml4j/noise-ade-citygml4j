@@ -28,6 +28,7 @@ import org.citygml.ade.noise.cityjson.model.NoiseCityFurnitureSegmentType;
 import org.citygml.ade.noise.cityjson.model.NoiseRailwaySegmentType;
 import org.citygml.ade.noise.cityjson.model.NoiseRoadSegmentType;
 import org.citygml4j.binding.cityjson.extension.CityJSONExtensionModule;
+import org.citygml4j.binding.cityjson.extension.ExtensibleType;
 import org.citygml4j.binding.cityjson.feature.AbstractBuildingType;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
@@ -41,7 +42,7 @@ import java.util.Map;
 
 public class NoiseExtensionModule implements CityJSONExtensionModule {
     private final Map<String, Class<? extends AbstractCityObjectType>> cityObjects;
-    private final Map<Class<? extends AbstractCityObjectType>, Map<String, Type>> attributes;
+    private final Map<Class<? extends ExtensibleType>, Map<String, Type>> properties;
 
     public NoiseExtensionModule() {
         cityObjects = new HashMap<>();
@@ -49,7 +50,7 @@ public class NoiseExtensionModule implements CityJSONExtensionModule {
         cityObjects.put("+NoiseRoadSegment", NoiseRoadSegmentType.class);
         cityObjects.put("+NoiseRailwaySegment", NoiseRailwaySegmentType.class);
 
-        attributes = new HashMap<>();
+        properties = new HashMap<>();
         Map<String, Type> abstractBuilding = new HashMap<>();
         abstractBuilding.put("+noise-buildingReflection", String.class);
         abstractBuilding.put("+noise-buildingReflectionCorrection", MeasureType.class);
@@ -63,7 +64,7 @@ public class NoiseExtensionModule implements CityJSONExtensionModule {
         abstractBuilding.put("+noise-buildingAppartments", Integer.class);
         abstractBuilding.put("+noise-buildingImmissionPoints", new TypeToken<List<BigInteger>>(){}.getType());
         abstractBuilding.put("+noise-remark", String.class);
-        attributes.put(AbstractBuildingType.class, abstractBuilding);
+        properties.put(AbstractBuildingType.class, abstractBuilding);
     }
 
     @Override
@@ -92,7 +93,7 @@ public class NoiseExtensionModule implements CityJSONExtensionModule {
     }
 
     @Override
-    public Map<Class<? extends AbstractCityObjectType>, Map<String, Type>> getExtensionAttributes() {
-        return attributes;
+    public Map<Class<? extends ExtensibleType>, Map<String, Type>> getExtensionProperties() {
+        return properties;
     }
 }

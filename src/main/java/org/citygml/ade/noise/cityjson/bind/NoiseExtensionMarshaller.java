@@ -41,18 +41,23 @@ import org.citygml.ade.noise.model.BuildingLNightMinProperty;
 import org.citygml.ade.noise.model.BuildingReflectionCorrectionProperty;
 import org.citygml.ade.noise.model.BuildingReflectionProperty;
 import org.citygml.ade.noise.model.NoiseCityFurnitureSegment;
+import org.citygml.ade.noise.model.NoiseCityFurnitureSegmentPropertyElement;
 import org.citygml.ade.noise.model.NoiseRailwaySegment;
+import org.citygml.ade.noise.model.NoiseRailwaySegmentPropertyElement;
 import org.citygml.ade.noise.model.NoiseRoadSegment;
+import org.citygml.ade.noise.model.NoiseRoadSegmentPropertyElement;
 import org.citygml.ade.noise.model.RemarkProperty;
 import org.citygml.ade.noise.model.Train;
 import org.citygml.ade.noise.model.TrainProperty;
 import org.citygml4j.binding.cityjson.CityJSON;
+import org.citygml4j.binding.cityjson.extension.ADEPropertyContext;
 import org.citygml4j.binding.cityjson.extension.CityJSONExtensionMarshaller;
+import org.citygml4j.binding.cityjson.extension.Extension;
+import org.citygml4j.binding.cityjson.extension.ExtensionAttribute;
 import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
 import org.citygml4j.binding.cityjson.geometry.AbstractGeometryObjectType;
 import org.citygml4j.binding.cityjson.geometry.SemanticsType;
 import org.citygml4j.builder.cityjson.marshal.citygml.ade.ADEMarshallerHelper;
-import org.citygml4j.builder.cityjson.marshal.citygml.ade.ExtensionAttribute;
 import org.citygml4j.model.citygml.ade.binding.ADEModelObject;
 import org.citygml4j.model.gml.basicTypes.Measure;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
@@ -64,6 +69,7 @@ public class NoiseExtensionMarshaller implements CityJSONExtensionMarshaller {
     private final ReentrantLock lock = new ReentrantLock();
     private ADEMarshallerHelper helper;
     private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> cityObjectMapper;
+    private BiFunctionTypeMapper<ADEPropertyContext, Extension> propertyMapper;
 
     private BiFunctionTypeMapper<CityJSON, AbstractCityObjectType> getCityObjectMapper() {
         if (cityObjectMapper == null) {
@@ -83,6 +89,35 @@ public class NoiseExtensionMarshaller implements CityJSONExtensionMarshaller {
         return cityObjectMapper;
     }
 
+    private BiFunctionTypeMapper<ADEPropertyContext, Extension> getPropertyMapper() {
+        if (propertyMapper == null) {
+            lock.lock();
+            try {
+                if (propertyMapper == null) {
+                    propertyMapper = BiFunctionTypeMapper.<ADEPropertyContext, Extension>create()
+                            .with(NoiseCityFurnitureSegmentPropertyElement.class, this::marshalNoiseCityFurnitureSegmentPropertyElement)
+                            .with(NoiseRailwaySegmentPropertyElement.class, this::marshalNoiseRailwaySegmentPropertyElement)
+                            .with(NoiseRoadSegmentPropertyElement.class, this::marshalNoiseRoadSegmentPropertyElement)
+                            .with(BuildingReflectionProperty.class, this::marshalBuildingReflectionProperty)
+                            .with(BuildingLDenMaxProperty.class, this::marshalBuildingLDenMaxProperty)
+                            .with(BuildingLDenMinProperty.class, this::marshalBuildingLDenMinProperty)
+                            .with(BuildingLDenEqProperty.class, this::marshalBuildingLDenEqProperty)
+                            .with(BuildingLNightMaxProperty.class, this::marshalBuildingLNightMaxProperty)
+                            .with(BuildingLNightMinProperty.class, this::marshalBuildingLNightMinProperty)
+                            .with(BuildingLNightEqProperty.class, this::marshalBuildingLNightEqProperty)
+                            .with(BuildingHabitantsProperty.class, this::marshalBuildingHabitantsProperty)
+                            .with(BuildingAppartmentsProperty.class, this::marshalBuildingAppartmentsProperty)
+                            .with(BuildingImmissionPointsProperty.class, this::marshalBuildingImmissionPointsProperty)
+                            .with(RemarkProperty.class, this::marshalRemarkProperty);
+                }
+            } finally {
+                lock.unlock();
+            }
+        }
+
+        return propertyMapper;
+    }
+
     @Override
     public void setADEMarshallerHelper(ADEMarshallerHelper helper) {
         this.helper = helper;
@@ -99,49 +134,68 @@ public class NoiseExtensionMarshaller implements CityJSONExtensionMarshaller {
     }
 
     @Override
-    public ExtensionAttribute marshalExtensionAttribute(ADEModelObject src) {
-        String name = null;
-        Object value = null;
+    public Extension marshalGenericApplicationProperty(ADEModelObject src, ADEPropertyContext context) {
+        return getPropertyMapper().apply(src, context);
+    }
 
-        if (src instanceof BuildingReflectionProperty) {
-            name = "+noise-buildingReflection";
-            value = ((BuildingReflectionProperty) src).getValue();
-        } else if (src instanceof BuildingReflectionCorrectionProperty) {
-            name = "+noise-buildingReflectionCorrection";
-            value = marshalMeasure(((BuildingReflectionCorrectionProperty) src).getValue());
-        } else if (src instanceof BuildingLDenMaxProperty) {
-            name = "+noise-buildingLDenMax";
-            value = marshalMeasure(((BuildingLDenMaxProperty) src).getValue());
-        } else if (src instanceof BuildingLDenMinProperty) {
-            name = "+noise-buildingLDenMin";
-            value = marshalMeasure(((BuildingLDenMinProperty) src).getValue());
-        } else if (src instanceof BuildingLDenEqProperty) {
-            name = "+noise-buildingLDenEq";
-            value = marshalMeasure(((BuildingLDenEqProperty) src).getValue());
-        } else if (src instanceof BuildingLNightMaxProperty) {
-            name = "+noise-buildingLNightMax";
-            value = marshalMeasure(((BuildingLNightMaxProperty) src).getValue());
-        } else if (src instanceof BuildingLNightMinProperty) {
-            name = "+noise-buildingLNightMin";
-            value = marshalMeasure(((BuildingLNightMinProperty) src).getValue());
-        } else if (src instanceof BuildingLNightEqProperty) {
-            name = "+noise-buildingLNightEq";
-            value = marshalMeasure(((BuildingLNightEqProperty) src).getValue());
-        } else if (src instanceof BuildingHabitantsProperty) {
-            name = "+noise-buildingHabitants";
-            value = ((BuildingHabitantsProperty) src).getValue();
-        } else if (src instanceof BuildingAppartmentsProperty) {
-            name = "+noise-buildingAppartments";
-            value = ((BuildingAppartmentsProperty) src).getValue();
-        } else if (src instanceof BuildingImmissionPointsProperty) {
-            name = "+noise-buildingImmissionPoints";
-            value = ((BuildingImmissionPointsProperty) src).getValue();
-        } else if (src instanceof RemarkProperty) {
-            name = "+noise-remark";
-            value = ((RemarkProperty) src).getValue();
-        }
+    private Extension marshalNoiseCityFurnitureSegmentPropertyElement(NoiseCityFurnitureSegmentPropertyElement src, ADEPropertyContext context) {
+        return helper.getGMLMarshaller().marshalFeatureProperty(src.getValue(), context.getCityJSON());
+    }
 
-        return name != null && value != null ? new ExtensionAttribute(name, value) : null;
+    private Extension marshalNoiseRailwaySegmentPropertyElement(NoiseRailwaySegmentPropertyElement src, ADEPropertyContext context) {
+        return helper.getGMLMarshaller().marshalFeatureProperty(src.getValue(), context.getCityJSON());
+    }
+
+    private Extension marshalNoiseRoadSegmentPropertyElement(NoiseRoadSegmentPropertyElement src, ADEPropertyContext context) {
+        return helper.getGMLMarshaller().marshalFeatureProperty(src.getValue(), context.getCityJSON());
+    }
+
+    private Extension marshalBuildingReflectionProperty(BuildingReflectionProperty src, ADEPropertyContext context) {
+        return new ExtensionAttribute("+noise-buildingReflection", src.getValue());
+    }
+
+    private Extension marshalBuildingReflectionCorrectionProperty(BuildingReflectionCorrectionProperty src, ADEPropertyContext context) {
+        return new ExtensionAttribute("+noise-buildingReflectionCorrection", marshalMeasure(src.getValue()));
+    }
+
+    private Extension marshalBuildingLDenMaxProperty(BuildingLDenMaxProperty src, ADEPropertyContext context) {
+        return new ExtensionAttribute("+noise-buildingLDenMax", marshalMeasure(src.getValue()));
+    }
+
+    private Extension marshalBuildingLDenMinProperty(BuildingLDenMinProperty src, ADEPropertyContext context) {
+        return new ExtensionAttribute("+noise-buildingLDenMin", marshalMeasure(src.getValue()));
+    }
+
+    private Extension marshalBuildingLDenEqProperty(BuildingLDenEqProperty src, ADEPropertyContext context) {
+        return new ExtensionAttribute("+noise-buildingLDenEq", marshalMeasure(src.getValue()));
+    }
+
+    private Extension marshalBuildingLNightMaxProperty(BuildingLNightMaxProperty src, ADEPropertyContext context) {
+        return new ExtensionAttribute("+noise-buildingLNightMax", marshalMeasure(src.getValue()));
+    }
+
+    private Extension marshalBuildingLNightMinProperty(BuildingLNightMinProperty src, ADEPropertyContext context) {
+        return new ExtensionAttribute("+noise-buildingLNightMin", marshalMeasure(src.getValue()));
+    }
+
+    private Extension marshalBuildingLNightEqProperty(BuildingLNightEqProperty src, ADEPropertyContext context) {
+        return new ExtensionAttribute("+noise-buildingLNightEq", marshalMeasure(src.getValue()));
+    }
+
+    private Extension marshalBuildingHabitantsProperty(BuildingHabitantsProperty src, ADEPropertyContext context) {
+        return new ExtensionAttribute("+noise-buildingHabitants", src.getValue());
+    }
+
+    private Extension marshalBuildingAppartmentsProperty(BuildingAppartmentsProperty src, ADEPropertyContext context) {
+        return new ExtensionAttribute("+noise-buildingAppartments", src.getValue());
+    }
+
+    private Extension marshalBuildingImmissionPointsProperty(BuildingImmissionPointsProperty src, ADEPropertyContext context) {
+        return new ExtensionAttribute("+noise-buildingImmissionPoints", src.getValue());
+    }
+
+    private Extension marshalRemarkProperty(RemarkProperty src, ADEPropertyContext context) {
+        return new ExtensionAttribute("+noise-remark", src.getValue());
     }
 
     private NoiseCityFurnitureSegmentType marshalNoiseCityFurnitureSegment(NoiseCityFurnitureSegment src, CityJSON cityJSON) {
