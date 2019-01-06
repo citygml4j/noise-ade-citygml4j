@@ -99,6 +99,7 @@ public class NoiseExtensionMarshaller implements CityJSONExtensionMarshaller {
                             .with(NoiseRailwaySegmentPropertyElement.class, this::marshalNoiseRailwaySegmentPropertyElement)
                             .with(NoiseRoadSegmentPropertyElement.class, this::marshalNoiseRoadSegmentPropertyElement)
                             .with(BuildingReflectionProperty.class, this::marshalBuildingReflectionProperty)
+                            .with(BuildingReflectionCorrectionProperty.class, this::marshalBuildingReflectionCorrectionProperty)
                             .with(BuildingLDenMaxProperty.class, this::marshalBuildingLDenMaxProperty)
                             .with(BuildingLDenMinProperty.class, this::marshalBuildingLDenMinProperty)
                             .with(BuildingLDenEqProperty.class, this::marshalBuildingLDenEqProperty)
