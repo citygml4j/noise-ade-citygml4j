@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CityModel xmlns="http://www.opengis.net/citygml/2.0" xmlns:gml="http://www.opengis.net/gml"
 	xmlns:tran="http://www.opengis.net/citygml/transportation/2.0" xmlns:gen="http://www.opengis.net/citygml/generics/2.0"
 	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
@@ -59,7 +59,7 @@
 						<gen:value>Digitalisierung</gen:value>
 					</gen:stringAttribute>
 					<gen:stringAttribute name="Aktualisierung">
-						<gen:value>jährlich</gen:value>
+						<gen:value>jÃ€hrlich</gen:value>
 					</gen:stringAttribute>
 					<noise:mDay uom="kfzph">2564.123</noise:mDay>
 					<noise:mEvening uom="kfzph">145.123</noise:mEvening>
@@ -76,7 +76,7 @@
 					<noise:speedDayLkw uom="kmph">80.123</noise:speedDayLkw>
 					<noise:speedEveningLkw uom="kmph">80.123</noise:speedEveningLkw>
 					<noise:speedNightLkw uom="kmph">50.123</noise:speedNightLkw>
-					<noise:roadSurfaceMaterial>Pflaster mit ebener Oberfläche</noise:roadSurfaceMaterial>
+					<noise:roadSurfaceMaterial>Pflaster mit ebener OberflÃ€che</noise:roadSurfaceMaterial>
 					<noise:roadSurfaceCorrection uom="dB">2.123</noise:roadSurfaceCorrection>
 					<noise:distanceCarriageway uom="m">15.123</noise:distanceCarriageway>
 					<noise:distanceD uom="m">10.123</noise:distanceD>
@@ -89,7 +89,7 @@
                                 2524179,5707327,188</gml:coordinates>
 						</gml:LineString>
 					</noise:lod0BaseLine>
-					<noise:lineage>ATKIS und StraßenNRW-Daten</noise:lineage>
+					<noise:lineage>ATKIS und StraÃenNRW-Daten</noise:lineage>
 				</noise:NoiseRoadSegment>
 			</noise:noiseRoadSegmentProperty>
 			<noise:noiseRoadSegmentProperty>
@@ -110,7 +110,7 @@
 						<gen:value>Digitalisierung</gen:value>
 					</gen:stringAttribute>
 					<gen:stringAttribute name="Aktualisierung">
-						<gen:value>jährlich</gen:value>
+						<gen:value>jÃ€hrlich</gen:value>
 					</gen:stringAttribute>
 					<noise:mDay uom="kfzph">2564.123</noise:mDay>
 					<noise:mEvening uom="kfzph">145.123</noise:mEvening>
@@ -127,7 +127,7 @@
 					<noise:speedDayLkw uom="kmph">80.123</noise:speedDayLkw>
 					<noise:speedEveningLkw uom="kmph">80.123</noise:speedEveningLkw>
 					<noise:speedNightLkw uom="kmph">50.123</noise:speedNightLkw>
-					<noise:roadSurfaceMaterial>Pflaster mit ebener Oberfläche</noise:roadSurfaceMaterial>
+					<noise:roadSurfaceMaterial>Pflaster mit ebener OberflÃ€che</noise:roadSurfaceMaterial>
 					<noise:roadSurfaceCorrection uom="dB">2.123</noise:roadSurfaceCorrection>
 					<noise:distanceCarriageway uom="m">15.123</noise:distanceCarriageway>
 					<noise:distanceD uom="m">10.123</noise:distanceD>
@@ -140,7 +140,7 @@
                                 2524179,5707327,188</gml:coordinates>
 						</gml:LineString>
 					</noise:lod0BaseLine>
-					<noise:lineage>ATKIS und StraßenNRW-Daten</noise:lineage>
+					<noise:lineage>ATKIS und StraÃenNRW-Daten</noise:lineage>
 				</noise:NoiseRoadSegment>
 			</noise:noiseRoadSegmentProperty>
 		</tran:Road>

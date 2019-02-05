@@ -69,12 +69,12 @@ public class FromCityJSON {
         for (ADEContext adeContext : ServiceLoader.load(ADEContext.class))
             context.registerADEContext(adeContext);
 
-        // step 3: create CityGMLBuilder which automatically supports the NoiseADE module
+        // step 3: create CityJSON builder which automatically supports the NoiseADE module
         System.out.println(df.format(new Date()) + "creating CityJSON builder");
         CityJSONBuilder builder = context.createCityJSONBuilder();
 
         // read CityJSON dataset with extension. There is no need for extension-specific code.
-        System.out.println(df.format(new Date()) + "reading ADE-enriched CityGML file railway_example.json");
+        System.out.println(df.format(new Date()) + "reading CityJSON with extensions from file railway_example.json");
         CityJSONInputFactory in = builder.createCityJSONInputFactory();
 
         CityModel cityModel;

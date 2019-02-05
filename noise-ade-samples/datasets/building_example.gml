@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CityModel xmlns="http://www.opengis.net/citygml/2.0" xmlns:bldg="http://www.opengis.net/citygml/building/2.0"
 	xmlns:gen="http://www.opengis.net/citygml/generics/2.0" xmlns:gml="http://www.opengis.net/gml"
 	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
 	xmlns:noise="http://www.citygml.org/ade/noise_de/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.opengis.net/citygml/generics/2.0 http://schemas.opengis.net/citygml/generics/2.0/generics.xsd http://www.citygml.org/ade/noise_de/2.0 http://schemas.opengis.net/citygml/examples/2.0/ade/noise-ade/CityGML-NoiseADE.xsd">
-	<gml:name>Gebäudemodell_LOD1_451304</gml:name>
+	<gml:name>GebÃ€udemodell_LOD1_451304</gml:name>
 	<gml:boundedBy>
 		<gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:31466,crs:EPSG:6.12:5783">
 			<gml:pos srsDimension="3">3423800.0 5705800.0 140.4</gml:pos>
@@ -14,7 +14,7 @@
 	<!-- Gebaeude Anfang 1  -->
 	<cityObjectMember>
 		<bldg:Building gml:id="UUID_25a09212-22b1-4374-ae9a-8ab9c30668b1">
-			<gml:name>Wirtschafts-_oder_Industriegebäude_allgemein</gml:name>
+			<gml:name>Wirtschafts-_oder_IndustriegebÃ€ude_allgemein</gml:name>
 			<gml:boundedBy>
 				<gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:31466,crs:EPSG:6.12:5783">
 					<gml:pos srsDimension="3">2523800.0 5705800.0 140.4</gml:pos>
@@ -123,7 +123,7 @@
 									<xAL:LocalityName>Wickede (Ruhr)</xAL:LocalityName>
 									<xAL:Thoroughfare Type="Street">
 										<xAL:ThoroughfareNumber>17</xAL:ThoroughfareNumber>
-										<xAL:ThoroughfareName>Marienhöhe</xAL:ThoroughfareName>
+										<xAL:ThoroughfareName>MarienhÃ¶he</xAL:ThoroughfareName>
 									</xAL:Thoroughfare>
 									<xAL:PostalCode>
 										<xAL:PostalCodeNumber>58739</xAL:PostalCodeNumber>
@@ -134,7 +134,7 @@
 					</xalAddress>
 				</Address>
 			</bldg:address>
-			<noise:buildingReflection>glatte Gebäudefassade</noise:buildingReflection>
+			<noise:buildingReflection>glatte GebÃ€udefassade</noise:buildingReflection>
 			<noise:buildingReflectionCorrection uom="dB">4.123</noise:buildingReflectionCorrection>
 			<noise:buildingLDenMax uom="dB">85.123</noise:buildingLDenMax>
 			<noise:buildingLDenMin uom="dB">44.123</noise:buildingLDenMin>

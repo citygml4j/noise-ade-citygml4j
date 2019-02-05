@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CityModel xmlns="http://www.opengis.net/citygml/2.0" xmlns:gml="http://www.opengis.net/gml"
 	xmlns:frn="http://www.opengis.net/citygml/cityfurniture/2.0" xmlns:xlink="http://www.w3.org/1999/xlink"
 	xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" xmlns:noise="http://www.citygml.org/ade/noise_de/2.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.citygml.org/ade/noise_de/2.0 http://schemas.opengis.net/citygml/examples/2.0/ade/noise-ade/CityGML-NoiseADE.xsd">
-	<gml:name>Modell Lärmschutz</gml:name>
+	<gml:name>Modell LÃ€rmschutz</gml:name>
 	<gml:boundedBy>
 		<gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:31466,crs:EPSG:6.12:5783">
 			<gml:pos srsDimension="3">2523800.0 5705800.0 140.4</gml:pos>
@@ -113,7 +113,7 @@
 						</externalObject>
 					</externalReference>
 					<noise:type>1</noise:type>
-					<noise:reflection>absorbierende Lärmschutzwand</noise:reflection>
+					<noise:reflection>absorbierende LÃ€rmschutzwand</noise:reflection>
 					<noise:reflectionCorrection uom="dB">4.123</noise:reflectionCorrection>
 					<noise:height uom="m">7.123</noise:height>
 					<noise:distance uom="m">21.123</noise:distance>
@@ -135,7 +135,7 @@
 						</gml:Envelope>
 					</gml:boundedBy>
 					<noise:type>2</noise:type>
-					<noise:reflection>absorbierende Lärmschutzwand</noise:reflection>
+					<noise:reflection>absorbierende LÃ€rmschutzwand</noise:reflection>
 					<noise:reflectionCorrection uom="dB">4.123</noise:reflectionCorrection>
 					<noise:height uom="m">7.123</noise:height>
 					<noise:distance uom="m">21.123</noise:distance>

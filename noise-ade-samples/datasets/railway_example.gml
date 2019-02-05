@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-15"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CityModel xmlns="http://www.opengis.net/citygml/2.0" xmlns:gml="http://www.opengis.net/gml"
 	xmlns:tran="http://www.opengis.net/citygml/transportation/2.0" xmlns:xlink="http://www.w3.org/1999/xlink"
 	xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" xmlns:noise="http://www.citygml.org/ade/noise_de/2.0"
@@ -22,7 +22,7 @@
 			</gml:boundedBy>
 			<creationDate>1967-08-13</creationDate>
 			<terminationDate>1967-08-13</terminationDate>
-			<!-- Code (fiktiv) für Straßenbahn -->
+			<!-- Code (fiktiv) fÃŒr StraÃenbahn -->
 			<tran:function>1234</tran:function>
 			<tran:lod0Network>
 				<gml:CompositeCurve srsName="urn:ogc:def:crs,crs:EPSG:6.12:31466,crs:EPSG:6.12:5783">
@@ -41,7 +41,7 @@
 				</gml:CompositeCurve>
 			</tran:lod0Network>
 			<noise:noiseRailwaySegmentProperty>
-				<!-- Segment 1, mit zwei Zügen -->
+				<!-- Segment 1, mit zwei ZÃŒgen -->
 				<noise:NoiseRailwaySegment gml:id="CNRS_0815">
 					<gml:boundedBy>
 						<gml:Envelope srsName="urn:ogc:def:crs,crs:EPSG:6.12:31466,crs:EPSG:6.12:5783">
@@ -72,7 +72,7 @@
 					<noise:usedBy>
 						<!-- Zug 1 -->
 						<noise:Train gml:id="CTR_0815">
-							<gml:description>Musterzug von A nach B, verkehrt täglich uswusw.</gml:description>
+							<gml:description>Musterzug von A nach B, verkehrt tÃ€glich uswusw.</gml:description>
 							<gml:name>Musterzug1</gml:name>
 							<noise:trainType>Fahrzeuge mit Radscheibenbremsen</noise:trainType>
 							<noise:trainTypeCorrection uom="dB">-2.123</noise:trainTypeCorrection>
