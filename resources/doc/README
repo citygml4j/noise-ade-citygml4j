@@ -24,9 +24,9 @@ Version @version@ (@date@)
 1. License
 ----------
 
-module-noise-ade is licensed under the Apache License, Version 2.0 (the "License");
-you may not use this library except in compliance with the License.
-You may obtain a copy of the License at
+noise-ade-citygml4j is licensed under the Apache License, Version 2.0
+(the "License"); you may not use this library except in compliance with
+the License. You may obtain a copy of the License at
 
   http://www.apache.org/licenses/LICENSE-2.0
 
@@ -41,7 +41,7 @@ Claus Nagel <claus.nagel@gmail.com>
 3. About
 --------
 
-module-noise-ade is a citygml4j module for the CityGML 2.0 Noise Application
+noise-ade-citygml4j is a citygml4j module for the CityGML 2.0 Noise Application
 Domain Extension (ADE). The module is implemented against the ADEContext 
 extension of citygml4j. 
 
@@ -52,7 +52,12 @@ writing ADE-enriched CityGML datasets. The required JAXB classes mapping the
 ADE XML Schema can easily be generated with the ade-xjc compiler shipped with 
 citygml4j.
 
-module-noise-ade is part of the citygml4j project.
+Starting from version 2.4.0, noise-ade-citygml4j also supports de/serializing
+noise data as CityJSON dataset using the CityJSON extension mechanism. This
+support is realized based on the CityJSONExtension interface, which has been
+introduced in citygml 2.9.0 and augments the ADEContext approach.
+
+noise-ade-citygml4j is part of the citygml4j project.
 
 
 4. System requirements
@@ -65,9 +70,10 @@ module-noise-ade is part of the citygml4j project.
 5. How to use it
 ----------------
 
-Simply build a JAR file of the module-noise-ade using the Gradle build script.
+Simply build a JAR file of the noise-ade-citygml4j using the Gradle build
+script.
 
-In order to develop a NoiseADE application, put the module-noise-ade library
+In order to develop a NoiseADE application, put the noise-ade-citygml4j library
 together with citygml4j on your classpath. In your code, register the
 module with the citygml4j library through the CityGMLContext class. This
 makes the ADE module known to citygml4j. Once registered, the module will be 
@@ -91,7 +97,7 @@ claus.nagel@gmail.com
 8. Websites
 -----------
 
-Official module-noise-ade website:
+Official noise-ade-citygml4j website:
 https://github.com/citygml4j/
 
 Related websites:
