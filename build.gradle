@@ -9,10 +9,10 @@ sourceCompatibility = 1.8
 
 allprojects {
     group 'org.citygml4j.ade'
-    version '2.4.0'
+    version '2.4.1'
 
     ext {
-        citygml4jVersion = '2.9.0'
+        citygml4jVersion = '2.9.1'
         date = new Date()
     }
 
