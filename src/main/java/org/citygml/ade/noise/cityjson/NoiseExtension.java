@@ -24,10 +24,10 @@ package org.citygml.ade.noise.cityjson;
 import org.citygml.ade.noise.cityjson.bind.NoiseExtensionMarshaller;
 import org.citygml.ade.noise.cityjson.bind.NoiseExtensionUnmarshaller;
 import org.citygml.ade.noise.cityjson.model.module.NoiseExtensionModule;
-import org.citygml4j.binding.cityjson.extension.CityJSONExtension;
-import org.citygml4j.binding.cityjson.extension.CityJSONExtensionMarshaller;
-import org.citygml4j.binding.cityjson.extension.CityJSONExtensionModule;
-import org.citygml4j.binding.cityjson.extension.CityJSONExtensionUnmarshaller;
+import org.citygml4j.builder.cityjson.extension.CityJSONExtension;
+import org.citygml4j.builder.cityjson.extension.CityJSONExtensionMarshaller;
+import org.citygml4j.builder.cityjson.extension.CityJSONExtensionModule;
+import org.citygml4j.builder.cityjson.extension.CityJSONExtensionUnmarshaller;
 
 import java.util.Collections;
 import java.util.List;

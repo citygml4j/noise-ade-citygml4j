@@ -21,7 +21,7 @@
 
 package org.citygml.ade.noise.cityjson.model;
 
-import org.citygml4j.binding.cityjson.feature.Attributes;
+import org.citygml4j.cityjson.feature.Attributes;
 
 public class NoiseRoadSegmentAttributes extends Attributes {
     private MeasureType mDay;

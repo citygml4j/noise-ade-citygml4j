@@ -27,11 +27,11 @@ import org.citygml.ade.noise.cityjson.model.MeasureType;
 import org.citygml.ade.noise.cityjson.model.NoiseCityFurnitureSegmentType;
 import org.citygml.ade.noise.cityjson.model.NoiseRailwaySegmentType;
 import org.citygml.ade.noise.cityjson.model.NoiseRoadSegmentType;
-import org.citygml4j.binding.cityjson.extension.CityJSONExtensionModule;
-import org.citygml4j.binding.cityjson.extension.ExtensibleType;
-import org.citygml4j.binding.cityjson.feature.AbstractBuildingType;
-import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.binding.cityjson.geometry.SemanticsType;
+import org.citygml4j.builder.cityjson.extension.CityJSONExtensionModule;
+import org.citygml4j.cityjson.extension.ExtensibleType;
+import org.citygml4j.cityjson.feature.AbstractBuildingType;
+import org.citygml4j.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.cityjson.geometry.SemanticsType;
 
 import java.lang.reflect.Type;
 import java.math.BigInteger;
