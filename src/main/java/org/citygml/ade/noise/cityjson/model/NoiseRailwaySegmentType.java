@@ -22,9 +22,9 @@
 package org.citygml.ade.noise.cityjson.model;
 
 import com.google.gson.annotations.SerializedName;
-import org.citygml4j.binding.cityjson.feature.AbstractCityObjectType;
-import org.citygml4j.binding.cityjson.feature.Attributes;
-import org.citygml4j.binding.cityjson.geometry.GeometryTypeName;
+import org.citygml4j.cityjson.feature.AbstractCityObjectType;
+import org.citygml4j.cityjson.feature.Attributes;
+import org.citygml4j.cityjson.geometry.GeometryTypeName;
 import org.citygml4j.util.gmlid.DefaultGMLIdManager;
 
 import java.util.HashMap;
