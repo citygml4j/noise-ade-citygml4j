@@ -28,6 +28,7 @@ import org.citygml.ade.noise.cityjson.model.NoiseCityFurnitureSegmentType;
 import org.citygml.ade.noise.cityjson.model.NoiseRailwaySegmentType;
 import org.citygml.ade.noise.cityjson.model.NoiseRoadSegmentType;
 import org.citygml4j.builder.cityjson.extension.CityJSONExtensionModule;
+import org.citygml4j.builder.cityjson.extension.ExtensionModuleVersion;
 import org.citygml4j.cityjson.extension.ExtensibleType;
 import org.citygml4j.cityjson.feature.AbstractBuildingType;
 import org.citygml4j.cityjson.feature.AbstractCityObjectType;
@@ -43,6 +44,7 @@ import java.util.Map;
 public class NoiseExtensionModule implements CityJSONExtensionModule {
     private final Map<String, Class<? extends AbstractCityObjectType>> cityObjects;
     private final Map<Class<? extends ExtensibleType>, Map<String, Type>> properties;
+    private final ExtensionModuleVersion version = new ExtensionModuleVersion(1, 0);
 
     public NoiseExtensionModule() {
         cityObjects = new HashMap<>();
@@ -75,6 +77,11 @@ public class NoiseExtensionModule implements CityJSONExtensionModule {
     @Override
     public String getSchemaURI() {
         return "noise.json";
+    }
+
+    @Override
+    public ExtensionModuleVersion getVersion() {
+        return version;
     }
 
     @Override
