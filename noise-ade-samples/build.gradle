@@ -4,7 +4,9 @@ plugins {
 
 apply from: 'samples.gradle'
 
-sourceCompatibility = 1.8
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+}
 
 jar.enabled false
 javadoc.enabled false
@@ -51,7 +53,7 @@ task copySamples {
         buildFile.write "apply plugin: 'java'\n"
         buildFile << "apply from: 'samples.gradle'\n\n"
         buildFile << "dependencies {\n"
-        buildFile << "    compile fileTree(dir: '../lib', include: '*.jar')\n"
+        buildFile << "    implementation fileTree(dir: '../lib', include: '*.jar')\n"
         buildFile << "}\n\n"
         buildFile << "clean.dependsOn(cleanOutput)"
 
