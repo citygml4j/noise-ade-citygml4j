@@ -1,5 +1,13 @@
 # NoiseADE module for citygml4j
-This is a citygml4j ADE module for the CityGML 2.0 Noise Application Domain Extension (ADE). The module is implemented
+This is a citygml4j ADE module for the CityGML 2.0 Noise Application Domain Extension (ADE).
+
+**NOTE:** The NoiseADE module is intended to be used with [citygml4j v2](https://github.com/citygml4j/citygml4j/tree/citygml4j-v2)
+and works fine in this context. However, note that citygml4j v2 is in _maintenance mode_ and that the current release of
+the NoiseADE module _cannot be used_ with the latest [citygml4j v3](https://github.com/citygml4j/citygml4j) development.
+There are currently _no plans to migrate_ the NoiseADE module to citygml4j v3.
+
+## About the module
+The module is implemented
 against the `ADEContext` interface of citygml4j introduced in
 [citygml4j 2.5.0](https://github.com/citygml4j/citygml4j/releases/tag/v2.5.0). In contrast to the generic ADE support
 of citygml4j, which maps ADE content onto a Java DOM representation, the ADE module approach allows for extending the
