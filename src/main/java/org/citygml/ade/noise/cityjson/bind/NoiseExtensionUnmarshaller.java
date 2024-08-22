@@ -223,7 +223,7 @@ public class NoiseExtensionUnmarshaller implements CityJSONExtensionUnmarshaller
                 if (multiLineString.isSetLod() && multiLineString.getLod().intValue() != 0)
                     continue;
 
-                AbstractCurve baseLine = helper.getGMLUnmarshaller().unmarshalCurve((MultiLineStringType) geometryType);
+                AbstractCurve baseLine = helper.getGMLUnmarshaller().unmarshalCurve((MultiLineStringType) geometryType, context.getCityJSON());
                 if (baseLine != null)
                     dest.setLod0BaseLine(new CurveProperty(baseLine));
             }
@@ -317,7 +317,7 @@ public class NoiseExtensionUnmarshaller implements CityJSONExtensionUnmarshaller
                 if (multiLineString.isSetLod() && multiLineString.getLod().intValue() != 0)
                     continue;
 
-                AbstractCurve baseLine = helper.getGMLUnmarshaller().unmarshalCurve((MultiLineStringType) geometryType);
+                AbstractCurve baseLine = helper.getGMLUnmarshaller().unmarshalCurve((MultiLineStringType) geometryType, context.getCityJSON());
                 if (baseLine != null)
                     dest.setLod0BaseLine(new CurveProperty(baseLine));
             }
@@ -368,7 +368,7 @@ public class NoiseExtensionUnmarshaller implements CityJSONExtensionUnmarshaller
                 if (multiLineString.isSetLod() && multiLineString.getLod().intValue() != 0)
                     continue;
 
-                AbstractCurve baseLine = helper.getGMLUnmarshaller().unmarshalCurve((MultiLineStringType) geometryType);
+                AbstractCurve baseLine = helper.getGMLUnmarshaller().unmarshalCurve((MultiLineStringType) geometryType, context.getCityJSON());
                 if (baseLine != null)
                     dest.setLod0BaseLine(new CurveProperty(baseLine));
             }

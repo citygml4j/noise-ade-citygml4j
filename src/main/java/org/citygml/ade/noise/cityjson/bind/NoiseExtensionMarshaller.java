@@ -130,7 +130,7 @@ public class NoiseExtensionMarshaller implements CityJSONExtensionMarshaller {
     }
 
     @Override
-    public SemanticsType marshalSemanticSurface(ADEModelObject src) {
+    public SemanticsType marshalSemanticSurface(ADEModelObject src, CityJSON cityJSON) {
         return null;
     }
 
@@ -220,7 +220,7 @@ public class NoiseExtensionMarshaller implements CityJSONExtensionMarshaller {
             attributes.setDistance(marshalMeasure(src.getDistance()));
 
         if (src.isSetLod0BaseLine()) {
-            AbstractGeometryObjectType geometry = helper.getGMLMarshaller().marshalGeometryProperty(src.getLod0BaseLine());
+            AbstractGeometryObjectType geometry = helper.getGMLMarshaller().marshalGeometryProperty(src.getLod0BaseLine(), cityJSON);
             if (geometry != null) {
                 geometry.setLod(0);
                 dest.addGeometry(geometry);
@@ -305,7 +305,7 @@ public class NoiseExtensionMarshaller implements CityJSONExtensionMarshaller {
             attributes.setLineage(src.getLineage());
 
         if (src.isSetLod0BaseLine()) {
-            AbstractGeometryObjectType geometry = helper.getGMLMarshaller().marshalGeometryProperty(src.getLod0BaseLine());
+            AbstractGeometryObjectType geometry = helper.getGMLMarshaller().marshalGeometryProperty(src.getLod0BaseLine(), cityJSON);
             if (geometry != null) {
                 geometry.setLod(0);
                 dest.addGeometry(geometry);
@@ -346,7 +346,7 @@ public class NoiseExtensionMarshaller implements CityJSONExtensionMarshaller {
         }
 
         if (src.isSetLod0BaseLine()) {
-            AbstractGeometryObjectType geometry = helper.getGMLMarshaller().marshalGeometryProperty(src.getLod0BaseLine());
+            AbstractGeometryObjectType geometry = helper.getGMLMarshaller().marshalGeometryProperty(src.getLod0BaseLine(), cityJSON);
             if (geometry != null) {
                 geometry.setLod(0);
                 dest.addGeometry(geometry);
