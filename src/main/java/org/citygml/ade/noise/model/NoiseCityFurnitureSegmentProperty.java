@@ -26,47 +26,47 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class NoiseCityFurnitureSegmentProperty extends FeatureProperty<NoiseCityFurnitureSegment> implements ADEModelObject {
 
-	public NoiseCityFurnitureSegmentProperty() {
-	}
-	
-	public NoiseCityFurnitureSegmentProperty(NoiseCityFurnitureSegment noiseCityFurnitureSegment) {
-		super(noiseCityFurnitureSegment);
-	}
-	
-	public NoiseCityFurnitureSegmentProperty(String href) {
-		super(href);
-	}
-	
-	public NoiseCityFurnitureSegment getNoiseCityFurnitureSegment() {
-		return super.getObject();
-	}
+    public NoiseCityFurnitureSegmentProperty() {
+    }
 
-	public boolean isSetNoiseCityFurnitureSegment() {
-		return super.isSetObject();
-	}
+    public NoiseCityFurnitureSegmentProperty(NoiseCityFurnitureSegment noiseCityFurnitureSegment) {
+        super(noiseCityFurnitureSegment);
+    }
 
-	public void setNoiseCityFurnitureSegment(NoiseCityFurnitureSegment noiseCityFurnitureSegment) {
-		super.setObject(noiseCityFurnitureSegment);
-	}
+    public NoiseCityFurnitureSegmentProperty(String href) {
+        super(href);
+    }
 
-	public void unsetNoiseCityFurnitureSegment() {
-		super.unsetObject();
-	}
+    public NoiseCityFurnitureSegment getNoiseCityFurnitureSegment() {
+        return super.getObject();
+    }
 
-	@Override
-	public Class<NoiseCityFurnitureSegment> getAssociableClass() {
-		return NoiseCityFurnitureSegment.class;
-	}
+    public boolean isSetNoiseCityFurnitureSegment() {
+        return super.isSetObject();
+    }
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new NoiseCityFurnitureSegmentProperty(), copyBuilder);
-	}
+    public void setNoiseCityFurnitureSegment(NoiseCityFurnitureSegment noiseCityFurnitureSegment) {
+        super.setObject(noiseCityFurnitureSegment);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		NoiseCityFurnitureSegmentProperty copy = (target == null) ? new NoiseCityFurnitureSegmentProperty() : (NoiseCityFurnitureSegmentProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetNoiseCityFurnitureSegment() {
+        super.unsetObject();
+    }
+
+    @Override
+    public Class<NoiseCityFurnitureSegment> getAssociableClass() {
+        return NoiseCityFurnitureSegment.class;
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new NoiseCityFurnitureSegmentProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        NoiseCityFurnitureSegmentProperty copy = (target == null) ? new NoiseCityFurnitureSegmentProperty() : (NoiseCityFurnitureSegmentProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

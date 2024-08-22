@@ -28,16 +28,16 @@ import java.util.List;
 
 public class BuildingImmissionPointsProperty extends ADEGenericApplicationProperty<List<BigInteger>> {
 
-	public BuildingImmissionPointsProperty() {
-	}
-	
-	public BuildingImmissionPointsProperty(List<BigInteger> value) {
-		super(value);
-	}
-	
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new BuildingImmissionPointsProperty(), copyBuilder);
-	}
-	
+    public BuildingImmissionPointsProperty() {
+    }
+
+    public BuildingImmissionPointsProperty(List<BigInteger> value) {
+        super(value);
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new BuildingImmissionPointsProperty(), copyBuilder);
+    }
+
 }

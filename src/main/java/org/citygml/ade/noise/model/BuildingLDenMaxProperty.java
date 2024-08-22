@@ -26,16 +26,16 @@ import org.citygml4j.model.gml.basicTypes.Measure;
 
 public class BuildingLDenMaxProperty extends ADEGenericApplicationProperty<Measure> {
 
-	public BuildingLDenMaxProperty() {
-	}
-	
-	public BuildingLDenMaxProperty(Measure value) {
-		super(value);
-	}
-	
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new BuildingLDenMaxProperty(), copyBuilder);
-	}
-	
+    public BuildingLDenMaxProperty() {
+    }
+
+    public BuildingLDenMaxProperty(Measure value) {
+        super(value);
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new BuildingLDenMaxProperty(), copyBuilder);
+    }
+
 }

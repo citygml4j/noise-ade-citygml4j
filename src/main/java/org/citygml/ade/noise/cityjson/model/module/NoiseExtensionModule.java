@@ -64,7 +64,8 @@ public class NoiseExtensionModule implements CityJSONExtensionModule {
         abstractBuilding.put("+noise-buildingLNightEq", MeasureType.class);
         abstractBuilding.put("+noise-buildingHabitants", Integer.class);
         abstractBuilding.put("+noise-buildingAppartments", Integer.class);
-        abstractBuilding.put("+noise-buildingImmissionPoints", new TypeToken<List<BigInteger>>(){}.getType());
+        abstractBuilding.put("+noise-buildingImmissionPoints", new TypeToken<List<BigInteger>>() {
+        }.getType());
         abstractBuilding.put("+noise-remark", String.class);
         properties.put(AbstractBuildingType.class, abstractBuilding);
     }

@@ -26,47 +26,47 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class NoiseRailwaySegmentProperty extends FeatureProperty<NoiseRailwaySegment> implements ADEModelObject {
 
-	public NoiseRailwaySegmentProperty() {
-	}
-	
-	public NoiseRailwaySegmentProperty(NoiseRailwaySegment noiseRailwaySegment) {
-		super(noiseRailwaySegment);
-	}
-	
-	public NoiseRailwaySegmentProperty(String href) {
-		super(href);
-	}
-	
-	public NoiseRailwaySegment getNoiseRailwaySegment() {
-		return super.getObject();
-	}
+    public NoiseRailwaySegmentProperty() {
+    }
 
-	public boolean isSetNoiseRailwaySegment() {
-		return super.isSetObject();
-	}
+    public NoiseRailwaySegmentProperty(NoiseRailwaySegment noiseRailwaySegment) {
+        super(noiseRailwaySegment);
+    }
 
-	public void setNoiseRailwaySegment(NoiseRailwaySegment noiseRailwaySegment) {
-		super.setObject(noiseRailwaySegment);
-	}
+    public NoiseRailwaySegmentProperty(String href) {
+        super(href);
+    }
 
-	public void unsetNoiseRailwaySegment() {
-		super.unsetObject();
-	}
+    public NoiseRailwaySegment getNoiseRailwaySegment() {
+        return super.getObject();
+    }
 
-	@Override
-	public Class<NoiseRailwaySegment> getAssociableClass() {
-		return NoiseRailwaySegment.class;
-	}
+    public boolean isSetNoiseRailwaySegment() {
+        return super.isSetObject();
+    }
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new NoiseRailwaySegmentProperty(), copyBuilder);
-	}
+    public void setNoiseRailwaySegment(NoiseRailwaySegment noiseRailwaySegment) {
+        super.setObject(noiseRailwaySegment);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		NoiseRailwaySegmentProperty copy = (target == null) ? new NoiseRailwaySegmentProperty() : (NoiseRailwaySegmentProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetNoiseRailwaySegment() {
+        super.unsetObject();
+    }
+
+    @Override
+    public Class<NoiseRailwaySegment> getAssociableClass() {
+        return NoiseRailwaySegment.class;
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new NoiseRailwaySegmentProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        NoiseRailwaySegmentProperty copy = (target == null) ? new NoiseRailwaySegmentProperty() : (NoiseRailwaySegmentProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

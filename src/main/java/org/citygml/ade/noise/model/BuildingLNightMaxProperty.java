@@ -26,16 +26,16 @@ import org.citygml4j.model.gml.basicTypes.Measure;
 
 public class BuildingLNightMaxProperty extends ADEGenericApplicationProperty<Measure> {
 
-	public BuildingLNightMaxProperty() {
-	}
-	
-	public BuildingLNightMaxProperty(Measure value) {
-		super(value);
-	}
-	
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new BuildingLNightMaxProperty(), copyBuilder);
-	}
-	
+    public BuildingLNightMaxProperty() {
+    }
+
+    public BuildingLNightMaxProperty(Measure value) {
+        super(value);
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new BuildingLNightMaxProperty(), copyBuilder);
+    }
+
 }

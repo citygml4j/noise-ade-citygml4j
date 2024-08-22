@@ -38,443 +38,443 @@ import org.citygml4j.model.gml.measures.Speed;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class NoiseRoadSegment extends AbstractTransportationObject implements ADEModelObject {
-	private Measure mDay;
-	private Measure mEvening;
-	private Measure mNight;
-	private Measure mDay16;
-	private Measure pDay;
-	private Measure pEvening;
-	private Measure pNight;
-	private Measure pDay16;
-	private Measure dtv;
-	private Speed speedDayPkw;
-	private Speed speedEveningPkw;
-	private Speed speedNightPkw;
-	private Speed speedDayLkw;
-	private Speed speedEveningLkw;
-	private Speed speedNightLkw;
-	private String roadSurfaceMaterial;
-	private Measure roadSurfaceCorrection;
-	private Length distanceCarriageway;
-	private Length distanceD;
-	private Boolean bridge;
-	private Boolean tunnel;
-	private Measure roadGradientPercent;
-	private CurveProperty lod0BaseLine;
-	private String lineage;
+    private Measure mDay;
+    private Measure mEvening;
+    private Measure mNight;
+    private Measure mDay16;
+    private Measure pDay;
+    private Measure pEvening;
+    private Measure pNight;
+    private Measure pDay16;
+    private Measure dtv;
+    private Speed speedDayPkw;
+    private Speed speedEveningPkw;
+    private Speed speedNightPkw;
+    private Speed speedDayLkw;
+    private Speed speedEveningLkw;
+    private Speed speedNightLkw;
+    private String roadSurfaceMaterial;
+    private Measure roadSurfaceCorrection;
+    private Length distanceCarriageway;
+    private Length distanceD;
+    private Boolean bridge;
+    private Boolean tunnel;
+    private Measure roadGradientPercent;
+    private CurveProperty lod0BaseLine;
+    private String lineage;
 
-	public NoiseRoadSegment() {
+    public NoiseRoadSegment() {
 
-	}
+    }
 
-	public NoiseRoadSegment(NoiseADEModule module) {
-		super(module);
-	}
+    public NoiseRoadSegment(NoiseADEModule module) {
+        super(module);
+    }
 
-	public Measure getMDay() {
-		return mDay;
-	}
-	
-	public boolean isSetMDay() {
-		return mDay != null;
-	}
+    public Measure getMDay() {
+        return mDay;
+    }
 
-	public void setMDay(Measure mDay) {
-		if (mDay != null)
-			mDay.setParent(this);
-		
-		this.mDay = mDay;
-	}
+    public boolean isSetMDay() {
+        return mDay != null;
+    }
 
-	public Measure getMEvening() {
-		return mEvening;
-	}
-	
-	public boolean isSetMEvening() {
-		return mEvening != null;
-	}
+    public void setMDay(Measure mDay) {
+        if (mDay != null)
+            mDay.setParent(this);
 
-	public void setMEvening(Measure mEvening) {
-		if (mEvening != null)
-			mEvening.setParent(this);
-		
-		this.mEvening = mEvening;
-	}
+        this.mDay = mDay;
+    }
 
-	public Measure getMNight() {
-		return mNight;
-	}
-	
-	public boolean isSetMNight() {
-		return mNight != null;
-	}
+    public Measure getMEvening() {
+        return mEvening;
+    }
 
-	public void setMNight(Measure mNight) {
-		if (mNight != null)
-			mNight.setParent(this);
-		
-		this.mNight = mNight;
-	}
+    public boolean isSetMEvening() {
+        return mEvening != null;
+    }
 
-	public Measure getMDay16() {
-		return mDay16;
-	}
-	
-	public boolean isSetMDay16() {
-		return mDay16 != null;
-	}
+    public void setMEvening(Measure mEvening) {
+        if (mEvening != null)
+            mEvening.setParent(this);
 
-	public void setMDay16(Measure mDay16) {
-		if (mDay16 != null)
-			mDay16.setParent(this);
-		
-		this.mDay16 = mDay16;
-	}
+        this.mEvening = mEvening;
+    }
 
-	public Measure getPDay() {
-		return pDay;
-	}
-	
-	public boolean isSetPDay() {
-		return pDay != null;
-	}
+    public Measure getMNight() {
+        return mNight;
+    }
 
-	public void setPDay(Measure pDay) {
-		if (pDay != null)
-			pDay.setParent(this);
-		
-		this.pDay = pDay;
-	}
+    public boolean isSetMNight() {
+        return mNight != null;
+    }
 
-	public Measure getPEvening() {
-		return pEvening;
-	}
-	
-	public boolean isSetPEvening() {
-		return pEvening != null;
-	}
+    public void setMNight(Measure mNight) {
+        if (mNight != null)
+            mNight.setParent(this);
 
-	public void setPEvening(Measure pEvening) {
-		if (pEvening != null)
-			pEvening.setParent(this);
-		
-		this.pEvening = pEvening;
-	}
+        this.mNight = mNight;
+    }
 
-	public Measure getPNight() {
-		return pNight;
-	}
-	
-	public boolean isSetPNight() {
-		return pNight != null;
-	}
+    public Measure getMDay16() {
+        return mDay16;
+    }
 
-	public void setPNight(Measure pNight) {
-		if (pNight != null)
-			pNight.setParent(this);
-		
-		this.pNight = pNight;
-	}
+    public boolean isSetMDay16() {
+        return mDay16 != null;
+    }
 
-	public Measure getPDay16() {
-		return pDay16;
-	}
-	
-	public boolean isSetPDay16() {
-		return pDay16 != null;
-	}
+    public void setMDay16(Measure mDay16) {
+        if (mDay16 != null)
+            mDay16.setParent(this);
 
-	public void setPDay16(Measure pDay16) {
-		if (pDay16 != null)
-			pDay16.setParent(this);
-		
-		this.pDay16 = pDay16;
-	}
+        this.mDay16 = mDay16;
+    }
 
-	public Measure getDtv() {
-		return dtv;
-	}
-	
-	public boolean isSetDtv() {
-		return dtv != null;
-	}
+    public Measure getPDay() {
+        return pDay;
+    }
 
-	public void setDtv(Measure dtv) {
-		if (dtv != null)
-			dtv.setParent(this);
-		
-		this.dtv = dtv;
-	}
+    public boolean isSetPDay() {
+        return pDay != null;
+    }
 
-	public Speed getSpeedDayPkw() {
-		return speedDayPkw;
-	}
-	
-	public boolean isSetSpeedDayPkw() {
-		return speedDayPkw != null;
-	}
+    public void setPDay(Measure pDay) {
+        if (pDay != null)
+            pDay.setParent(this);
 
-	public void setSpeedDayPkw(Speed speedDayPkw) {
-		if (speedDayPkw != null)
-			speedDayPkw.setParent(this);
-		
-		this.speedDayPkw = speedDayPkw;
-	}
+        this.pDay = pDay;
+    }
 
-	public Speed getSpeedEveningPkw() {
-		return speedEveningPkw;
-	}
-	
-	public boolean isSetSpeedEveningPkw() {
-		return speedEveningPkw != null;
-	}
+    public Measure getPEvening() {
+        return pEvening;
+    }
 
-	public void setSpeedEveningPkw(Speed speedEveningPkw) {
-		if (speedEveningPkw != null)
-			speedEveningPkw.setParent(this);
-		
-		this.speedEveningPkw = speedEveningPkw;
-	}
+    public boolean isSetPEvening() {
+        return pEvening != null;
+    }
 
-	public Speed getSpeedNightPkw() {
-		return speedNightPkw;
-	}
-	
-	public boolean isSetSpeedNightPkw() {
-		return speedNightPkw != null;
-	}
+    public void setPEvening(Measure pEvening) {
+        if (pEvening != null)
+            pEvening.setParent(this);
 
-	public void setSpeedNightPkw(Speed speedNightPkw) {
-		if (speedNightPkw != null)
-			speedNightPkw.setParent(this);
-		
-		this.speedNightPkw = speedNightPkw;
-	}
+        this.pEvening = pEvening;
+    }
 
-	public Speed getSpeedDayLkw() {
-		return speedDayLkw;
-	}
-	
-	public boolean isSetSpeedDayLkw() {
-		return speedDayLkw != null;
-	}
+    public Measure getPNight() {
+        return pNight;
+    }
 
-	public void setSpeedDayLkw(Speed speedDayLkw) {
-		if (speedDayLkw != null)
-			speedDayLkw.setParent(this);
-		
-		this.speedDayLkw = speedDayLkw;
-	}
+    public boolean isSetPNight() {
+        return pNight != null;
+    }
 
-	public Speed getSpeedEveningLkw() {
-		return speedEveningLkw;
-	}
-	
-	public boolean isSetSpeedEveningLkw() {
-		return speedEveningLkw != null;
-	}
+    public void setPNight(Measure pNight) {
+        if (pNight != null)
+            pNight.setParent(this);
 
-	public void setSpeedEveningLkw(Speed speedEveningLkw) {
-		if (speedEveningLkw != null)
-			speedEveningLkw.setParent(this);
-		
-		this.speedEveningLkw = speedEveningLkw;
-	}
+        this.pNight = pNight;
+    }
 
-	public Speed getSpeedNightLkw() {
-		return speedNightLkw;
-	}
-	
-	public boolean isSetSpeedNightLkw() {
-		return speedNightLkw != null;
-	}
+    public Measure getPDay16() {
+        return pDay16;
+    }
 
-	public void setSpeedNightLkw(Speed speedNightLkw) {
-		if (speedNightLkw != null)
-			speedNightLkw.setParent(this);
-		
-		this.speedNightLkw = speedNightLkw;
-	}
+    public boolean isSetPDay16() {
+        return pDay16 != null;
+    }
 
-	public String getRoadSurfaceMaterial() {
-		return roadSurfaceMaterial;
-	}
-	
-	public boolean isSetRoadSurfaceMaterial() {
-		return roadSurfaceMaterial != null;
-	}
+    public void setPDay16(Measure pDay16) {
+        if (pDay16 != null)
+            pDay16.setParent(this);
 
-	public void setRoadSurfaceMaterial(String roadSurfaceMaterial) {
-		this.roadSurfaceMaterial = roadSurfaceMaterial;
-	}
+        this.pDay16 = pDay16;
+    }
 
-	public Measure getRoadSurfaceCorrection() {
-		return roadSurfaceCorrection;
-	}
-	
-	public boolean isSetRoadSurfaceCorrection() {
-		return roadSurfaceCorrection != null;
-	}
+    public Measure getDtv() {
+        return dtv;
+    }
 
-	public void setRoadSurfaceCorrection(Measure roadSurfaceCorrection) {
-		if (roadSurfaceCorrection != null)
-			roadSurfaceCorrection.setParent(this);
-		
-		this.roadSurfaceCorrection = roadSurfaceCorrection;
-	}
+    public boolean isSetDtv() {
+        return dtv != null;
+    }
 
-	public Length getDistanceCarriageway() {
-		return distanceCarriageway;
-	}
-	
-	public boolean isSetDistanceCarriageway() {
-		return distanceCarriageway != null;
-	}
+    public void setDtv(Measure dtv) {
+        if (dtv != null)
+            dtv.setParent(this);
 
-	public void setDistanceCarriageway(Length distanceCarriageway) {
-		if (distanceCarriageway != null)
-			distanceCarriageway.setParent(this);
-		
-		this.distanceCarriageway = distanceCarriageway;
-	}
+        this.dtv = dtv;
+    }
 
-	public Length getDistanceD() {
-		return distanceD;
-	}
-	
-	public boolean isSetDistanceD() {
-		return distanceD != null;
-	}
+    public Speed getSpeedDayPkw() {
+        return speedDayPkw;
+    }
 
-	public void setDistanceD(Length distanceD) {
-		if (distanceD != null)
-			distanceD.setParent(this);
-		
-		this.distanceD = distanceD;
-	}
+    public boolean isSetSpeedDayPkw() {
+        return speedDayPkw != null;
+    }
 
-	public Boolean getBridge() {
-		return bridge;
-	}
-	
-	public boolean isSetBridge() {
-		return bridge != null;
-	}
+    public void setSpeedDayPkw(Speed speedDayPkw) {
+        if (speedDayPkw != null)
+            speedDayPkw.setParent(this);
 
-	public void setBridge(Boolean bridge) {
-		this.bridge = bridge;
-	}
+        this.speedDayPkw = speedDayPkw;
+    }
 
-	public Boolean getTunnel() {
-		return tunnel;
-	}
-	
-	public boolean isSetTunnel() {
-		return tunnel != null;
-	}
+    public Speed getSpeedEveningPkw() {
+        return speedEveningPkw;
+    }
 
-	public void setTunnel(Boolean tunnel) {
-		this.tunnel = tunnel;
-	}
+    public boolean isSetSpeedEveningPkw() {
+        return speedEveningPkw != null;
+    }
 
-	public Measure getRoadGradientPercent() {
-		return roadGradientPercent;
-	}
-	
-	public boolean isSetRoadGradientPercent() {
-		return roadGradientPercent != null;
-	}
+    public void setSpeedEveningPkw(Speed speedEveningPkw) {
+        if (speedEveningPkw != null)
+            speedEveningPkw.setParent(this);
 
-	public void setRoadGradientPercent(Measure roadGradientPercent) {
-		if (roadGradientPercent != null)
-			roadGradientPercent.setParent(this);
-		
-		this.roadGradientPercent = roadGradientPercent;
-	}
+        this.speedEveningPkw = speedEveningPkw;
+    }
 
-	public CurveProperty getLod0BaseLine() {
-		return lod0BaseLine;
-	}
-	
-	public boolean isSetLod0BaseLine() {
-		return lod0BaseLine != null;
-	}
+    public Speed getSpeedNightPkw() {
+        return speedNightPkw;
+    }
 
-	public void setLod0BaseLine(CurveProperty lod0BaseLine) {
-		if (lod0BaseLine != null)
-			lod0BaseLine.setParent(this);
-		
-		this.lod0BaseLine = lod0BaseLine;
-	}
+    public boolean isSetSpeedNightPkw() {
+        return speedNightPkw != null;
+    }
 
-	public String getLineage() {
-		return lineage;
-	}
-	
-	public boolean isSetLineage() {
-		return lineage != null;
-	}
+    public void setSpeedNightPkw(Speed speedNightPkw) {
+        if (speedNightPkw != null)
+            speedNightPkw.setParent(this);
 
-	public void setLineage(String lineage) {
-		this.lineage = lineage;
-	}
-	
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (lod0BaseLine != null && lod0BaseLine.isSetCurve())
-			boundedBy.updateEnvelope(lod0BaseLine.getCurve().calcBoundingBox());
-			
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
-	
-	@Override
-	public LodRepresentation getLodRepresentation() {
-		LodRepresentation lodRepresentation = new LodRepresentation();
-		
-		if (lod0BaseLine != null)
-			lodRepresentation.addRepresentation(0, lod0BaseLine);
-		
-		return lodRepresentation;
-	}
+        this.speedNightPkw = speedNightPkw;
+    }
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new NoiseRoadSegment(), copyBuilder);
-	}
+    public Speed getSpeedDayLkw() {
+        return speedDayLkw;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		NoiseRoadSegment copy = (target == null) ? new NoiseRoadSegment() : (NoiseRoadSegment)target;
-		super.copyTo(copy, copyBuilder);
-		
-		return ObjectCopier.copyTo(this, copy, copyBuilder);
-	}
-	
-	@Override
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
+    public boolean isSetSpeedDayLkw() {
+        return speedDayLkw != null;
+    }
 
-	@Override
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public void setSpeedDayLkw(Speed speedDayLkw) {
+        if (speedDayLkw != null)
+            speedDayLkw.setParent(this);
 
-	@Override
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
+        this.speedDayLkw = speedDayLkw;
+    }
 
-	@Override
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public Speed getSpeedEveningLkw() {
+        return speedEveningLkw;
+    }
+
+    public boolean isSetSpeedEveningLkw() {
+        return speedEveningLkw != null;
+    }
+
+    public void setSpeedEveningLkw(Speed speedEveningLkw) {
+        if (speedEveningLkw != null)
+            speedEveningLkw.setParent(this);
+
+        this.speedEveningLkw = speedEveningLkw;
+    }
+
+    public Speed getSpeedNightLkw() {
+        return speedNightLkw;
+    }
+
+    public boolean isSetSpeedNightLkw() {
+        return speedNightLkw != null;
+    }
+
+    public void setSpeedNightLkw(Speed speedNightLkw) {
+        if (speedNightLkw != null)
+            speedNightLkw.setParent(this);
+
+        this.speedNightLkw = speedNightLkw;
+    }
+
+    public String getRoadSurfaceMaterial() {
+        return roadSurfaceMaterial;
+    }
+
+    public boolean isSetRoadSurfaceMaterial() {
+        return roadSurfaceMaterial != null;
+    }
+
+    public void setRoadSurfaceMaterial(String roadSurfaceMaterial) {
+        this.roadSurfaceMaterial = roadSurfaceMaterial;
+    }
+
+    public Measure getRoadSurfaceCorrection() {
+        return roadSurfaceCorrection;
+    }
+
+    public boolean isSetRoadSurfaceCorrection() {
+        return roadSurfaceCorrection != null;
+    }
+
+    public void setRoadSurfaceCorrection(Measure roadSurfaceCorrection) {
+        if (roadSurfaceCorrection != null)
+            roadSurfaceCorrection.setParent(this);
+
+        this.roadSurfaceCorrection = roadSurfaceCorrection;
+    }
+
+    public Length getDistanceCarriageway() {
+        return distanceCarriageway;
+    }
+
+    public boolean isSetDistanceCarriageway() {
+        return distanceCarriageway != null;
+    }
+
+    public void setDistanceCarriageway(Length distanceCarriageway) {
+        if (distanceCarriageway != null)
+            distanceCarriageway.setParent(this);
+
+        this.distanceCarriageway = distanceCarriageway;
+    }
+
+    public Length getDistanceD() {
+        return distanceD;
+    }
+
+    public boolean isSetDistanceD() {
+        return distanceD != null;
+    }
+
+    public void setDistanceD(Length distanceD) {
+        if (distanceD != null)
+            distanceD.setParent(this);
+
+        this.distanceD = distanceD;
+    }
+
+    public Boolean getBridge() {
+        return bridge;
+    }
+
+    public boolean isSetBridge() {
+        return bridge != null;
+    }
+
+    public void setBridge(Boolean bridge) {
+        this.bridge = bridge;
+    }
+
+    public Boolean getTunnel() {
+        return tunnel;
+    }
+
+    public boolean isSetTunnel() {
+        return tunnel != null;
+    }
+
+    public void setTunnel(Boolean tunnel) {
+        this.tunnel = tunnel;
+    }
+
+    public Measure getRoadGradientPercent() {
+        return roadGradientPercent;
+    }
+
+    public boolean isSetRoadGradientPercent() {
+        return roadGradientPercent != null;
+    }
+
+    public void setRoadGradientPercent(Measure roadGradientPercent) {
+        if (roadGradientPercent != null)
+            roadGradientPercent.setParent(this);
+
+        this.roadGradientPercent = roadGradientPercent;
+    }
+
+    public CurveProperty getLod0BaseLine() {
+        return lod0BaseLine;
+    }
+
+    public boolean isSetLod0BaseLine() {
+        return lod0BaseLine != null;
+    }
+
+    public void setLod0BaseLine(CurveProperty lod0BaseLine) {
+        if (lod0BaseLine != null)
+            lod0BaseLine.setParent(this);
+
+        this.lod0BaseLine = lod0BaseLine;
+    }
+
+    public String getLineage() {
+        return lineage;
+    }
+
+    public boolean isSetLineage() {
+        return lineage != null;
+    }
+
+    public void setLineage(String lineage) {
+        this.lineage = lineage;
+    }
+
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
+
+        if (lod0BaseLine != null && lod0BaseLine.isSetCurve())
+            boundedBy.updateEnvelope(lod0BaseLine.getCurve().calcBoundingBox());
+
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
+
+        return boundedBy;
+    }
+
+    @Override
+    public LodRepresentation getLodRepresentation() {
+        LodRepresentation lodRepresentation = new LodRepresentation();
+
+        if (lod0BaseLine != null)
+            lodRepresentation.addRepresentation(0, lod0BaseLine);
+
+        return lodRepresentation;
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new NoiseRoadSegment(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        NoiseRoadSegment copy = (target == null) ? new NoiseRoadSegment() : (NoiseRoadSegment) target;
+        super.copyTo(copy, copyBuilder);
+
+        return ObjectCopier.copyTo(this, copy, copyBuilder);
+    }
+
+    @Override
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    @Override
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

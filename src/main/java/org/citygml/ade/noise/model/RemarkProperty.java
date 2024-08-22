@@ -25,16 +25,16 @@ import org.citygml4j.model.citygml.ade.binding.ADEGenericApplicationProperty;
 
 public class RemarkProperty extends ADEGenericApplicationProperty<String> {
 
-	public RemarkProperty() {
-	}
-	
-	public RemarkProperty(String value) {
-		super(value);
-	}
-	
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new RemarkProperty(), copyBuilder);
-	}
-	
+    public RemarkProperty() {
+    }
+
+    public RemarkProperty(String value) {
+        super(value);
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new RemarkProperty(), copyBuilder);
+    }
+
 }

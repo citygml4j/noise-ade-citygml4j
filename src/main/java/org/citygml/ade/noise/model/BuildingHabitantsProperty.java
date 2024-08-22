@@ -27,16 +27,16 @@ import java.math.BigInteger;
 
 public class BuildingHabitantsProperty extends ADEGenericApplicationProperty<BigInteger> {
 
-	public BuildingHabitantsProperty() {
-	}
-	
-	public BuildingHabitantsProperty(BigInteger value) {
-		super(value);
-	}
-	
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new BuildingHabitantsProperty(), copyBuilder);
-	}
-	
+    public BuildingHabitantsProperty() {
+    }
+
+    public BuildingHabitantsProperty(BigInteger value) {
+        super(value);
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new BuildingHabitantsProperty(), copyBuilder);
+    }
+
 }

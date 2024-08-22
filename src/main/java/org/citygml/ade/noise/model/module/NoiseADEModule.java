@@ -30,83 +30,79 @@ import org.citygml4j.model.module.citygml.CityGMLVersion;
 
 import javax.xml.namespace.QName;
 import java.net.URL;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 public class NoiseADEModule extends ADEModule {
-	public static final NoiseADEModule v2_0 = new NoiseADEModule();
+    public static final NoiseADEModule v2_0 = new NoiseADEModule();
 
-	private HashMap<String, Class<? extends AbstractFeature>> features;
-	private HashSet<String> featureProperties;
-	
-	private NoiseADEModule() {
-		super("http://www.citygml.org/ade/noise_de/2.0",
-				"noise", 
-				"http://schemas.opengis.net/citygml/examples/2.0/ade/noise-ade/CityGML-NoiseADE.xsd", 
-				CityGMLVersion.v2_0_0);
-		
-		features = new HashMap<>();
-		features.put("NoiseCityFurnitureSegment", NoiseCityFurnitureSegment.class);
-		features.put("NoiseRoadSegment", NoiseRoadSegment.class);
-		features.put("NoiseRailwaySegment", NoiseRailwaySegment.class);
-		// note: we do not add Train to the list of features because it is not mapped
-		// as global element in the XSD schema. This violates GML mapping rules.
-		
-		featureProperties = new HashSet<>();
-		featureProperties.add("noiseCityFurnitureSegmentProperty");
-		featureProperties.add("noiseRoadSegmentProperty");
-		featureProperties.add("noiseRailwaySegmentProperty");
-		// note: usedBy is neither added to the list because it only contains
-		// Train elements.
-	}
+    private HashMap<String, Class<? extends AbstractFeature>> features;
+    private HashSet<String> featureProperties;
 
-	@Override
-	public List<String> getJAXBPackageNames() {
-		return Collections.singletonList("org.citygml.ade.noise_de._2");
-	}
-	
-	@Override
-	public URL getSchemaResource() {
-		return NoiseADEContext.class.getResource("/org/citygml/ade/noise/schema/xml/CityGML-NoiseADE.xsd");
-	}
-	
-	@Override
-	public boolean hasFeatureProperty(String name) {
-		return featureProperties.contains(name);
-	}
+    private NoiseADEModule() {
+        super("http://www.citygml.org/ade/noise_de/2.0",
+                "noise",
+                "http://schemas.opengis.net/citygml/examples/2.0/ade/noise-ade/CityGML-NoiseADE.xsd",
+                CityGMLVersion.v2_0_0);
 
-	@Override
-	public boolean hasFeature(String name) {
-		return features.containsKey(name);
-	}
+        features = new HashMap<>();
+        features.put("NoiseCityFurnitureSegment", NoiseCityFurnitureSegment.class);
+        features.put("NoiseRoadSegment", NoiseRoadSegment.class);
+        features.put("NoiseRailwaySegment", NoiseRailwaySegment.class);
+        // note: we do not add Train to the list of features because it is not mapped
+        // as global element in the XSD schema. This violates GML mapping rules.
 
-	@Override
-	public Class<? extends AbstractFeature> getFeatureClass(String name) {
-		return features.get(name);
-	}
+        featureProperties = new HashSet<>();
+        featureProperties.add("noiseCityFurnitureSegmentProperty");
+        featureProperties.add("noiseRoadSegmentProperty");
+        featureProperties.add("noiseRailwaySegmentProperty");
+        // note: usedBy is neither added to the list because it only contains
+        // Train elements.
+    }
 
-	@Override
-	public QName getFeatureName(Class<? extends AbstractFeature> featureClass) {
-		for (Entry<String, Class<? extends AbstractFeature>> entry : features.entrySet()) {
-			if (entry.getValue() == featureClass)
-				return new QName(getNamespaceURI(), entry.getKey());
-		}
-		
-		return null;
-	}
+    @Override
+    public List<String> getJAXBPackageNames() {
+        return Collections.singletonList("org.citygml.ade.noise_de._2");
+    }
 
-	@Override
-	public Map<String, Class<? extends AbstractFeature>> getFeatures() {
-		return new HashMap<>(features);
-	}
+    @Override
+    public URL getSchemaResource() {
+        return NoiseADEContext.class.getResource("/org/citygml/ade/noise/schema/xml/CityGML-NoiseADE.xsd");
+    }
 
-	@Override
-	public boolean isTopLevelFeature(String name) {
-		return false;
-	}
+    @Override
+    public boolean hasFeatureProperty(String name) {
+        return featureProperties.contains(name);
+    }
+
+    @Override
+    public boolean hasFeature(String name) {
+        return features.containsKey(name);
+    }
+
+    @Override
+    public Class<? extends AbstractFeature> getFeatureClass(String name) {
+        return features.get(name);
+    }
+
+    @Override
+    public QName getFeatureName(Class<? extends AbstractFeature> featureClass) {
+        for (Entry<String, Class<? extends AbstractFeature>> entry : features.entrySet()) {
+            if (entry.getValue() == featureClass)
+                return new QName(getNamespaceURI(), entry.getKey());
+        }
+
+        return null;
+    }
+
+    @Override
+    public Map<String, Class<? extends AbstractFeature>> getFeatures() {
+        return new HashMap<>(features);
+    }
+
+    @Override
+    public boolean isTopLevelFeature(String name) {
+        return false;
+    }
 
 }

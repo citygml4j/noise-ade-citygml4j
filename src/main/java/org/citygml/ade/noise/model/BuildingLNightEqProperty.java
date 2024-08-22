@@ -26,16 +26,16 @@ import org.citygml4j.model.gml.basicTypes.Measure;
 
 public class BuildingLNightEqProperty extends ADEGenericApplicationProperty<Measure> {
 
-	public BuildingLNightEqProperty() {
-	}
-	
-	public BuildingLNightEqProperty(Measure value) {
-		super(value);
-	}
-	
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new BuildingLNightEqProperty(), copyBuilder);
-	}
-	
+    public BuildingLNightEqProperty() {
+    }
+
+    public BuildingLNightEqProperty(Measure value) {
+        super(value);
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new BuildingLNightEqProperty(), copyBuilder);
+    }
+
 }

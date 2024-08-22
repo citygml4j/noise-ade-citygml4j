@@ -26,16 +26,16 @@ import org.citygml4j.model.gml.basicTypes.Measure;
 
 public class BuildingLDenMinProperty extends ADEGenericApplicationProperty<Measure> {
 
-	public BuildingLDenMinProperty() {
-	}
-	
-	public BuildingLDenMinProperty(Measure value) {
-		super(value);
-	}
-	
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new BuildingLDenMinProperty(), copyBuilder);
-	}
-	
+    public BuildingLDenMinProperty() {
+    }
+
+    public BuildingLDenMinProperty(Measure value) {
+        super(value);
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new BuildingLDenMinProperty(), copyBuilder);
+    }
+
 }

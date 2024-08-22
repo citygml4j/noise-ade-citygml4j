@@ -26,47 +26,47 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class NoiseRoadSegmentProperty extends FeatureProperty<NoiseRoadSegment> implements ADEModelObject {
 
-	public NoiseRoadSegmentProperty() {
-	}
-	
-	public NoiseRoadSegmentProperty(NoiseRoadSegment noiseRoadSegment) {
-		super(noiseRoadSegment);
-	}
-	
-	public NoiseRoadSegmentProperty(String href) {
-		super(href);
-	}
-	
-	public NoiseRoadSegment getNoiseRoadSegment() {
-		return super.getObject();
-	}
+    public NoiseRoadSegmentProperty() {
+    }
 
-	public boolean isSetNoiseRoadSegment() {
-		return super.isSetObject();
-	}
+    public NoiseRoadSegmentProperty(NoiseRoadSegment noiseRoadSegment) {
+        super(noiseRoadSegment);
+    }
 
-	public void setNoiseRoadSegment(NoiseRoadSegment noiseRoadSegment) {
-		super.setObject(noiseRoadSegment);
-	}
+    public NoiseRoadSegmentProperty(String href) {
+        super(href);
+    }
 
-	public void unsetNoiseRoadSegment() {
-		super.unsetObject();
-	}
+    public NoiseRoadSegment getNoiseRoadSegment() {
+        return super.getObject();
+    }
 
-	@Override
-	public Class<NoiseRoadSegment> getAssociableClass() {
-		return NoiseRoadSegment.class;
-	}
+    public boolean isSetNoiseRoadSegment() {
+        return super.isSetObject();
+    }
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new NoiseRoadSegmentProperty(), copyBuilder);
-	}
+    public void setNoiseRoadSegment(NoiseRoadSegment noiseRoadSegment) {
+        super.setObject(noiseRoadSegment);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		NoiseRoadSegmentProperty copy = (target == null) ? new NoiseRoadSegmentProperty() : (NoiseRoadSegmentProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetNoiseRoadSegment() {
+        super.unsetObject();
+    }
+
+    @Override
+    public Class<NoiseRoadSegment> getAssociableClass() {
+        return NoiseRoadSegment.class;
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new NoiseRoadSegmentProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        NoiseRoadSegmentProperty copy = (target == null) ? new NoiseRoadSegmentProperty() : (NoiseRoadSegmentProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }

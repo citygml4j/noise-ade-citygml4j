@@ -37,197 +37,197 @@ import org.citygml4j.model.gml.measures.Length;
 import org.citygml4j.util.bbox.BoundingBoxOptions;
 
 public class NoiseCityFurnitureSegment extends AbstractCityObject implements ADEModelObject {
-	private Code type;
-	private String reflection;
-	private Measure reflectionCorrection;
-	private Length height;
-	private Length distance;
-	private CurveProperty lod0BaseLine;
+    private Code type;
+    private String reflection;
+    private Measure reflectionCorrection;
+    private Length height;
+    private Length distance;
+    private CurveProperty lod0BaseLine;
 
-	public NoiseCityFurnitureSegment() {
+    public NoiseCityFurnitureSegment() {
 
-	}
+    }
 
-	public NoiseCityFurnitureSegment(NoiseADEModule module) {
-		super(module);
-	}
-	
-	public Code getType() {
-		return type;
-	}
-	
-	public boolean isSetType() {
-		return type != null;
-	}
+    public NoiseCityFurnitureSegment(NoiseADEModule module) {
+        super(module);
+    }
 
-	public void setType(Code type) {
-		if (type != null)
-			type.setParent(this);
-		
-		this.type = type;
-	}
+    public Code getType() {
+        return type;
+    }
 
-	public String getReflection() {
-		return reflection;
-	}
-	
-	public boolean isSetReflection() {
-		return reflection != null;
-	}
+    public boolean isSetType() {
+        return type != null;
+    }
 
-	public void setReflection(String reflection) {
-		this.reflection = reflection;
-	}
+    public void setType(Code type) {
+        if (type != null)
+            type.setParent(this);
 
-	public Measure getReflectionCorrection() {
-		return reflectionCorrection;
-	}
-	
-	public boolean isSetReflectionCorrection() {
-		return reflectionCorrection != null;
-	}
+        this.type = type;
+    }
 
-	public void setReflectionCorrection(Measure reflectionCorrection) {
-		if (reflectionCorrection != null)
-			reflectionCorrection.setParent(this);
-		
-		this.reflectionCorrection = reflectionCorrection;
-	}
+    public String getReflection() {
+        return reflection;
+    }
 
-	public Length getHeight() {
-		return height;
-	}
-	
-	public boolean isSetHeight() {
-		return height != null;
-	}
+    public boolean isSetReflection() {
+        return reflection != null;
+    }
 
-	public void setHeight(Length height) {
-		if (height != null)
-			height.setParent(this);
-		
-		this.height = height;
-	}
+    public void setReflection(String reflection) {
+        this.reflection = reflection;
+    }
 
-	public Length getDistance() {
-		return distance;
-	}
-	
-	public boolean isSetDistance() {
-		return distance != null;
-	}
+    public Measure getReflectionCorrection() {
+        return reflectionCorrection;
+    }
 
-	public void setDistance(Length distance) {
-		if (distance != null)
-			distance.setParent(this);
-		
-		this.distance = distance;
-	}
+    public boolean isSetReflectionCorrection() {
+        return reflectionCorrection != null;
+    }
 
-	public CurveProperty getLod0BaseLine() {
-		return lod0BaseLine;
-	}
-	
-	public boolean isSetLod0BaseLine() {
-		return lod0BaseLine != null;
-	}
+    public void setReflectionCorrection(Measure reflectionCorrection) {
+        if (reflectionCorrection != null)
+            reflectionCorrection.setParent(this);
 
-	public void setLod0BaseLine(CurveProperty lod0BaseLine) {
-		if (lod0BaseLine != null)
-			lod0BaseLine.setParent(this);
-		
-		this.lod0BaseLine = lod0BaseLine;
-	}
+        this.reflectionCorrection = reflectionCorrection;
+    }
 
-	@Override
-	public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
-		BoundingShape boundedBy = super.calcBoundedBy(options);
-		if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
-			return boundedBy;
-		
-		if (lod0BaseLine != null && lod0BaseLine.isSetCurve())
-			boundedBy.updateEnvelope(lod0BaseLine.getCurve().calcBoundingBox());
-		
-		if (options.isAssignResultToFeatures())
-			setBoundedBy(boundedBy);
-		
-		return boundedBy;
-	}
-	
-	@Override
-	public LodRepresentation getLodRepresentation() {
-		LodRepresentation lodRepresentation = new LodRepresentation();
-		
-		if (lod0BaseLine != null)
-			lodRepresentation.addRepresentation(0, lod0BaseLine);
-		
-		return lodRepresentation;
-	}
+    public Length getHeight() {
+        return height;
+    }
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new NoiseCityFurnitureSegment(), copyBuilder);
-	}
+    public boolean isSetHeight() {
+        return height != null;
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		NoiseCityFurnitureSegment copy = (target == null) ? new NoiseCityFurnitureSegment() : (NoiseCityFurnitureSegment)target;
-		super.copyTo(copy, copyBuilder);
-		
-		if (isSetType()) {
-			copy.setType((Code)copyBuilder.copy(type));
-			if (copy.getType() == type)
-				type.setParent(this);
-		}
-		
-		if (isSetReflection())
-			copy.setReflection(copyBuilder.copy(reflection));
+    public void setHeight(Length height) {
+        if (height != null)
+            height.setParent(this);
 
-		if (isSetReflectionCorrection()) {
-			copy.setReflectionCorrection((Measure)copyBuilder.copy(reflectionCorrection));
-			if (copy.getReflectionCorrection() == reflectionCorrection)
-				reflectionCorrection.setParent(this);
-		}
-		
-		if (isSetHeight()) {
-			copy.setHeight((Length)copyBuilder.copy(height));
-			if (copy.getHeight() == height)
-				height.setParent(this);
-		}
+        this.height = height;
+    }
 
-		if (isSetDistance()) {
-			copy.setDistance((Length)copyBuilder.copy(distance));
-			if (copy.getDistance() == distance)
-				distance.setParent(this);
-		}
+    public Length getDistance() {
+        return distance;
+    }
 
-		if (isSetLod0BaseLine()) {
-			copy.setLod0BaseLine((CurveProperty)copyBuilder.copy(lod0BaseLine));
-			if (copy.getLod0BaseLine() == lod0BaseLine)
-				lod0BaseLine.setParent(this);
-		}
-		
-		return copy;
-	}
+    public boolean isSetDistance() {
+        return distance != null;
+    }
 
-	@Override
-	public void accept(FeatureVisitor visitor) {
-		visitor.visit(this);
-	}
+    public void setDistance(Length distance) {
+        if (distance != null)
+            distance.setParent(this);
 
-	@Override
-	public <T> T accept(FeatureFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+        this.distance = distance;
+    }
 
-	@Override
-	public void accept(GMLVisitor visitor) {
-		visitor.visit(this);
-	}
+    public CurveProperty getLod0BaseLine() {
+        return lod0BaseLine;
+    }
 
-	@Override
-	public <T> T accept(GMLFunctor<T> visitor) {
-		return visitor.apply(this);
-	}
+    public boolean isSetLod0BaseLine() {
+        return lod0BaseLine != null;
+    }
+
+    public void setLod0BaseLine(CurveProperty lod0BaseLine) {
+        if (lod0BaseLine != null)
+            lod0BaseLine.setParent(this);
+
+        this.lod0BaseLine = lod0BaseLine;
+    }
+
+    @Override
+    public BoundingShape calcBoundedBy(BoundingBoxOptions options) {
+        BoundingShape boundedBy = super.calcBoundedBy(options);
+        if (options.isUseExistingEnvelopes() && !boundedBy.isEmpty())
+            return boundedBy;
+
+        if (lod0BaseLine != null && lod0BaseLine.isSetCurve())
+            boundedBy.updateEnvelope(lod0BaseLine.getCurve().calcBoundingBox());
+
+        if (options.isAssignResultToFeatures())
+            setBoundedBy(boundedBy);
+
+        return boundedBy;
+    }
+
+    @Override
+    public LodRepresentation getLodRepresentation() {
+        LodRepresentation lodRepresentation = new LodRepresentation();
+
+        if (lod0BaseLine != null)
+            lodRepresentation.addRepresentation(0, lod0BaseLine);
+
+        return lodRepresentation;
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new NoiseCityFurnitureSegment(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        NoiseCityFurnitureSegment copy = (target == null) ? new NoiseCityFurnitureSegment() : (NoiseCityFurnitureSegment) target;
+        super.copyTo(copy, copyBuilder);
+
+        if (isSetType()) {
+            copy.setType((Code) copyBuilder.copy(type));
+            if (copy.getType() == type)
+                type.setParent(this);
+        }
+
+        if (isSetReflection())
+            copy.setReflection(copyBuilder.copy(reflection));
+
+        if (isSetReflectionCorrection()) {
+            copy.setReflectionCorrection((Measure) copyBuilder.copy(reflectionCorrection));
+            if (copy.getReflectionCorrection() == reflectionCorrection)
+                reflectionCorrection.setParent(this);
+        }
+
+        if (isSetHeight()) {
+            copy.setHeight((Length) copyBuilder.copy(height));
+            if (copy.getHeight() == height)
+                height.setParent(this);
+        }
+
+        if (isSetDistance()) {
+            copy.setDistance((Length) copyBuilder.copy(distance));
+            if (copy.getDistance() == distance)
+                distance.setParent(this);
+        }
+
+        if (isSetLod0BaseLine()) {
+            copy.setLod0BaseLine((CurveProperty) copyBuilder.copy(lod0BaseLine));
+            if (copy.getLod0BaseLine() == lod0BaseLine)
+                lod0BaseLine.setParent(this);
+        }
+
+        return copy;
+    }
+
+    @Override
+    public void accept(FeatureVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public <T> T accept(FeatureFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
+
+    @Override
+    public void accept(GMLVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    @Override
+    public <T> T accept(GMLFunctor<T> visitor) {
+        return visitor.apply(this);
+    }
 
 }

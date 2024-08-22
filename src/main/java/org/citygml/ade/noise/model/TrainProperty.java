@@ -26,47 +26,47 @@ import org.citygml4j.model.gml.feature.FeatureProperty;
 
 public class TrainProperty extends FeatureProperty<Train> implements ADEModelObject {
 
-	public TrainProperty() {
-	}
-	
-	public TrainProperty(Train train) {
-		super(train);
-	}
-	
-	public TrainProperty(String href) {
-		super(href);
-	}
-	
-	public Train getTrain() {
-		return super.getObject();
-	}
+    public TrainProperty() {
+    }
 
-	public boolean isSetTrain() {
-		return super.isSetObject();
-	}
+    public TrainProperty(Train train) {
+        super(train);
+    }
 
-	public void setTrain(Train train) {
-		super.setObject(train);
-	}
+    public TrainProperty(String href) {
+        super(href);
+    }
 
-	public void unsetTrain() {
-		super.unsetObject();
-	}
+    public Train getTrain() {
+        return super.getObject();
+    }
 
-	@Override
-	public Class<Train> getAssociableClass() {
-		return Train.class;
-	}
+    public boolean isSetTrain() {
+        return super.isSetObject();
+    }
 
-	@Override
-	public Object copy(CopyBuilder copyBuilder) {
-		return copyTo(new TrainProperty(), copyBuilder);
-	}
+    public void setTrain(Train train) {
+        super.setObject(train);
+    }
 
-	@Override
-	public Object copyTo(Object target, CopyBuilder copyBuilder) {
-		TrainProperty copy = (target == null) ? new TrainProperty() : (TrainProperty)target;
-		return super.copyTo(copy, copyBuilder);
-	}
+    public void unsetTrain() {
+        super.unsetObject();
+    }
+
+    @Override
+    public Class<Train> getAssociableClass() {
+        return Train.class;
+    }
+
+    @Override
+    public Object copy(CopyBuilder copyBuilder) {
+        return copyTo(new TrainProperty(), copyBuilder);
+    }
+
+    @Override
+    public Object copyTo(Object target, CopyBuilder copyBuilder) {
+        TrainProperty copy = (target == null) ? new TrainProperty() : (TrainProperty) target;
+        return super.copyTo(copy, copyBuilder);
+    }
 
 }
